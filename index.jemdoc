@@ -1,32 +1,33 @@
 # jemdoc: menu{MENU}{index.html}, nofooter
-==Yushun Zhang
+==Dmitry Rybin
 
 ~~~
-{}{img_left}{images/red.jpeg}{alt text}{179}{239}{}
-Yushun Zhang (张雨舜)\n
-Ph.D student,\n
+{}{img_left}{images/dima.jpg}{alt text}{179}{239}{}
+Dmitry Rybin\n
+Ph.D candidate,\n
 School of Data Science, \n
-The Chinese University of Hong Kong, Shenzhen, China 
+CUHK
 
-Email: yushunzhang AT link DOT cuhk DOT edu DOT cn 
+Email: rybindmitry1 AT gmail DOT com 
 
-[https://scholar.google.com/citations?user=dHUiyDkAAAAJ&hl=en \[Google Scholar\]] 
-[https://twitter.com/ericzhang0410 \[Twitter\]] [https://github.com/zyushun \[Github\]] [https://www.instagram.com/ericzhang0410/ \[Instagram\]]
+[https://scholar.google.com/citations?user=vpfVfgkAAAAJ&hl=en \[Google Scholar\]] 
+[https://twitter.com/DmitryRybin1 \[Twitter\]] [https://www.linkedin.com/in/rybindmitry/ \[LinkedIn\]] 
 ~~~
 
-== About me
-I'm a Ph.D student in School of Data Science at The Chinese University of Hong Kong, Shenzhen, China. I'm very proud to be advised by [https://scholar.google.com/citations?user=dW3gcXoAAAAJ&hl=en Prof. Zhi-Quan (Tom) Luo].  I’m also very fortunate to work closely with [https://ruoyus.github.io Prof. Ruoyu Sun]. 
-Previously, I did my undergraduate study in the Department of Mathematics at Southern University of Science and Technology (SUSTech). 
+== research interest
+I'm a final year Ph.D student at <a href="https://www.cuhk.edu.cn/en">CUHK</a>, lucky to be supervised by <a href="https://scholar.google.com/citations?user=dW3gcXoAAAAJ&amp;hl=en">Prof. Zhi-Quan (Tom) Luo</a>. I work on Machine Learning for Combinatorial Optimization, LLM Pretraining algorithms, RL training of LLM. I discovered new matrix multiplication algorithms with RL, saving 10% of operations for Causal Attention and XX^T. I am very inspired by scientific contributions done by Google DeepMind and OpenAI, especially: AlphaFold, AlphaTensor, AlphaProof, AlphaEvolve.
 
 
- My research focuses on optimization, deep learning, and especially, large language models. I aim to work on important and practical problems with optimization flavor. 
+== biography
+I was born in a small manufacturing city Nizhniy Tagil in Russia. At 16, i learned about Russian National Math Olympiad, got top 6 in it and became a Candidate for [https://www.imo-official.org/ \[IMO\]] Team. At 17, I moved to Moscow to study pure math at the world-class department at <a href="https://math.hse.ru/en/"> HSE</a>, and did research on Homological Algebra, Representation Theory, Combinatorics, and Mathematical Physics under supervision of <a href="https://en.wikipedia.org/wiki/Boris_Feigin">Boris Feigin</a> and <a href="https://scholar.google.ru/citations?user=p_3bjKUAAAAJ&hl=ru">Valery Gritsenko</a>. 
 
+At 19, I won [https://www.imc-math.org.uk/ \[International Math Olympiad (universty level)\]] and got Senior Research Engineer position at Huawei. At 21, i published first pure math preprint and started PhD at CUHK. There I contributed to various large scale projects e.g. optimization of South Korea 5G Network design. Now I live in Hong Kong / Shenzhen and enjoy their fast-pace high-tech and start-up culture.
+                    
 == Research that I lead or co-lead
 
 [http://arxiv.org/abs/2406.16793 Adam-mini:  Use Fewer Learning Rates To Gain More] \n
 *Yushun Zhang\* *, Congliang Chen\*,  Ziniu Li, Tian Ding, Chenwei Wu, Diederik P. Kingma, Yinyu Ye, Zhi-Quan Luo, Ruoyu Sun \n
 Preprint
-
 
 
 [https://arxiv.org/abs/2402.16788 Why Transformers Need Adam: A Hessian Perspective] \n
@@ -46,31 +47,6 @@ ICLR Blog Track 2022
 [https://openreview.net/forum?id=K_MD-PMTLtA When Expressivity Meets Trainability: Fewer than n Neurons Can Work]  \n
 Jiawei Zhang\*, *Yushun Zhang\* *, Mingyi Hong, Ruoyu Sun, Zhi-Quan Luo \n
 NeurIPS 2021
-
-== Research that I proudly participate in
-
-
-[https://arxiv.org/abs/2310.10505 ReMax: A Simple, Effective, and Efficient Reinforcement Learning Method for Aligning Large Language Models] \n
-Ziniu Li, Tian Xu, *Yushun Zhang*, Zhihang Lin, Yang Yu, Ruoyu Sun, Zhi-Quan Luo \n
-ICML 2024
-
-[https://arxiv.org/abs/2208.09900 Provable Adaptivity of Adam under Non-Uniform Smoothness]  \n
-Bohan Wang\*, *Yushun Zhang\**, Huishuai Zhang, Qi Meng, Ruoyu Sun, Zhi-Ming Ma, Zhi-Quan Luo, Tie-Yan Liu, Wei Chen \n
-KDD 2024
-
-
-[https://openreview.net/forum?id=X0nrKAXu7g-  HyperDQN: A Randomized Exploration Method for Deep Reinforcement Learning]  \n
-Ziniu Li, Yingru Li, *Yushun Zhang*, Tong Zhang, Zhi-Quan Luo \n
-ICLR 2022 \n
-(This work is also selected as  Oral presentation at [https://neurips.cc/Conferences/2021/ScheduleMultitrack?event=21865 NeurIPS workshop, 2021]) \n
-
-
-
-
-[\href{https://www.tandfonline.com/doi/abs/10.1080/10543406.2020.1814794  Fast QLB algorithm and hypothesis tests in logistic model for ophthalmologic bilateral correlated data] \n
- Yiqi Lin\*, *Yushun Zhang\* *, Guoliang Tian, Changxing Ma \n
- Journal of Biopharmaceutical Statistics 2020 \n
- (This work is done in Sustech) 
 
 
 
@@ -106,19 +82,6 @@ Duan Yongping Outstanding Resesearch Award (1st place), 2023
 
 Teaching Assistant Award, School of Data Science, 2023
 
-
-Best Paper Presentation Award (1st place), [https://mp.weixin.qq.com/s/IBED0dwbegS0PZQMuk656Q 2nd Doctoral and Postdoctoral Daoyuan Academic Forum, 2022]\n
-- Topic: Does Adam Converge and When?\n
-- Slides can be seen  [files/Adam_talk_sribd.pptx here].\n
-- A short version of this talk can be viewed [https://nips.cc/virtual/2022/poster/53721 here].
-
-
-
-
-Best Paper Presentation Award (1st place), [https://www.tbsi.edu.cn/wolt/index.html 3rd Tsinghua-Berkeley workshop on Learning Theory, 2021]\n
-- Topic: When Expressivity Meets Trainability: Width < n Can Work\n
-- A short version of this talk can be viewed [https://slideslive.com/38970555/when-expressivity-meets-trainability-fewer-than-n-neurons-can-work?ref=recommended here].
-
 Magna cum laude of SUSTech, 2019
 
 Outstanding graduation thesis, SUSTech, 2019
@@ -126,47 +89,6 @@ Outstanding graduation thesis, SUSTech, 2019
 Scholarship Award for Excellence, Mathematics department, SUSTech (Top 10 students) , 2018
 
 
-
-
-== Services
-
-==== Reviewer
-
-I serve as a reviewer for machine learning conferences including NeurIPS, ICLR, ICML, COLT, AISTATS, as well as journals including JMLR and TMLR.
-
-==== Social Activities
-
-I hosted a session named [https://submissions.mirasmart.com/InformsAnnual2024/Itinerary/EventDetail.aspx?evt=956 "Optimization Issues in Recent AI Models"] at INFORMS Anneal Meeting, Oct, 2024.
-
-==== Teaching Assistant (by time)
-
-- DDA4300: Optimization for Machine Learning, by Prof. Yinyu Ye (2023 Spring)
-
-- DDA 6060: Machine Learning, by Prof. Hongyuan Zha \& Prof. Shuang Li (2022 Spring)
-
-- DDA 4002: Multivariate Statistics, by Prof. Zhaoyuan Li (2021 Autumn)
-
-- DDA 4250: Mathematics for Deep Learning, by Prof. Arnulf Jentzen (2021 Spring)
-
-- MFE 5100: Optimization, by Prof. Zizhuo Wang (2020 Autumn)
-
-- STA 2002: Probalility and Statistics, by Prof. Xinyun Chen  (2020 Summer)
-
--  CSC 4020: Fundationals of Machine Learning, by Prof. Hongyuan Zha (2020 Spring)
-
-- MAT 2040: Linear algebra, by Prof. Shenghao Yang (2019 Autumn)
-
-- MAT 7035: Computational Statistics, by Prof. Guoliang Tian (SUSTech) (2018 Autumn)
- 
-- MA 204: Mathematical Statistics, by Prof. Guoliang Tian (SUSTech)  (2018 Spring)
-
-
-== Experiences
-
-
-I spent a great time as an exchange undergraduate student at Mathematics department, UC San Diego, 2019 Spring.
-
-I spent the best three years at the Shenzhen Foreign Language School, branch, 2009 - 2012.
 
 
 
