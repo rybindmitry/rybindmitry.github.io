@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <meta name="generator" content="HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org">
+        <meta charset="utf-8">
+
+        <style type="text/css">
+            /* Color scheme stolen from Sergey Karayev */
+            span.tag {
+                font-size: 11px;
+                color: #FFFFFF;
+                /* color: #07889b; */
+                background-color: #0076DF;
+                box-shadow: 2px 2px 1px #E0E0E0;
+                padding: 1px 5px 2px 5px;
+            }
+
+            span.wow {
+                font-size: 11px;
+                color: #FFFFFF;
+                /* color: #07889b; */
+                background-color: rgb(180, 16, 44);
+                box-shadow: 2px 2px 1px #E0E0E0;
+                padding: 1px 5px 2px 5px;
+            }
+
+            a {
+                color: #1772d0;
+                /* color: #07889b; */
+                text-decoration: none;
+            }
+
+            a.black {
+                color: #000000;
+                /* color: #07889b; */
+                text-decoration: none;
+            }
+
+            a:focus,
+            a:hover {
+                /* color: #e37222; #f09228; */
+                color: rgb(180, 16, 44);
+                text-decoration: none;
+            }
+
+            body,
+            td,
+            th,
+            tr,
+            p,
+            a {
+                font-family: 'Space Mono', 'Courier New', monospace;
+                font-size: 19px;
+            }
+
+            strong {
+                font-family: 'Space Mono', 'Courier New', monospace;
+                font-size: 16px;
+                font-weight: 700;
+            }
+
+            h1 {
+                color: rgb(84, 24, 33);
+                margin-top: 0.7em;
+                margin-bottom: 0.5em;
+                padding-bottom: 0.3em;
+                line-height: 1.2;
+                padding-top: 0.5em;
+                border-bottom: 2px solid #aaaaaa;
+                font-size: 28px;
+            }
+
+            h2 {
+                color: rgb(84, 24, 33);
+                margin-top: 0.7em;
+                margin-bottom: 0.3em;
+                padding-bottom: 0.2em;
+                line-height: 1.0;
+                padding-top: 0.5em;
+                border-bottom: 1px solid #aaaaaa;
+            }
+
+            h3 {
+                color: rgb(84, 24, 33);
+                margin-top: 0.6em;
+                margin-bottom: 0.2em;
+                line-height: 1.0;
+                padding-top: 0.3em;
+            }
+
+            heading {
+                font-family: 'Lato', Verdana, Helvetica, sans-serif;
+                font-size: 22px;
+                /* color: #e3225c; */
+                color: rgb(180, 16, 44);
+                /* color: rgb(117, 15, 109); */
+            }
+
+            subheading {
+                font-family: 'Lato', Verdana, Helvetica, sans-serif;
+                font-size: 18px;
+                font-style: italic;
+                /* color: #e3225c; */
+                color: rgb(180, 16, 44);
+            }
+
+            papertitle {
+                font-family: 'Lato', Verdana, Helvetica, sans-serif;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            name {
+                font-family: 'Lato', Verdana, Helvetica, sans-serif;
+                font-size: 32px;
+            }
+
+            .footer {
+                font-family: 'Lato', Verdana, Helvetica, sans-serif;
+                font-size: 16px;
+                opacity: 0.75;
+                color: #777;
+            }
+
+            .blog-meta {
+                font-size: 16px;
+                color: #666;
+                margin-bottom: 2em;
+            }
+
+            .back-link {
+                margin-bottom: 2em;
+                font-size: 16px;
+            }
+
+            pre {
+                background-color: #f5f5f5;
+                border: 1px solid #ccc;
+                padding: 1em;
+                overflow-x: auto;
+                font-family: 'Courier New', monospace;
+                font-size: 14px;
+                line-height: 1.4;
+            }
+
+            code {
+                background-color: #f5f5f5;
+                padding: 2px 4px;
+                font-family: 'Courier New', monospace;
+                font-size: 16px;
+            }
+
+            blockquote {
+                border-left: 4px solid rgb(180, 16, 44);
+                margin: 1em 0;
+                padding-left: 1em;
+                font-style: italic;
+                color: #555;
+            }
+
+            .theorem {
+                background-color: #f9f9f9;
+                border: 2px solid rgb(180, 16, 44);
+                border-radius: 8px;
+                padding: 1.5em;
+                margin: 1.5em 0;
+            }
+        </style>
+        <link rel="icon" type="images/png" href="../images/cuhk.png">
+        <title>Using GPT-5 to prove new theorem on matrix multiplication - Dmitry Rybin</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        
+        <!-- Additional Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <!-- Accent -->
+        <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&display=swap" rel="stylesheet">
+        
+        <!-- UI/headings -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+        
+        <!-- Body monospace -->
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+        
+        <!-- MathJax Configuration -->
+        <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+        </script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </head>
+
+    <body>
+        <table width="960" border="0" align="center" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    <div class="back-link">
+                        <a href="../index.html">← Back to Home</a>
+                    </div>
+
+                    <h1>Using GPT-5 to prove new theorems on matrix multiplication</h1>
+                    
+                    <div class="blog-meta">
+                        <strong>Published:</strong> September 15, 2025 <br>
+                        <strong>Author:</strong> Dmitry Rybin
+                    </div>
+
+                    <p>This year i asked myself a question:</p>
+                    <div style="text-align:center;">
+                        <b>"What is the fastest way to multiply a collection of matrices $A_1, A_2, A_3, ..., A_k$?"</b>
+                    </div>
+                    <p>To put it into numbers, let's denote by $C(n, n, ... , n)$ the minimal number of multiplications needed to compute the product of $k$ matrices of size $n \times n$. Surprisingly there is <b>no literature</b> even on multiplication of 3 matrices, so nothing about $C(n, n, n)$ is known.</p>
+                    <p>After spending a few days, I got a satisfying answer. But only with help of LLMs (o3 and GPT5).</p>
+                    
+
+                    <h2>Warmup: Multiplication of two matrices</h2>
+                    <p>If we have two matrices $A$ and $B$</p>
+                    $$A = \begin{pmatrix} a_{1} & a_{2} \\ a_{3} & a_{4} \end{pmatrix} \qquad B = \begin{pmatrix} b_{1} & b_{2} \\ b_{3} & b_{4} \end{pmatrix}$$
+                    <p>The usual way to multiply them is to compute each of the 4 entries with formulas:</p>
+                    $$A \cdot B = \begin{pmatrix} a_{1}b_{1} + a_{2}b_{3} & a_{1}b_{2} + a_{2}b_{4} \\ a_{3}b_{1} + a_{4}b_{3} & a_{3}b_{2} + a_{4}b_{4} \end{pmatrix}$$
+                    <p>This way we need 8 multiplications and 4 additions. This should've been the end of the story. But in 1969, Volker Strassen discovered that 7 multiplications is possible:</p>
+                    $$\begin{aligned}
+                    M_1 &= (a_1 + a_4) (b_1 + b_4)  \\
+                    M_2 &= (a_3 + a_4) b_1  \\
+                    M_3 &= a_1 (b_2 - b_4)  \\
+                    M_4 &= a_4 (b_3 - b_1)  \\
+                    M_5 &= (a_1 + a_2) b_4  \\
+                    M_6 &= (a_3 - a_1) (b_1 + b_2)  \\
+                    M_7 &= (a_2 - a_4) (b_3 + b_4)  \\
+                    \end{aligned}$$
+                    $$\begin{aligned}
+                    a_{1}b_{1} + a_{2}b_{3} &= M_1 + M_4 - M_5 + M_7 \\
+                    a_{1}b_{2} + a_{2}b_{4} &= M_3 + M_5 \\
+                    a_{3}b_{1} + a_{4}b_{3} &= M_2 + M_4 \\
+                    a_{3}b_{2} + a_{4}b_{4} &= M_1 - M_2 + M_3 + M_6 \\
+                    \end{aligned}$$
+                    <p>This shows that $C(2, 2) \leq 7$. Soon after people proved that $C(2, 2) = 7$. Amazing property of this algorithm is non-commutativity: $a_i$ and $b_j$ don't need to be numbers. They can be $n\times n$ matrices themselves, and this shows that to multiply $2n \times 2n$ matrices, you can do 7 multiplications of $n \times n$. Therefore: $$C(2n, 2n) \leq 7 C(n, n) $$</p>
+                    <p> With a bit of recursion magic, you get $$C(n, n) \leq 7^{\lceil \log n / \log 2 \rceil} \approx n^{\log_2 7}$$ this gives us an algorithm to multiply $n \times n$ matrices in $O(n^{\log_2 7}) \approx O(n^{2.807})$ operations, which is faster than the usual $O(n^3)$.</p>
+                    <p>Strassen algorithm showed us that matrix multiplication complexity is not $O(n^{3})$, it can be reduced to $O(n^{2.807})$. The exact complexity remains a famous open problem in Computer Science. It is conjectured to be $O(n^2)$, but the best known complexity as of 2025 is $O(n^{2.3713})$. A lot of effort goes into changing this.</p>
+                    <h2> First Unknown Case: Three $2\times 2$ Matrices</h2>
+                    <p>What if we have three matrices to multiply?</p>
+                    $$\begin{pmatrix} a_{1} & a_{2} \\ a_{3} & a_{4} \end{pmatrix}
+                    \begin{pmatrix} b_{1} & b_{2} \\ b_{3} & b_{4} \end{pmatrix}
+                    \begin{pmatrix} c_{1} & c_{2} \\ c_{3} & c_{4} \end{pmatrix}$$
+                    <p>The obvious way is to multiply the first two matrices $A \cdot B$ (<b>7</b> multiplications using Strassen), and then multiply the result by the third matrix $(AB)\cdot C$ (another <b>7</b> multiplications with Strassen). This shows that $C(2, 2, 2) \leq 7 + 7$.</p> 
+                    <p> This seems like the best and only way, until you realize that we can also change the order: first compute $B\cdot C$ and then $A \cdot (BC)$. This shows that there are at least two algorithms with 14 multiplications that use completely different intermediate expressions.  Then you realize that there are tons of algorithms in between: we can compute some expressions from the first ordering, some expressions from the second ordering, and mix them in some way to get the answer!</p>
+                    <p> This is where you can try to come up with a better algorithm or prove that sequential algorithm is optimal. You will find that the algorithm space is huge and not well-behaved.
+                    
+                    <h2>Defining algorithm space</h2>
+                    <p>To make the problem somewhat more tractable we impose very natural conditions on the algorithm space:</p>
+                    <ul>
+                        <li><b>Without divisions:</b> we can only use additions, subtractions, and multiplications. For example, multiplying $(a_1 + a_2)$ by $\frac{1}{b_1 + b_2}$ is not allowed.</li>
+                        <li><b>Homogeneous in each matrix entries:</b> each intermediate expression is homogeneous in variables from each matrix, meaning $a_1 b_2 + a_3$ and $a_1 b_1 + b_2 c_2$ are not allowed.</li>
+                        <li><b>Non-commutative:</b> the order of multiplication matters, meaning $a_1b_1 \neq b_1a_1$.</li>
+                    </ul>
+                    <p>The first two conditions are likely to hold true for optimal algorithm. But, strictly speaking, we don't know for sure. The non-commutativity condition allows algorithm to work for any matrix size $n$, just like Strassen.</p>
+
+                    <h2>Conversation with o3 discovers proof idea</h2>
+                    <p>If you ask o3 directly to find the minimal number of multiplications for our smallest case, it can't give any meaningful proof. It misunderstands the algorithm class. However, in discussion about algorithm class, o3 give a nice idea how to get obtain lower bounds. <a href="https://chatgpt.com/share/68beecc6-4f98-8001-8102-f656d2ad4570">See o3 response here.</a></p>
+                    
+                    <!--https://chatgpt.com/share/68beecc6-4f98-8001-8102-f656d2ad4570-->
+                    <p>Prompt:</p>
+                    <blockquote>
+                        <p>Let D = ABC be a product of three 2x2 matrices. Entries of D are trilinear expressions from R[A] \otimes R[B] \otimes R[C]. Let S_AB be the set of all bilinear expressions from R[A] \otimes R[B] and S_BC be the set of all bilinear expressions from R[B] \otimes R[C]. Let T_AB be rank-1 trilinear expressions obtained by considering all possible products t \otimes (sum gamma_i c_i), where t from S_AB. Let T_BC be rank-1 trilinear expressions obtained by considering all possible products (sum alpha_i a_i) \otimes k, where , where k from S_BC. Your goal is to find out whether all entries of D can be obtained as linear combinations of a single size 6 subset of T_AB \cup T_BC.</p>
+                    </blockquote>
+                    <p>Key idea from o3 can be summarised as follows:</p>
+                    <ol>
+                        <li>Write down the computation graph for $ABC$.</li>
+                        <li>Specialize $C$ to be identity matrix $I$. Hence computation reduces to the product $AB$.</li>
+                        <li>Consider tensor rank contributions in the computation graph. In total they compute $AB$ hence they must be at least $C(2, 2) = 7$.</li>
+                        <li>Obtain lower bounds on $C(2, 2, 2)$</li>
+                    </ol>
+                    <div class="theorem">
+                        <p><strong>Theorem (2025):</strong> The minimal number of mutliplications needed to compute the product of three 2$\times$2 matrices is 14 - <b>sequential algorithm is optimal</b>.</p>
+                        (in the space of non-commutative algorithms without divisions, homogeneous in each matrix entries)
+                    </div>
+                    <p>Visual explanation of the proof:</p>
+                    <img src="../images/abc.jpg" alt="Proof idea" style="max-width: 100%; height: auto;">
+                    <h2>GPT-5 proofs the general case</h2>
+                    <div class="theorem">
+                        <p><strong>Theorem (2025):</strong> Let $C(n, n, ..., n)$ be the minimal number of multiplications needed to compute the product of $k$ matrices $n\times n$. Then <b>sequential algorithm is optimal</b>: $$C(n, n, ..., n) = (k-1)C(n, n).$$</p>
+                        (in the space of non-commutative algorithms without divisions, homogeneous in each matrix entries)
+                    </div>
+                    
+                    <p>Prompt:</p>
+                    <blockquote>
+                    <p> Let A_1, ..., A_k be n x n matrices. Consider the space of homogeneous non-commutative algorithms without division. Let M_{k}(n) be minimal number of multiplications necessary to multiply k of nxn matrices. Prove that M_{k}(n) = (k - 1) * M_{2}(n)</p>
+                    </blockquote>
+                    <!-- give hyperlink to the chat https://chatgpt.com/share/68c8ecde-ba58-8001-b119-18bb6e0d5e44-->
+                    <p><a href="https://chatgpt.com/share/68c8ecde-ba58-8001-b119-18bb6e0d5e44">See the full response from GPT-5-Thinking here.</a></p>
+
+                    <!--now we present the proof-->
+
+                    <p>The proof can be summarized as follows:</p>
+                    <ol>
+                        <li><b>Step 0:</b> We consider homogeneous non-commutative arithmetic circuit without divisions that computes the product $A_1 ... A_k$. For an ordered tuple $S$, we denote by $M_{S}$ linear combination of monomials $\prod_{s \in S} a_{ij, s}$, where $a_{ij. s}$ is an entry of matrix $A_s$. </li>
+                        <li><b>Step 1:</b> We show that every multiplication in the circuit can be assumed to be a multiplication between elements from $M_{(p, p+1,...,r-1, r)}$ and $M_{(r+1,r + 2, ..., q-1, q)}$.</li>
+                        <li><b>Step 2:</b> We denote the number of such multiplications $t_{p, r, q}$.  By specializing all matrices to $I$ except $A_r$ and $A_{r+1}$ we find that only multiplications counted by $t_{p, r, q}$ add contributions to the tensor rank of the result.</li> 
+                        <li><b>Step 3:</b> Since the result is equal $A_r A_{r+1}$, its tensor rank must be at least $C(n, n)$. We get a bound $\sum_{p, q} t_{p, r, q} \geq C(n, n)$. Summing this over all $r$ gives $C(n, ..., n) \geq (k - 1)C(n, n)$.</li>
+                    </ol>
+                    <h2> Generalizations and beyond</h2>
+                    <p>It may be possible to drop some assumptions on algorithm class and still prove that sequential algorithm is optimal. It would be very interesting to see whether some commutative algorithms can be faster than sequential.</p>
+
+
+
+                    <p>You can cite this blog:</p>
+                    <pre>
+@misc{Rybin2025,
+    author = {Dmitry Rybin},
+    title = {Using GPT-5 to prove new theorems on matrix multiplication},
+    year = {2025},
+    howpublished = {\url{https://rybindmitry.github.io/blogs/gpt5-matrix-multiplication.html}}
+}
+                    </pre>
+
+                    <div class="back-link" style="margin-top: 3em;">
+                        <a href="../index.html">← Back to Home</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
