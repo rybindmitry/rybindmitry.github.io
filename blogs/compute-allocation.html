@@ -1063,6 +1063,15 @@
       line-height: 1.4;
     }
 
+    .masthead-illustration {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 0 1.4rem;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+    }
+
     h1 {
       margin: 0 0 1.5rem;
       font-family: var(--serif);
@@ -1510,6 +1519,7 @@
         <div class="title-wrap">
           <h1>Compute Allocation for Discovery and Search</h1>
           <p class="author-line">Dmitry Rybin</p>
+          <img class="masthead-illustration" src="../images/illustration.png" alt="Graphic illustration for compute allocation">
           <p class="tldr">TLDR: I argue that AI systems for search and discovery should be designed with <i>three</i> compute components in mind: \(C_{train}\), \(C_{infer}\), and \(C_{exact}\).</p>
         </div>
 
@@ -1524,9 +1534,9 @@
             <p>As scaling laws were gaining popularity, people started to explicitly include \(C_{infer}\) budget. It turned out that inference-time compute is no less important than train-time compute. In empirical scaling laws, \(C_{train}\) and \(C_{infer}\) seem to have similar importance. Theoretically optimal allocation predicts a constant trade-off between these two compute components.<sup><a href="#fn4" data-note="Snell et al. study optimal test-time compute allocation for LLMs. Jones studies scaling laws in AlphaZero/Hex and shows train-time and test-time compute can be traded off with each other.">4</a></sup></p>
             <p>Consider AI systems for finding the best solution in a large search space, or finding a natural language theorem proof in a space of approaches, or the fastest implementation of matrix multiplication in code space. In design of most of these AI search systems, there is another hidden compute component \(C_{exact}\), which is dedicated to execution of exact algorithms. I propose to explicitly consider three compute components in such system design:</p>
             <ul>
-              <li>\(C_{train}\): compute allocated to neural network training;</li>
-              <li>\(C_{infer}\): compute allocated to inference time improvement of neural network, inference-time search, Chain-of-Thought, majority voting, layer looping in transformers, multi-agent scaling;</li>
-              <li>\(C_{exact}\): compute allocated to exact algorithms, code execution, string matching, compilers, formal verification, exact search.</li>
+              <li>\(C_{train}\) - compute allocated to neural network training;</li>
+              <li>\(C_{infer}\) - compute allocated to inference time improvement of neural network, inference-time search, Chain-of-Thought, majority voting, layer looping in transformers, multi-agent scaling;</li>
+              <li>\(C_{exact}\) - compute allocated to exact algorithms, code execution, string matching, compilers, formal verification, exact search.</li>
             </ul>
 
             <div class="allocation-table-wrap">
