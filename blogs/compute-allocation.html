@@ -1,0 +1,1678 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compute Allocation for Discovery and Search - Dmitry Rybin</title>
+  <meta name="description" content="A report-style essay on three compute budgets in machine-learning-based search: training compute, inference compute, and exact compute.">
+
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    @font-face {
+      font-family: et-book;
+      src: url("../assets/fonts/et-book-roman-line-figures.woff") format("woff");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: et-book;
+      src: url("../assets/fonts/et-book-italic.woff2") format("woff2");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: et-book;
+      src: url("../assets/fonts/et-book-bold-line-figures.woff") format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --vivid-background: #fffff8;
+      --vivid-foreground: #000;
+      --dull-background: #f0f0f0;
+      --dull-foreground: #666;
+      --accent: #8b0000;
+      --bg: var(--vivid-background);
+      --paper: var(--vivid-background);
+      --paper-2: #f7f7ef;
+      --ink: #111;
+      --ink-soft: #222;
+      --muted: #666;
+      --faint: rgba(0, 0, 0, 0.08);
+      --line: rgba(0, 0, 0, 0.22);
+      --line-strong: rgba(0, 0, 0, 0.65);
+      --red: var(--accent);
+      --red-dark: #5f0000;
+      --blue: #1d4f64;
+      --gold: #e9e1bd;
+      --green: #2a623d;
+      --shadow: none;
+      --serif: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, cantarell, ubuntu, roboto, noto, arial, sans-serif;
+      --mono: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace;
+      --max: 1160px;
+      --nav: 0px;
+      --article: 700px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: inherit;
+      -webkit-font-smoothing: subpixel-antialiased;
+      counter-reset: sidenote-counter;
+    }
+
+    ::selection { background: rgba(165, 50, 36, 0.22); }
+
+    a {
+      color: inherit;
+      text-decoration-color: rgba(165, 50, 36, 0.55);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+      transition: color 140ms ease, background 140ms ease, border-color 140ms ease, transform 140ms ease;
+    }
+
+    a:hover { color: var(--red); }
+
+    .layout {
+      width: min(var(--max), calc(100vw - 30px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: var(--nav) minmax(0, 1fr);
+      column-gap: 52px;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 24px 28px 0;
+      border-right: 1px solid var(--line);
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--ink-soft);
+    }
+
+    .logo {
+      display: inline-grid;
+      grid-template-columns: 32px auto;
+      gap: 10px;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 800;
+      color: var(--ink);
+      margin: 0 0 30px;
+      letter-spacing: -0.035em;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--ink);
+      background: var(--gold);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: -0.08em;
+      transform: rotate(-5deg);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .nav-block { margin: 0 0 30px; }
+
+    .nav-title {
+      margin: 0 0 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .site-nav a:not(.logo) {
+      display: block;
+      padding: 7px 9px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--ink-soft);
+    }
+
+    .site-nav a:not(.logo):hover {
+      color: var(--red);
+      background: rgba(255,249,238,0.62);
+    }
+
+    .nav-separator {
+      height: 1px;
+      background: var(--line);
+      margin: 10px 0;
+    }
+
+    .nav-foot {
+      position: absolute;
+      left: 0;
+      right: 24px;
+      bottom: 28px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    main {
+      min-width: 0;
+      padding: 26px 0 76px;
+    }
+
+    .mobile-top { display: none; }
+
+    .masthead {
+      min-height: calc(100vh - 52px);
+      display: grid;
+      align-content: center;
+      border-bottom: 1px solid var(--line-strong);
+      padding: 58px 0 54px;
+    }
+
+    .date-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 0 0 28px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .home-button {
+      display: inline-block;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      padding: 4px 8px;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .home-button:hover {
+      background: var(--accent);
+      color: var(--vivid-background);
+      text-decoration: none;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      justify-content: flex-end;
+    }
+
+    .action {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      gap: 8px;
+      padding: 0 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: rgba(255,249,238,0.68);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 750;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .action:hover {
+      transform: translateY(-1px);
+      background: var(--paper);
+      color: var(--red);
+    }
+
+    .action.dark {
+      color: var(--paper);
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .title-wrap { max-width: 970px; }
+
+    h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(76px, 13vw, 162px);
+      font-weight: 700;
+      line-height: 0.78;
+      letter-spacing: -0.075em;
+    }
+
+    .subtitle {
+      max-width: 900px;
+      margin: 30px 0 22px;
+      font-size: clamp(28px, 4.6vw, 56px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+      color: var(--ink);
+    }
+
+    .tldr {
+      max-width: var(--article);
+      margin: 1rem 0 1.4rem;
+      font-size: 1.62rem;
+      line-height: 1.35;
+      text-wrap: pretty;
+    }
+
+    .byline {
+      max-width: 820px;
+      margin: 0 0 26px;
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: minmax(0, var(--article)) 260px;
+      gap: 38px;
+      align-items: start;
+      margin-top: 26px;
+    }
+
+    .intro-copy {
+      font-size: 24px;
+      line-height: 1.46;
+    }
+
+    .intro-copy p { margin: 0 0 1em; }
+
+    .question-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .question-links a {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 11px;
+      background: rgba(255,249,238,0.58);
+      text-decoration: none;
+    }
+
+    .summary-card {
+      position: relative;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      border-radius: 18px;
+      padding: 18px;
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.48;
+    }
+
+    .summary-card::before {
+      content: "";
+      position: absolute;
+      inset: 9px -9px -9px 9px;
+      border-radius: 18px;
+      border: 1px solid var(--line-strong);
+      z-index: -1;
+    }
+
+    .summary-card strong {
+      display: block;
+      margin-bottom: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .mini-metrics {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .mini-metric {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px;
+      background: var(--paper-2);
+    }
+
+    .mini-metric b {
+      display: block;
+      font-family: var(--mono);
+      font-size: 17px;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+
+    .mini-metric span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    section {
+      scroll-margin-top: 32px;
+      padding: 62px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 138px minmax(0, 1fr);
+      gap: 30px;
+      align-items: start;
+      margin-bottom: 26px;
+    }
+
+    .chapter-index {
+      padding-top: 9px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--red);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      max-width: 870px;
+      font-family: var(--serif);
+      font-size: clamp(44px, 6.6vw, 88px);
+      font-weight: 650;
+      line-height: 0.9;
+      letter-spacing: -0.058em;
+    }
+
+    .section-dek {
+      max-width: var(--article);
+      margin: 16px 0 0;
+      font-size: clamp(24px, 3.2vw, 36px);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: var(--ink-soft);
+    }
+
+    .article-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, var(--article)) 230px;
+      gap: 42px;
+      align-items: start;
+    }
+
+    .article {
+      min-width: 0;
+      font-size: 22px;
+      line-height: 1.55;
+    }
+
+    .article p,
+    .article ul,
+    .article ol { margin: 0 0 1.04em; }
+
+    .article ul,
+    .article ol { padding-left: 1.3em; }
+
+    .article li { margin-bottom: 0.45em; }
+
+    .article > p:first-child:first-letter {
+      float: left;
+      font-size: 4.6em;
+      line-height: 0.78;
+      padding: 0.075em 0.09em 0 0;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .sidenote {
+      position: sticky;
+      top: 28px;
+      border-left: 1px solid var(--line-strong);
+      padding: 0 0 0 18px;
+      font-family: var(--sans);
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .sidenote h3 {
+      margin: 0 0 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    sup {
+      vertical-align: baseline;
+      line-height: 0;
+    }
+
+    sup a {
+      position: relative;
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.62em;
+      line-height: 0;
+      color: var(--red);
+      text-decoration: none;
+      padding-left: 1px;
+      top: -0.55em;
+    }
+
+    sup a[data-note]::after {
+      content: attr(data-note);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      z-index: 20;
+      width: min(330px, calc(100vw - 42px));
+      padding: 11px 13px;
+      border: 1px solid rgba(255,249,238,0.28);
+      border-radius: 11px;
+      background: #681b16;
+      box-shadow: 0 18px 45px rgba(53, 13, 13, 0.28);
+      color: var(--paper);
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 550;
+      line-height: 1.45;
+      letter-spacing: 0;
+      text-align: left;
+      text-transform: none;
+      white-space: normal;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 6px);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    sup a[data-note]::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 4px);
+      z-index: 21;
+      width: 10px;
+      height: 10px;
+      border-right: 1px solid rgba(255,249,238,0.28);
+      border-bottom: 1px solid rgba(255,249,238,0.28);
+      background: #681b16;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 6px) rotate(45deg);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    sup a[data-note]:hover::after,
+    sup a[data-note]:focus-visible::after,
+    sup a[data-note]:hover::before,
+    sup a[data-note]:focus-visible::before {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    sup a[data-note]:focus-visible {
+      outline: 2px solid rgba(104, 27, 22, 0.45);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    .callout {
+      margin: 28px 0;
+      border: 1px solid var(--line-strong);
+      border-left: 5px solid var(--red);
+      background: rgba(255,249,238,0.72);
+      border-radius: 0 16px 16px 0;
+      padding: 19px 22px;
+      font-size: 21px;
+      line-height: 1.5;
+    }
+
+    .callout b {
+      font-family: var(--sans);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--red);
+    }
+
+    details {
+      margin: 26px 0;
+      border: 1px solid var(--line-strong);
+      border-radius: 16px;
+      background: rgba(255,249,238,0.66);
+      overflow: hidden;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 17px 20px;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .details-body {
+      padding: 0 20px 20px;
+      font-size: 20px;
+      color: var(--ink-soft);
+    }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 30px 0;
+    }
+
+    .budget-card {
+      border: 1px solid var(--ink);
+      border-radius: 18px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      min-height: 230px;
+    }
+
+    .budget-card h3 {
+      margin: 0 0 12px;
+      font-size: 38px;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+    }
+
+    .budget-card p {
+      margin: 0;
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.52;
+      color: var(--ink-soft);
+    }
+
+    .formula {
+      display: block;
+      margin: 20px 0;
+      padding: 17px 19px;
+      border: 1px solid var(--line-strong);
+      background: var(--paper-2);
+      border-radius: 16px;
+      font-family: var(--mono);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .conjecture-box {
+      max-width: var(--article);
+      margin: 1.8rem auto;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--paper-2);
+      padding: 1rem 1.15rem;
+      text-align: center;
+    }
+
+    .conjecture-box p {
+      margin: 0;
+    }
+
+    .centered-equation {
+      margin: 0.9rem 0;
+      text-align: center;
+    }
+
+    .figure-card {
+      margin: 34px 0;
+      border: 1px solid var(--ink);
+      border-radius: 20px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .figure-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: center;
+      padding: 17px 18px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .compute-map {
+      position: relative;
+      min-height: 360px;
+      padding: 26px 22px 30px;
+      background:
+        linear-gradient(90deg, rgba(23,18,13,0.08) 1px, transparent 1px),
+        linear-gradient(rgba(23,18,13,0.08) 1px, transparent 1px),
+        var(--paper-2);
+      background-size: 52px 52px;
+    }
+
+    .frontier-line {
+      position: absolute;
+      left: 9%;
+      right: 9%;
+      bottom: 65px;
+      height: 205px;
+      border-bottom: 4px solid var(--red);
+      border-right: 4px solid var(--red);
+      border-radius: 0 0 85% 0;
+      transform: skewX(-14deg);
+    }
+
+    .chart-label {
+      position: absolute;
+      padding: 8px 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--paper);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    .chart-label.one { left: 8%; bottom: 49px; }
+    .chart-label.two { left: 30%; bottom: 137px; color: var(--blue); }
+    .chart-label.three { right: 8%; top: 48px; color: var(--red); }
+    .chart-label.four { right: 10%; bottom: 106px; color: var(--green); }
+
+    .axis {
+      position: absolute;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .axis.x { left: 22px; right: 22px; bottom: 18px; text-align: center; }
+    .axis.y { left: -35px; top: 160px; transform: rotate(-90deg); }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      background: var(--line);
+      gap: 1px;
+    }
+
+    .metric {
+      background: var(--paper);
+      padding: 18px;
+      min-height: 124px;
+    }
+
+    .metric b {
+      display: block;
+      font-family: var(--mono);
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1;
+      color: var(--ink);
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 9px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .branch-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .branch-card {
+      position: relative;
+      min-height: 310px;
+      border: 1px solid var(--ink);
+      border-radius: 22px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .branch-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -78px auto;
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      background: rgba(165,50,36,0.13);
+    }
+
+    .branch-card.green::after { background: rgba(73,111,75,0.16); }
+
+    .branch-kicker {
+      position: relative;
+      z-index: 1;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .branch-card h3 {
+      position: relative;
+      z-index: 1;
+      margin: 16px 0 12px;
+      max-width: 420px;
+      font-size: clamp(42px, 5vw, 68px);
+      line-height: 0.88;
+      letter-spacing: -0.055em;
+    }
+
+    .branch-card p {
+      position: relative;
+      z-index: 1;
+      max-width: 480px;
+      margin: 0 0 24px;
+      font-size: 21px;
+      color: var(--ink-soft);
+    }
+
+    .footnotes {
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+
+    .footnotes h2 {
+      font-size: 36px;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    .footnotes ol {
+      padding-left: 1.4em;
+      margin: 0;
+      columns: 2;
+      column-gap: 42px;
+    }
+
+    .footnotes li {
+      break-inside: avoid;
+      margin: 0 0 10px;
+    }
+
+    .allocation-table-wrap {
+      margin: 1.8rem 0;
+      overflow: visible;
+    }
+
+    .allocation-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: 1.15rem;
+      line-height: 1.35;
+    }
+
+    .allocation-table th,
+    .allocation-table td {
+      border: 1.5px solid #000;
+      padding: 0.65rem 0.75rem;
+      vertical-align: top;
+      text-align: left;
+      overflow-wrap: break-word;
+    }
+
+    .allocation-table th {
+      font-weight: 700;
+      background: var(--paper-2);
+    }
+
+    .footer {
+      padding-top: 38px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 26px;
+      align-items: end;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer-mark {
+      font-family: var(--serif);
+      font-size: clamp(42px, 7vw, 80px);
+      line-height: 0.86;
+      letter-spacing: -0.065em;
+      color: var(--ink);
+    }
+
+    @media (max-width: 1020px) {
+      body { font-size: 19px; }
+
+      .layout {
+        display: block;
+        width: min(100% - 28px, 850px);
+      }
+
+      .site-nav { display: none; }
+
+      .mobile-top {
+        display: flex;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        margin: 0 -14px 18px;
+        padding: 12px 14px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(242,234,219,0.88);
+        backdrop-filter: blur(12px);
+        font-family: var(--sans);
+        font-size: 13px;
+      }
+
+      .mobile-top .logo { margin: 0; }
+
+      .mobile-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+
+      .mobile-links a {
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      main { padding-top: 0; }
+      .masthead { min-height: auto; }
+
+      .intro-grid,
+      .article-wrap,
+      .section-heading,
+      .footer {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-card { max-width: 420px; }
+
+      .sidenote {
+        position: static;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+        padding: 16px 0 0;
+      }
+
+      .budget-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      body { font-size: 18px; }
+
+      .date-row { display: block; }
+
+      .action-row {
+        justify-content: flex-start;
+        margin-top: 12px;
+      }
+
+      h1 { font-size: clamp(64px, 20vw, 98px); }
+      .subtitle { font-size: 30px; }
+      .intro-copy, .article { font-size: 20px; }
+      .article > p:first-child:first-letter { font-size: 3.7em; }
+      section { padding: 48px 0; }
+
+      .branch-grid,
+      .metrics-grid,
+      .mini-metrics { grid-template-columns: 1fr; }
+
+      .footnotes ol { columns: 1; }
+      .compute-map { min-height: 285px; }
+      .chart-label { white-space: normal; max-width: 180px; }
+      .axis.y { display: none; }
+    }
+
+    /* Alignment pass */
+    body {
+      font-size: 15px;
+    }
+
+    .site-nav,
+    .mobile-top,
+    .date-row .action-row {
+      display: none !important;
+    }
+
+    .layout {
+      width: min(100vw - 16px, var(--max));
+      display: block;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 8px 32px 64px;
+    }
+
+    .masthead {
+      min-height: auto;
+      display: block;
+      border-bottom: 0;
+      padding: 22px 0 34px;
+    }
+
+    .date-row {
+      display: flex;
+      max-width: var(--article);
+      margin: 0 auto 10px;
+      font-family: var(--serif);
+      font-size: 21px;
+      line-height: 1.4;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--ink);
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .title-wrap {
+      max-width: var(--article);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .author-line {
+      margin: -0.9rem 0 1.4rem;
+      font-size: 1.35rem;
+      line-height: 1.4;
+    }
+
+    h1 {
+      margin: 0 0 1.5rem;
+      font-family: var(--serif);
+      font-size: 68px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: var(--article);
+      margin: 1rem 0;
+      font-size: 1.8rem;
+      font-style: italic;
+      line-height: 1;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    .byline {
+      max-width: var(--article);
+      margin: 0 0 1.4rem;
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      line-height: 2rem;
+      color: var(--ink);
+    }
+
+    .intro-grid {
+      display: block;
+      max-width: var(--article);
+      margin: 1.4rem auto 0;
+    }
+
+    .intro-copy,
+    .article {
+      font-size: 1.4rem;
+      line-height: 2rem;
+    }
+
+    .intro-copy p,
+    .article p,
+    .article ul,
+    .article ol {
+      margin-top: 1.4rem;
+      margin-bottom: 1.4rem;
+      text-wrap: pretty;
+    }
+
+    .article > p:first-child:first-letter {
+      float: none;
+      font-size: inherit;
+      line-height: inherit;
+      padding: 0;
+      color: inherit;
+      font-weight: inherit;
+    }
+
+    .question-links {
+      gap: 8px;
+      margin-top: 1.2rem;
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    .question-links a,
+    .action {
+      min-height: auto;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: transparent;
+      box-shadow: none;
+      padding: 4px 8px;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .question-links a:hover,
+    .action:hover {
+      transform: none;
+      background: var(--accent);
+      color: var(--vivid-background);
+    }
+
+    section {
+      scroll-margin-top: 25vh;
+      padding: 1rem 0;
+      border-bottom: 0;
+    }
+
+    .section-heading {
+      display: block;
+      max-width: var(--article);
+      margin: 0 auto;
+    }
+
+    .chapter-index {
+      margin: 5rem 0 0.6rem;
+      padding: 0;
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      line-height: 1.25;
+      color: var(--muted);
+      letter-spacing: 0;
+      text-transform: none;
+      font-style: italic;
+    }
+
+    h2 {
+      max-width: var(--article);
+      margin-top: 0;
+      margin-bottom: 2rem;
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0;
+      scroll-margin-top: 25vh;
+    }
+
+    .section-dek {
+      max-width: var(--article);
+      margin: -1.2rem 0 1.4rem;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      letter-spacing: 0;
+      color: var(--ink);
+      font-style: italic;
+    }
+
+    .article-wrap {
+      display: block;
+      max-width: var(--article);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sidenote {
+      position: relative;
+      top: auto;
+      border-left: 0;
+      padding: 0;
+      margin-top: 0.3rem;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+
+    .sidenote h3 {
+      margin: 0 0 0.4rem;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--ink);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .summary-card,
+    .budget-card,
+    .figure-card,
+    details,
+    .branch-card {
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--vivid-background);
+      box-shadow: none;
+    }
+
+    .summary-card::before,
+    .branch-card::after {
+      display: none;
+    }
+
+    .summary-card,
+    .budget-card {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      line-height: 1.35;
+    }
+
+    .summary-card strong,
+    .callout b,
+    .figure-head,
+    .metric span,
+    .mini-metric b,
+    .mini-metric span {
+      font-family: var(--serif);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .summary-card strong,
+    .callout b {
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .mini-metric {
+      border: 1px solid #000;
+      border-radius: 4px;
+      background: var(--paper-2);
+    }
+
+    .mini-metric b {
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+
+    .mini-metric span {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .budget-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 1.8rem 0;
+    }
+
+    .budget-card h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.7rem;
+      line-height: 1;
+      letter-spacing: 0;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .budget-card p,
+    .branch-card p {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      line-height: 1.35;
+      color: var(--ink);
+    }
+
+    .callout {
+      margin: 1.8rem 0;
+      border: 1.5px solid #000;
+      border-left: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--paper-2);
+      padding: 0.8rem;
+      font-size: 1.25rem;
+      line-height: 1.45;
+    }
+
+    .formula {
+      margin: 1.4rem 0;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--paper-2);
+      font-family: var(--mono);
+      font-size: 0.95rem;
+    }
+
+    summary {
+      padding: 0.8rem;
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .details-body {
+      padding: 0 0.8rem 0.8rem;
+      font-size: 1.15rem;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .figure-head {
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .compute-map {
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+        var(--paper-2);
+      background-size: 52px 52px;
+    }
+
+    .chart-label {
+      border: 1px solid #000;
+      border-radius: 4px;
+      background: var(--vivid-background);
+      font-family: var(--serif);
+      font-size: 1rem;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    .metric b {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+
+    .branch-card h3 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .branch-kicker {
+      font-family: var(--serif);
+      font-size: 1rem;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .footnotes {
+      max-width: var(--article);
+      margin-left: auto;
+      margin-right: auto;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .footnotes h2 {
+      font-size: 2.2rem;
+    }
+
+    .footnotes ol {
+      columns: 1;
+      list-style: decimal;
+      padding-left: 1.4rem;
+    }
+
+    .footer {
+      max-width: var(--article);
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 3rem;
+      display: block;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    .footer-mark {
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    sup a[data-note]::after {
+      border-radius: 6px;
+      background: #5f0000;
+      font-family: var(--serif);
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    sup a[data-note]::before {
+      background: #5f0000;
+    }
+
+    @media (max-width: 930px) {
+      .layout {
+        width: min(100% - 16px, 900px);
+      }
+
+      .intro-grid,
+      .article-wrap {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
+      .sidenote {
+        border-top: 1px solid var(--line);
+        padding-top: 0.8rem;
+      }
+
+      .budget-grid,
+      .branch-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 730px) {
+      body {
+        font-size: 15px;
+      }
+
+      main {
+        padding: 8px 18px 64px;
+      }
+
+      h1 {
+        font-size: 52px;
+      }
+
+      .subtitle {
+        font-size: 1.5rem;
+      }
+
+      .date-row {
+        display: flex;
+      }
+
+      .home-button {
+        margin-top: 0;
+      }
+
+      .tldr {
+        font-size: 1.38rem;
+        line-height: 1.35;
+      }
+
+      .intro-copy,
+      .article,
+      .byline,
+      .section-dek {
+        font-size: 1.25rem;
+        line-height: 1.45;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <main id="top">
+      <header class="masthead">
+        <div class="date-row">
+          <a class="home-button" href="../index.html">Back to homepage</a>
+          <span>Published April 26th 2026.</span>
+        </div>
+
+        <div class="title-wrap">
+          <h1>Compute Allocation for Discovery and Search</h1>
+          <p class="author-line">Dmitry Rybin</p>
+          <p class="tldr">TLDR: I argue that AI systems for search and discovery should be designed with <i>three</i> compute components in mind: \(C_{train}\), \(C_{infer}\), and \(C_{exact}\).</p>
+        </div>
+
+        <div class="intro-grid" id="summary">
+          <div class="intro-copy">
+            <p>The discussion on inference-time compute has been mainstream after the takeoff of reasoning LLMs. However, inference-time compute scaling is a classical idea that was used in many works. Examples that stand out:</p>
+            <ul>
+                <li>Computer programs for Chess, by Claude Shannon in 1950<sup><a href="#fn1" data-note="Shannon's 1950 paper 'Programming a computer for playing chess' in Philosophical Magazine mentions that extra computational steps and lookahead should be done to improve performance of potential AI position estimation function.">1</a></sup>;</li>
+                <li>Monte Carlo Tree Search in AlphaGo by DeepMind in 2016<sup><a href="#fn2" data-note="DeepMind designed AlphaGo as deep neural networks with inference-time tree search in Nature 2016; later designed AlphaZero as pure self-play RL for chess, shogi, and Go in 2017.">2</a></sup>;</li>
+                <li>Inference-time search for Poker Bots, by Noam Brown in 2018<sup><a href="#fn3" data-note="Brown and Sandholm's Libratus paper describes real-time subgame solving during heads-up no-limit Texas hold'em play.">3</a></sup>.</li>
+                </ul>
+            <p>As scaling laws were gaining popularity, people started to explicitly include \(C_{infer}\) budget. It turned out that inference-time compute is no less important than train-time compute. In empirical scaling laws, \(C_{train}\) and \(C_{infer}\) seem to have similar importance. Theoretically optimal allocation predicts a constant trade-off between these two compute components.<sup><a href="#fn4" data-note="Snell et al. study optimal test-time compute allocation for LLMs. Jones studies scaling laws in AlphaZero/Hex and shows train-time and test-time compute can be traded off with each other.">4</a></sup></p>
+            <p>Consider AI systems for finding the best solution in a large search space, or finding a natural language theorem proof in a space of approaches, or the fastest implementation of matrix multiplication in code space. In design of most of these AI search systems, there is another hidden compute component \(C_{exact}\), which is dedicated to execution of exact algorithms. I propose to explicitly consider three compute components in such system design:</p>
+            <ul>
+              <li>\(C_{train}\): compute allocated to neural network training;</li>
+              <li>\(C_{infer}\): compute allocated to inference time improvement of neural network, inference-time search, Chain-of-Thought, majority voting, layer looping in transformers, multi-agent scaling;</li>
+              <li>\(C_{exact}\): compute allocated to exact algorithms, code execution, string matching, compilers, formal verification, exact search.</li>
+            </ul>
+
+            <div class="allocation-table-wrap">
+              <table class="allocation-table">
+                <thead>
+                  <tr>
+                    <th>Application</th>
+                    <th>\(C_{train}\)</th>
+                    <th>\(C_{infer}\)</th>
+                    <th>\(C_{exact}\)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Chess</td>
+                    <td>learning approximations of policy and value functions</td>
+                    <td>MCTS, lookahead, policy rollout</td>
+                    <td>pruning of sub-optimal moves, exact solution of last K moves, endgame database</td>
+                  </tr>
+                  <tr>
+                    <td>Coding Agents</td>
+                    <td>LLM pre-training, post-training, RL</td>
+                    <td>Chain-of-thought, consensus, looped transformers, multi-agent search</td>
+                    <td>fixed agent logic, code execution, tool calls, string matching, compilers, verifiers</td>
+                  </tr>
+                  <tr>
+                    <td>Theorem Proving Agents</td>
+                    <td>LLM pre-training, post-training, RL</td>
+                    <td>Chain-of-thought, multi-agent search</td>
+                    <td>enumeration of approaches<sup><a href="#fn5" data-note="Brenner, Cohen-Addad, and Woodruff present an AI-assisted discovery system using tree search and numerical feedback for an open theoretical physics problem.">5</a></sup>, numerical experiments, tool calls</td>
+                  </tr>
+                  <tr>
+                    <td>Combinatorial Search</td>
+                    <td>learning heuristics, branching, value estimates</td>
+                    <td>tree search scaling, lookahead, rollout</td>
+                    <td>SAT/MIP solvers, presolve, exact solution of small sub-problems</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Big fans of symbolic AI or symbolic computations may rename \(C_{exact}\) into \(C_{symbolic}\), but I view it as slightly different. For example, specialized tool calls may not rely on symbolic reasoning.</p>
+          </div>
+        </div>
+      </header>
+    
+      <section id="three-budgets">
+        <div class="section-heading">
+          <div class="chapter-index"></div>
+          <div>
+            <h2>Scaling Laws across three components</h2>
+          </div>
+        </div>
+
+        <div class="article-wrap">
+          <article class="article">
+            <p>How should compute be allocated across these three components? I propose a very strong conjecture.</p>
+            <div class="conjecture-box"><p><strong>Master Conjecture:</strong> For every fixed problem class \(\mathcal{P}\), the optimal allocation of the total compute budget \(C\) is fixed ratio allocation</p><p class="centered-equation">\(C_{train}^{*}, C_{infer}^{*}, C_{exact}^{*} = \alpha_{\mathcal{P}}C, \beta_{\mathcal{P}}C, \gamma_{\mathcal{P}}C\)</p><p>where \(\alpha_{\mathcal{P}} + \beta_{\mathcal{P}} + \gamma_{\mathcal{P}} = 1\) are constants dependent only on the problem class \(\mathcal{P}\).</p></div>
+            <p>In my PhD Thesis "Machine Learning-based Search in Combinatorial Optimization" I prove <strong>Master Conjecture</strong> for a couple of tree search models. These models are very simplified, and it might be true that the optimal allocation has a different behavior depending on the problem class \(\mathcal{P}\) and the power of exact algorithms in this class. In some cases it may be true that \(C_{exact}\) scales as \(O(C)\) but in others only as \(O(C / \log C)\) or even \(O(\log C)\). Nevertheless it is interesting that empirical experiments in combinatorial games like Hex and Chess show the same form of scaling laws.</p>
+
+            <h3>Example 1: Chess AI Engine</h3>
+            <p>Public numerical data on Chess Engines like Stockfish lets us determine the optimal allocation:</p>
+            <div><p class="centered-equation">\(C_{train} : C_{infer} : C_{exact} \approx 18\% : 80\% : 2\%\)</p>
+            <p>This data is based on public Stockfish reports that imply \(\approx 26\) ELO gain from doubling of train compute (as described in SFNNv6), \(\approx 110\) ELO gain from doubling of inference-time compute (obtained from data on 20% time odds ELO change), and \(\approx 3\) ELO gain from doubling of exact compute (Syzygy tablebases). It follows that the optimal ratios can be computed by maximizing the ELO:</p>
+            <div><p class="centered-equation">\(\mathrm{Maximize\;\;} E(C) \approx 25 \log_2 C_{train} + 110 \log_2 C_{infer} + 3 \log_2 C_{exact}\)</p><p class="centered-equation">\(\mathrm{s.t.\;\;\;} C_{train} + C_{infer} + C_{exact} = C\)</p></div>
+            <p>Note that these compute budgets are measured in some form of normalized TFLOPs.</p>
+            <h3>Example 2: AI for Science, AlphaTensor, AlphaEvolve</h3>
+            <p>DeepMind has built many AI systems for search and discovery: AlphaZero, AlphaFold, AlphaTensor<sup><a href="#fn6" data-note="AlphaTensor is DeepMind's reinforcement-learning system for discovering faster matrix multiplication algorithms.">6</a></sup>, AlphaEvolve<sup><a href="#fn7" data-note="AlphaEvolve is DeepMind's LLM-powered evolutionary coding agent for algorithm discovery and optimization.">7</a></sup>, AlphaProof<sup><a href="#fn8" data-note="AlphaProof is DeepMind's AlphaZero-inspired reinforcement-learning system for formal mathematical reasoning in Lean.">8</a></sup>. Some of their results were later improved<sup><a href="#fn9" data-note="FICO reports Xpress Optimization surpassing some AlphaEvolve results; Kauers and Moosbauer improved AlphaTensor's 5x5 matrix multiplication using flip graph search.">9</a></sup> by adding classical CS algorithms and search techniques. Here I provide a table that shows compute allocation in these systems, highlights potential improvements in design, and show how \(C_{exact}\) naturally puts everything in place.</p>
+
+            <div class="allocation-table-wrap">
+              <table class="allocation-table">
+                <thead>
+                  <tr>
+                    <th>System</th>
+                    <th>Allocation Structure</th>
+                    <th>Possible Improvements</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AlphaTensor</td>
+                    <td>Large \(C_{train}\) and \(C_{infer}\) for Neural Network training and large scale tree search. Near zero \(C_{exact}\), only reported for data augmentation and permutations.</td>
+                    <td>Combine tensors and expressions proposed by Neural Network with exact classical algorithms such as MILP solvers and flip graph search.</td>
+                  </tr>
+                  <tr>
+                    <td>AlphaEvolve</td>
+                    <td>Large \(C_{train}\) for LLM pre-training, post-training, RL. Large \(C_{infer}\) for reasoning models inference. Task-dependent \(C_{exact}\) budget.</td>
+                    <td>Initially FunSearch was used to sample programs that generate solution. With this design, \(C_{exact}\) would only be used for program evaluation and hence be sub-optimal according to our proposed scaling. Instead, in AlphaEvolve DeepMind introduced a new kind of \(C_{exact}\) scaling - they sample <i> search algorithms</i>, which are then executed with significant compute budget.</td>
+                  </tr>
+                  <tr>
+                    <td>AlphaProof</td>
+                    <td>Large \(C_{train}\) for training. Large \(C_{infer}\) for reasoning models and tree search. Task-dependent \(C_{exact}\) for compilation with Lean kernel, tactics execution.</td>
+                    <td>Latest Lean Coding agents by Harmonic and AxiomMath likely include significantly more \(C_{exact}\) budget for: fixing Lean compilation errors, decomposing into Lemmas, and stronger compilation engines.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="connections">
+        <div class="section-heading">
+          <div class="chapter-index"></div>
+          <div>
+            <h2>Connections to Other Topics</h2>
+          </div>
+        </div>
+        
+        <div class="article-wrap">
+          <article class="article">
+            <p> The idea of \(C_{exact}\) compute allocation is related to many other ongoing discussions and phenomena in AI:</p>
+            <ul>
+                <li>François Chollet ideas on Program Synthesis and Neurosymbolic AI;</li>
+                <li>Sebastian Pokutta blog "Not every discovery needs an LLM"<sup><a href="#fn10" data-note="Sebastian Pokutta discusses how AlphaEvolve-style discoveries can be matched or improved with classical optimization and search methods.">10</a></sup>;</li>
+                <li>Claude Code leak showed reliance on many exact string matching and context processing algorithms;</li>
+                <li>Whenever frontier AI labs report math benchmarks, the numbers with tools and without tools differ very much. This is can be viewed as gains from \(C_{exact}\).</li>
+            </ul>
+          </article>
+        </div>
+
+      </section>
+
+      <section id="footnotes" class="footnotes">
+        <h2>Notes</h2>
+        <ol>
+          <li id="fn1">Claude E. Shannon, <a href="https://www.pi.infn.it/~carosi/chess/shannon.txt" target="_blank" rel="noreferrer">Programming a computer for playing chess</a>, Philosophical Magazine, 1950.</li>
+          <li id="fn2">David Silver et al., <a href="https://www.nature.com/articles/nature16961" target="_blank" rel="noreferrer">Mastering the game of Go with deep neural networks and tree search</a>, Nature, 2016. David Silver et al., <a href="https://arxiv.org/abs/1712.01815" target="_blank" rel="noreferrer">Mastering Chess and Shogi by Self-Play with a General Reinforcement Learning Algorithm</a>, arXiv, 2017.</li>
+          <li id="fn3">Noam Brown and Tuomas Sandholm, <a href="https://www.science.org/doi/10.1126/science.aao1733" target="_blank" rel="noreferrer">Superhuman AI for heads-up no-limit poker: Libratus beats top professionals</a>, Science, 2018.</li>
+          <li id="fn4">Charlie Snell et al., <a href="https://arxiv.org/abs/2408.03314" target="_blank" rel="noreferrer">Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters</a>, arXiv, 2024. Andy L. Jones, <a href="https://arxiv.org/abs/2104.03113" target="_blank" rel="noreferrer">Scaling Scaling Laws with Board Games</a>, arXiv, 2021.</li>
+          <li id="fn5">Michael P. Brenner, Vincent Cohen-Addad, and David P. Woodruff, <a href="https://arxiv.org/abs/2603.04735" target="_blank" rel="noreferrer">Solving an Open Problem in Theoretical Physics using AI-Assisted Discovery</a>, arXiv, 2026.</li>
+          <li id="fn6">Alhussein Fawzi et al., <a href="https://www.nature.com/articles/s41586-022-05172-4" target="_blank" rel="noreferrer">Discovering faster matrix multiplication algorithms with reinforcement learning</a>, Nature, 2022.</li>
+          <li id="fn7">Alexander Novikov et al., <a href="https://arxiv.org/abs/2506.13131" target="_blank" rel="noreferrer">AlphaEvolve: A coding agent for scientific and algorithmic discovery</a>, arXiv, 2025. Google DeepMind, <a href="https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/" target="_blank" rel="noreferrer">AlphaEvolve: A Gemini-powered coding agent for designing advanced algorithms</a>, May 14, 2025.</li>
+          <li id="fn8">Thomas Hubert et al., <a href="https://www.nature.com/articles/s41586-025-09833-y" target="_blank" rel="noreferrer">Olympiad-level formal mathematical reasoning with reinforcement learning</a>, Nature, 2026. Google DeepMind, <a href="https://deepmind.google/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noreferrer">AI achieves silver-medal standard solving International Mathematical Olympiad problems</a>, July 25, 2024.</li>
+          <li id="fn9">Timo Berthold, <a href="https://www.fico.com/blogs/best-global-optimization-solver" target="_blank" rel="noreferrer">FICO Xpress Optimization Surpasses AlphaEvolve's Achievements</a>, FICO Blog, June 2025. Manuel Kauers and Jakob Moosbauer, <a href="https://arxiv.org/abs/2210.04045" target="_blank" rel="noreferrer">The FBHHRBNRSSSHK-Algorithm for Multiplication in \(\mathbb{Z}_2^{5\times5}\) is still not the end of the story</a>, arXiv, 2022.</li>
+          <li id="fn10">Sebastian Pokutta, <a href="https://www.pokutta.com/blog/not-every-discovery-needs-an-llm/" target="_blank" rel="noreferrer">Not every discovery needs an LLM</a>, blog post.</li>
+        </ol>
+      </section>
+
+      <footer class="footer">
+        <div>
+          <div class="footer-mark">Dmitry Rybin</div>
+          <p>Ph.D. candidate, School of Data Science, CUHK. Contact: <a href="mailto:rybindmitry1@gmail.com">rybindmitry1@gmail.com</a>.</p>
+        </div>
+        <a class="action" href="../index.html">Back to Homepage</a>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
