@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Compute Allocation for Discovery and Search - Dmitry Rybin</title>
-  <meta name="description" content="A report-style essay on three compute budgets in machine-learning-based search: training compute, inference compute, and exact compute.">
+  <title>Compute Allocation for AI Discovery and Search - Dmitry Rybin</title>
+  <meta name="description" content="An essay on Search and Discovery with AI Systems, arguing that compute allocation should consider three explicit components: training, inference, and exact algorithms.">
 
   <link rel="icon" type="images/png" href="../images/cuhk.png">
 
@@ -1517,27 +1517,30 @@
         </div>
 
         <div class="title-wrap">
-          <h1>Compute Allocation for Discovery and Search</h1>
+          <h1>Compute Allocation for AI Discovery and Search</h1>
           <p class="author-line">Dmitry Rybin</p>
           <img class="masthead-illustration" src="../images/illustration.png" alt="Graphic illustration for compute allocation">
-          <p class="tldr">TLDR: I argue that AI systems for search and discovery should be designed with <i>three</i> compute components in mind: \(C_{train}\), \(C_{infer}\), and \(C_{exact}\).</p>
+          <p class="tldr">TL;DR: I argue that AI systems for search and discovery should be designed around <i>three</i> compute budgets: \(C_{train}\), \(C_{infer}\), and \(C_{exact}\).</p>
+          <h2>Inference-Time Compute</h2>
         </div>
 
         <div class="intro-grid" id="summary">
           <div class="intro-copy">
-            <p>The discussion on inference-time compute has been mainstream after the takeoff of reasoning LLMs. However, inference-time compute scaling is a classical idea that was used in many works. Examples that stand out:</p>
+            <p>Discussion of inference-time compute has become mainstream since the rise of reasoning LLMs (o1, R1, o3). However, inference-time compute scaling is a classical idea that dates back to early AI systems. It is explicitly mentioned in:</p>
             <ul>
-                <li>Computer programs for Chess, by Claude Shannon in 1950<sup><a href="#fn1" data-note="Shannon's 1950 paper 'Programming a computer for playing chess' in Philosophical Magazine mentions that extra computational steps and lookahead should be done to improve performance of potential AI position estimation function.">1</a></sup>;</li>
+                <li>Claude Shannon's 1950 essay "Programming a Computer for Playing Chess"<sup><a href="#fn1" data-note="Shannon's 1950 paper 'Programming a computer for playing chess' in Philosophical Magazine mentions that extra computational steps and lookahead should be done to improve performance of potential AI position estimation function.">1</a></sup>;</li>
                 <li>Monte Carlo Tree Search in AlphaGo by DeepMind in 2016<sup><a href="#fn2" data-note="DeepMind designed AlphaGo as deep neural networks with inference-time tree search in Nature 2016; later designed AlphaZero as pure self-play RL for chess, shogi, and Go in 2017.">2</a></sup>;</li>
                 <li>Inference-time search for Poker Bots, by Noam Brown in 2018<sup><a href="#fn3" data-note="Brown and Sandholm's Libratus paper describes real-time subgame solving during heads-up no-limit Texas hold'em play.">3</a></sup>.</li>
                 </ul>
-            <p>As scaling laws were gaining popularity, people started to explicitly include \(C_{infer}\) budget. It turned out that inference-time compute is no less important than train-time compute. In empirical scaling laws, \(C_{train}\) and \(C_{infer}\) seem to have similar importance. Theoretically optimal allocation predicts a constant trade-off between these two compute components.<sup><a href="#fn4" data-note="Snell et al. study optimal test-time compute allocation for LLMs. Jones studies scaling laws in AlphaZero/Hex and shows train-time and test-time compute can be traded off with each other.">4</a></sup></p>
-            <p>Consider AI systems for finding the best solution in a large search space, or finding a natural language theorem proof in a space of approaches, or the fastest implementation of matrix multiplication in code space. In design of most of these AI search systems, there is another hidden compute component \(C_{exact}\), which is dedicated to execution of exact algorithms. I propose to explicitly consider three compute components in such system design:</p>
+            <p>As scaling laws were gaining popularity, researchers started to explicitly include \(C_{infer}\) budget in system design. Experimentally, inference-time compute turned out to be as important as train-time compute. Scaling laws predict that theoretically optimal allocation has a constant trade-off between \(C_{train}\) and \(C_{infer}\).<sup><a href="#fn4" data-note="Snell et al. study optimal test-time compute allocation for LLMs. Jones studies scaling laws in AlphaZero/Hex and shows train-time and test-time compute can be traded off with each other.">4</a></sup></p>
+            <h2>AI Discovery and Search Systems</h2>
+            <p>Now consider AI systems designed to find the best solution in a large search space, discover a natural-language proof of a theorem, or find the fastest implementation of matrix multiplication on a B200 GPU. In the design of such AI systems for search and discovery, there is another compute component \(C_{exact}\). This compute is spent on executing exact algorithms and external tools. I propose to explicitly consider three components of the compute budget in such system design:</p>
             <ul>
               <li>\(C_{train}\) - compute allocated to neural network training;</li>
-              <li>\(C_{infer}\) - compute allocated to inference time improvement of neural network, inference-time search, Chain-of-Thought, majority voting, layer looping in transformers, multi-agent scaling;</li>
-              <li>\(C_{exact}\) - compute allocated to exact algorithms, code execution, string matching, compilers, formal verification, exact search.</li>
+              <li>\(C_{infer}\) - compute allocated to improving model outputs at inference time, including inference-time search, Chain-of-Thought, majority voting, transformer layer looping, and multi-agent scaling;</li>
+              <li>\(C_{exact}\) - compute allocated to exact algorithms, code execution, string matching, compilers, formal verification, exact solvers.</li>
             </ul>
+            <p>This explicit decomposition changes how we design and compare AI systems. A system may improve not because the model became better, but because more compute was moved into exact verification, execution, and search. Conversely, a strong system can underperform if \(C_{exact}\) is ignored. See examples: </p>
 
             <div class="allocation-table-wrap">
               <table class="allocation-table">
@@ -1554,7 +1557,7 @@
                     <td>Chess</td>
                     <td>learning approximations of policy and value functions</td>
                     <td>MCTS, lookahead, policy rollout</td>
-                    <td>pruning of sub-optimal moves, exact solution of last K moves, endgame database</td>
+                    <td>pruning of suboptimal moves, forced mate search with \(K\) moves, endgame database</td>
                   </tr>
                   <tr>
                     <td>Coding Agents</td>
@@ -1577,7 +1580,8 @@
                 </tbody>
               </table>
             </div>
-            <p>Big fans of symbolic AI or symbolic computations may rename \(C_{exact}\) into \(C_{symbolic}\), but I view it as slightly different. For example, specialized tool calls may not rely on symbolic reasoning.</p>
+            <p>It is tempting to treat \(C_{exact}\) as a subset of \(C_{infer}\). I would argue against it. \(C_{infer}\) relies on trained model weights to improve model output: looping of middle transformer layers, generating more reasoning tokens, majority voting and other inference-time strategies. Unlike \(C_{exact}\), it can scale independently of what tools and algorithms we have access to.</p>
+            <p>Readers coming from symbolic AI may think that \(C_{exact}\) is the same as \(C_{symbolic}\), but I think it is misleading. For example, specialized tool calls may not rely on symbolic reasoning.</p>
           </div>
         </div>
       </header>
@@ -1592,18 +1596,19 @@
 
         <div class="article-wrap">
           <article class="article">
-            <p>How should compute be allocated across these three components? I propose a very strong conjecture.</p>
-            <div class="conjecture-box"><p><strong>Master Conjecture:</strong> For every fixed problem class \(\mathcal{P}\), the optimal allocation of the total compute budget \(C\) is fixed ratio allocation</p><p class="centered-equation">\(C_{train}^{*}, C_{infer}^{*}, C_{exact}^{*} = \alpha_{\mathcal{P}}C, \beta_{\mathcal{P}}C, \gamma_{\mathcal{P}}C\)</p><p>where \(\alpha_{\mathcal{P}} + \beta_{\mathcal{P}} + \gamma_{\mathcal{P}} = 1\) are constants dependent only on the problem class \(\mathcal{P}\).</p></div>
-            <p>In my PhD Thesis "Machine Learning-based Search in Combinatorial Optimization" I prove <strong>Master Conjecture</strong> for a couple of tree search models. These models are very simplified, and it might be true that the optimal allocation has a different behavior depending on the problem class \(\mathcal{P}\) and the power of exact algorithms in this class. In some cases it may be true that \(C_{exact}\) scales as \(O(C)\) but in others only as \(O(C / \log C)\) or even \(O(\log C)\). Nevertheless it is interesting that empirical experiments in combinatorial games like Hex and Chess show the same form of scaling laws.</p>
+            <p>How should a fixed compute budget be allocated across these components? I propose a very strong conjecture.</p>
+            <div class="conjecture-box"><p><strong>Master Conjecture:</strong> For every fixed problem class \(\mathcal{P}\), the optimal allocation of the total compute budget \(C\) is a fixed-ratio allocation</p><p class="centered-equation">\(C_{train}^{*}, C_{infer}^{*}, C_{exact}^{*} = \alpha_{\mathcal{P}}C, \beta_{\mathcal{P}}C, \gamma_{\mathcal{P}}C\)</p><p>where \(\alpha_{\mathcal{P}} + \beta_{\mathcal{P}} + \gamma_{\mathcal{P}} = 1\) are constants that depend only on the problem class \(\mathcal{P}\).</p></div>
+            <p>In my PhD Thesis "Machine Learning-based Search in Combinatorial Optimization" I prove the <strong>Master Conjecture</strong> for some tree-search models. These models are highly simplified, and it might be true that the optimal allocation has a different behavior depending on the problem class \(\mathcal{P}\). In some cases it may be true that \(C_{exact}^{*}\) scales as \(O(C)\) but in others only as \(O(C / \log C)\) or even \(O(\log C)\). Nevertheless, it is interesting that empirical experiments in combinatorial games like Hex and Chess show the same form of scaling laws.</p>
 
             <h3>Example 1: Chess AI Engine</h3>
-            <p>Public numerical data on Chess Engines like Stockfish lets us determine the optimal allocation:</p>
-            <div><p class="centered-equation">\(C_{train} : C_{infer} : C_{exact} \approx 18\% : 80\% : 2\%\)</p>
-            <p>This data is based on public Stockfish reports that imply \(\approx 26\) ELO gain from doubling of train compute (as described in SFNNv6), \(\approx 110\) ELO gain from doubling of inference-time compute (obtained from data on 20% time odds ELO change), and \(\approx 3\) ELO gain from doubling of exact compute (Syzygy tablebases). It follows that the optimal ratios can be computed by maximizing the ELO:</p>
-            <div><p class="centered-equation">\(\mathrm{Maximize\;\;} E(C) \approx 25 \log_2 C_{train} + 110 \log_2 C_{infer} + 3 \log_2 C_{exact}\)</p><p class="centered-equation">\(\mathrm{s.t.\;\;\;} C_{train} + C_{infer} + C_{exact} = C\)</p></div>
-            <p>Note that training happens <i>once</i>, while test-time inference and exact algorithms are used <i>every</i> game. Obviously, people don't allocate 4 times more compute on a single game inference than on training. If you know the number of games \(N\) in advance, it is easy to find that the optimal allocation budgets change to \((18N\% : 80\% : 2\%)\). Note that in scientific discovery applications, the inference may happen only a couple of times.</p>
+            <p>Public numerical data on Chess Engines like Stockfish reports an \(\approx 26\) ELO gain from doubling of train compute (as described in SFNNv6), \(\approx 110\) ELO gain from doubling of inference-time compute (obtained from data on 20% time odds ELO change), and \(\approx 3\) ELO gain from doubling of exact compute (Syzygy tablebases). It follows that the optimal ratios can be computed by maximizing the ELO:</p>
+            <div><p class="centered-equation">\(\mathrm{Maximize\;\;} E(C) \approx 26 \log_2 C_{train} + 110 \log_2 C_{infer} + 3 \log_2 C_{exact}\)</p><p class="centered-equation">\(\mathrm{s.t.\;\;\;} C_{train} + C_{infer} + C_{exact} = C\)</p></div>
+            <p>Solving this optimization problem gives:</p>
+            <div><p class="centered-equation">\(C_{train} : C_{infer} : C_{exact} \approx 18\% : 80\% : 2\%\)</p></div>
+            <p>Note that training happens <i>once</i>, while test-time inference and exact algorithms are used <i>every</i> game. In practice, people don't allocate 4 times more compute on inference for a single game than on training. If you know the number of games \(N\) in advance, it is easy to find that the optimal allocation budget changes to \((18N : 80 : 2)\). Note that in scientific discovery applications, inference may happen only a couple of times.</p>
+            
             <h3>Example 2: AI for Science, AlphaTensor, AlphaEvolve</h3>
-            <p>DeepMind has built many AI systems for search and discovery: AlphaZero, AlphaFold, AlphaTensor<sup><a href="#fn6" data-note="AlphaTensor is DeepMind's reinforcement-learning system for discovering faster matrix multiplication algorithms.">6</a></sup>, AlphaEvolve<sup><a href="#fn7" data-note="AlphaEvolve is DeepMind's LLM-powered evolutionary coding agent for algorithm discovery and optimization.">7</a></sup>, AlphaProof<sup><a href="#fn8" data-note="AlphaProof is DeepMind's AlphaZero-inspired reinforcement-learning system for formal mathematical reasoning in Lean.">8</a></sup>. Some of their results were later improved<sup><a href="#fn9" data-note="FICO reports Xpress Optimization surpassing some AlphaEvolve results; Kauers and Moosbauer improved AlphaTensor's 5x5 matrix multiplication using flip graph search.">9</a></sup> by adding classical CS algorithms and search techniques. Here I provide a table that shows compute allocation in these systems, highlights potential improvements in design, and show how \(C_{exact}\) naturally puts everything in place.</p>
+            <p>DeepMind has built many AI systems for search and discovery: AlphaZero, AlphaFold, AlphaTensor<sup><a href="#fn6" data-note="AlphaTensor is DeepMind's reinforcement-learning system for discovering faster matrix multiplication algorithms.">6</a></sup>, AlphaEvolve<sup><a href="#fn7" data-note="AlphaEvolve is DeepMind's LLM-powered evolutionary coding agent for algorithm discovery and optimization.">7</a></sup>, AlphaProof<sup><a href="#fn8" data-note="AlphaProof is DeepMind's AlphaZero-inspired reinforcement-learning system for formal mathematical reasoning in Lean.">8</a></sup>. Some of these results were later improved<sup><a href="#fn9" data-note="FICO reports Xpress Optimization surpassing some AlphaEvolve results; Kauers and Moosbauer improved AlphaTensor's 5x5 matrix multiplication using flip graph search.">9</a></sup> by adding classical CS algorithms and search techniques. Here I provide a table that shows compute allocation in these systems, highlights potential design improvements, and shows how \(C_{exact}\) clarifies complex design decisions.</p>
 
             <div class="allocation-table-wrap">
               <table class="allocation-table">
@@ -1617,18 +1622,18 @@
                 <tbody>
                   <tr>
                     <td>AlphaTensor</td>
-                    <td>Large \(C_{train}\) and \(C_{infer}\) for Neural Network training and large scale tree search. Near zero \(C_{exact}\), only reported for data augmentation and permutations.</td>
-                    <td>Combine tensors and expressions proposed by Neural Network with exact classical algorithms such as MILP solvers and flip graph search.</td>
+                    <td>Large \(C_{train}\) and \(C_{infer}\) for neural network training and tree search. \(C_{exact}\) is near zero, only used for data augmentation and permutations.</td>
+                    <td>A natural extension would be to combine tensors and expressions proposed by a neural network with exact classical algorithms such as MILP solvers and flip graph search.</td>
                   </tr>
                   <tr>
                     <td>AlphaEvolve</td>
-                    <td>Large \(C_{train}\) for LLM pre-training, post-training, RL. Large \(C_{infer}\) for reasoning models inference. Task-dependent \(C_{exact}\) budget.</td>
-                    <td>Initially FunSearch was used to sample programs that generate solution. With this design, \(C_{exact}\) would only be used for program evaluation and hence be sub-optimal according to our proposed scaling. Instead, in AlphaEvolve DeepMind introduced a new kind of \(C_{exact}\) scaling - they sample <i> search algorithms</i>, which are then executed with significant compute budget.</td>
+                    <td>Large \(C_{train}\) for LLM pre-training, post-training, RL. Large \(C_{infer}\) for reasoning model inference. Task-dependent \(C_{exact}\) budget.</td>
+                    <td>Initially FunSearch was used to sample programs that generate solutions. With this design, \(C_{exact}\) would only be used for program evaluation. Instead, in AlphaEvolve DeepMind introduced a new kind of \(C_{exact}\) scaling: they sample <i> search algorithms</i>, which are then executed with a significant compute budget.</td>
                   </tr>
                   <tr>
                     <td>AlphaProof</td>
                     <td>Large \(C_{train}\) for training. Large \(C_{infer}\) for reasoning models and tree search. Task-dependent \(C_{exact}\) for compilation with Lean kernel, tactics execution.</td>
-                    <td>Latest Lean Coding agents by Harmonic and AxiomMath likely include significantly more \(C_{exact}\) budget for: fixing Lean compilation errors, decomposing into Lemmas, and stronger compilation engines.</td>
+                    <td>Recent Lean Coding agents by Harmonic and AxiomMath likely include significantly more \(C_{exact}\) budget for: fixing Lean compilation errors, decomposing into Lemmas, and stronger compilation engines.</td>
                   </tr>
                 </tbody>
               </table>
@@ -1647,12 +1652,12 @@
         
         <div class="article-wrap">
           <article class="article">
-            <p> The idea of \(C_{exact}\) compute allocation is related to many other ongoing discussions and phenomena in AI:</p>
+            <p>The idea of \(C_{exact}\) compute allocation is related to many other ongoing discussions and phenomena in AI:</p>
             <ul>
-                <li>François Chollet ideas on Program Synthesis and Neurosymbolic AI;</li>
-                <li>Sebastian Pokutta blog "Not every discovery needs an LLM"<sup><a href="#fn10" data-note="Sebastian Pokutta discusses how AlphaEvolve-style discoveries can be matched or improved with classical optimization and search methods.">10</a></sup>;</li>
-                <li>Claude Code leak showed reliance on many exact string matching and context processing algorithms;</li>
-                <li>Whenever frontier AI labs report math benchmarks, the numbers with tools and without tools differ very much. This is can be viewed as gains from \(C_{exact}\).</li>
+                <li>François Chollet's ideas on Program Synthesis and Neurosymbolic AI;</li>
+                <li>Sebastian Pokutta's blog "Not every discovery needs an LLM"<sup><a href="#fn10" data-note="Sebastian Pokutta discusses how AlphaEvolve-style discoveries can be matched or improved with classical optimization and search methods.">10</a></sup>;</li>
+                <li>Leaked Claude Code implementation showed reliance on many exact string matching and context processing algorithms;</li>
+                <li>Whenever frontier AI labs report math benchmarks, the numbers with tools and without tools differ substantially. This can be viewed as gains from \(C_{exact}\).</li> 
             </ul>
           </article>
         </div>
