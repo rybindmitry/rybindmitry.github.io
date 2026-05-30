@@ -164,21 +164,6 @@ tbody tr:nth-child(even) {
   text-decoration: none;
 }
 
-.warning {
-  max-width: 820px;
-  padding: 8px 10px;
-  border-left: 4px solid #d19000;
-  background: #fff8df;
-}
-
-.forum-box {
-  max-width: 820px;
-  border: 1px solid #bfd4f1;
-  border-radius: 4px;
-  background: #fff;
-  padding: 10px;
-}
-
 details {
   margin-top: 18px;
 }
