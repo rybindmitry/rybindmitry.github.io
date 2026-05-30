@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>On LLM Math Capabilities - Dmitry Rybin</title>
+  <meta name="description" content="A short note explaining the importance of test-time scaling and estimating LLM one-shot success rates on minor open math problems.">
+
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    @font-face {
+      font-family: et-book;
+      src: url("../assets/fonts/et-book-roman-line-figures.woff") format("woff");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: et-book;
+      src: url("../assets/fonts/et-book-italic.woff2") format("woff2");
+      font-weight: 400;
+      font-style: italic;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: et-book;
+      src: url("../assets/fonts/et-book-bold-line-figures.woff") format("woff");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --vivid-background: #fffff8;
+      --vivid-foreground: #000;
+      --dull-background: #f0f0f0;
+      --dull-foreground: #666;
+      --accent: #8b0000;
+      --bg: var(--vivid-background);
+      --paper: var(--vivid-background);
+      --paper-2: #f7f7ef;
+      --ink: #111;
+      --ink-soft: #222;
+      --muted: #666;
+      --faint: rgba(0, 0, 0, 0.08);
+      --line: rgba(0, 0, 0, 0.22);
+      --line-strong: rgba(0, 0, 0, 0.65);
+      --red: var(--accent);
+      --red-dark: #5f0000;
+      --blue: #1d4f64;
+      --green: #2a623d;
+      --gold: #e9e1bd;
+      --serif: et-book, Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, cantarell, ubuntu, roboto, noto, arial, sans-serif;
+      --mono: SFMono-Regular, Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace;
+      --max: 1160px;
+      --article: 700px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: var(--serif);
+      font-size: 15px;
+      line-height: inherit;
+      -webkit-font-smoothing: subpixel-antialiased;
+      counter-reset: sidenote-counter;
+    }
+
+    ::selection { background: rgba(165, 50, 36, 0.22); }
+
+    a {
+      color: inherit;
+      text-decoration-color: rgba(165, 50, 36, 0.55);
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.18em;
+      transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
+    }
+
+    a:hover { color: var(--red); }
+
+    .layout {
+      width: min(100vw - 16px, var(--max));
+      margin: 0 auto;
+      display: block;
+    }
+
+    main {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 8px 32px 64px;
+    }
+
+    .masthead {
+      min-height: auto;
+      display: block;
+      border-bottom: 0;
+      padding: 22px 0 34px;
+    }
+
+    .date-row {
+      display: flex;
+      max-width: var(--article);
+      margin: 0 auto 10px;
+      font-size: 21px;
+      line-height: 1.4;
+      color: var(--ink);
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .home-button {
+      display: inline-block;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      padding: 4px 8px;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .home-button:hover {
+      background: var(--accent);
+      color: var(--vivid-background);
+      text-decoration: none;
+    }
+
+    .title-wrap {
+      max-width: var(--article);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      margin: 0 0 1.5rem;
+      font-family: var(--serif);
+      font-size: 68px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .author-line {
+      margin: -0.9rem 0 1.4rem;
+      font-size: 1.35rem;
+      line-height: 1.4;
+    }
+
+    .masthead-illustration {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 0 1.4rem;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+    }
+
+    .tldr {
+      max-width: var(--article);
+      margin: 1rem 0 1.4rem;
+      font-size: 1.62rem;
+      line-height: 1.35;
+      text-wrap: pretty;
+    }
+
+    h2 {
+      max-width: var(--article);
+      margin-top: 0;
+      margin-bottom: 2.3rem;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 4.8rem);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: 0;
+      scroll-margin-top: 25vh;
+    }
+
+    h3 {
+      margin: 2rem 0 0.8rem;
+      font-size: 1.65rem;
+      font-weight: 400;
+      line-height: 1.1;
+      font-style: italic;
+    }
+
+    .intro-grid {
+      display: block;
+      max-width: var(--article);
+      margin: 1.4rem auto 0;
+    }
+
+    .intro-copy,
+    .article {
+      font-size: 1.4rem;
+      line-height: 2rem;
+    }
+
+    .intro-copy p,
+    .intro-copy ul,
+    .article p,
+    .article ul,
+    .article ol {
+      margin-top: 1.4rem;
+      margin-bottom: 1.4rem;
+      text-wrap: pretty;
+    }
+
+    .intro-copy ul,
+    .article ul,
+    .article ol {
+      padding-left: 1.4rem;
+    }
+
+    .intro-copy li,
+    .article li {
+      margin-bottom: 0.55rem;
+    }
+
+    .question-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 1.2rem;
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    .question-links a,
+    .action {
+      min-height: auto;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: transparent;
+      box-shadow: none;
+      padding: 4px 8px;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .question-links a:hover,
+    .action:hover {
+      background: var(--accent);
+      color: var(--vivid-background);
+    }
+
+    section {
+      scroll-margin-top: 25vh;
+      padding: 1rem 0;
+      border-bottom: 0;
+    }
+
+    .section-heading {
+      display: block;
+      max-width: var(--article);
+      margin: 0 auto;
+    }
+
+    .chapter-index {
+      margin: 5rem 0 0.6rem;
+      padding: 0;
+      font-size: 1.15rem;
+      line-height: 1.25;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .section-dek {
+      max-width: var(--article);
+      margin: -1.2rem 0 1.4rem;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      color: var(--ink);
+      font-style: italic;
+    }
+
+    .article-wrap {
+      display: block;
+      max-width: var(--article);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .callout {
+      margin: 1.8rem 0;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--paper-2);
+      padding: 0.8rem;
+      font-size: 1.25rem;
+      line-height: 1.45;
+    }
+
+    .callout b {
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .formula {
+      display: block;
+      margin: 1.4rem 0;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--paper-2);
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .conjecture-box {
+      max-width: var(--article);
+      margin: 1.8rem auto;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--paper-2);
+      padding: 1rem 1.15rem;
+      text-align: center;
+    }
+
+    .conjecture-box p { margin: 0.7rem 0; }
+
+    .centered-equation {
+      margin: 0.9rem 0;
+      text-align: center;
+    }
+
+    .search-diagram {
+      margin: 1.8rem 0;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--paper-2);
+      padding: 1rem;
+    }
+
+    .search-diagram-title {
+      margin: 0 0 0.8rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .search-diagram-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+
+    .search-node {
+      min-height: 110px;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--vivid-background);
+      padding: 0.75rem;
+      display: grid;
+      align-content: start;
+      gap: 0.5rem;
+    }
+
+    .search-node b {
+      font-size: 1.2rem;
+      line-height: 1.1;
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    .search-node span {
+      font-size: 1rem;
+      line-height: 1.3;
+      color: var(--ink-soft);
+    }
+
+    .allocation-table-wrap {
+      margin: 1.8rem 0;
+      overflow-x: auto;
+    }
+
+    .allocation-table {
+      width: 100%;
+      min-width: 640px;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: 1.15rem;
+      line-height: 1.35;
+    }
+
+    .allocation-table th,
+    .allocation-table td {
+      border: 1.5px solid #000;
+      padding: 0.65rem 0.75rem;
+      vertical-align: top;
+      text-align: left;
+      overflow-wrap: break-word;
+    }
+
+    .allocation-table th {
+      font-weight: 700;
+      background: var(--paper-2);
+    }
+
+    sup {
+      vertical-align: baseline;
+      line-height: 0;
+    }
+
+    sup a {
+      position: relative;
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.62em;
+      line-height: 0;
+      color: var(--red);
+      text-decoration: none;
+      padding-left: 1px;
+      top: -0.55em;
+    }
+
+    sup a[data-note]::after {
+      content: attr(data-note);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      z-index: 20;
+      width: min(330px, calc(100vw - 42px));
+      padding: 11px 13px;
+      border: 1px solid rgba(255,249,238,0.28);
+      border-radius: 6px;
+      background: #5f0000;
+      color: var(--paper);
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: 0;
+      text-align: left;
+      white-space: normal;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 6px);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    sup a[data-note]::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 4px);
+      z-index: 21;
+      width: 10px;
+      height: 10px;
+      border-right: 1px solid rgba(255,249,238,0.28);
+      border-bottom: 1px solid rgba(255,249,238,0.28);
+      background: #5f0000;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 6px) rotate(45deg);
+      transition: opacity 140ms ease, transform 140ms ease;
+    }
+
+    sup a[data-note]:hover::after,
+    sup a[data-note]:focus-visible::after,
+    sup a[data-note]:hover::before,
+    sup a[data-note]:focus-visible::before {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    sup a[data-note]:focus-visible {
+      outline: 2px solid rgba(104, 27, 22, 0.45);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    .footnotes {
+      max-width: var(--article);
+      margin-left: auto;
+      margin-right: auto;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: var(--ink);
+    }
+
+    .footnotes h2 {
+      font-size: 2.2rem;
+    }
+
+    .footnotes ol {
+      columns: 1;
+      list-style: decimal;
+      padding-left: 1.4rem;
+      margin: 0;
+    }
+
+    .footnotes li {
+      break-inside: avoid;
+      margin: 0 0 10px;
+    }
+
+    pre {
+      margin: 1.4rem 0;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid #000;
+      border-radius: 6px;
+      background: var(--paper-2);
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+
+    .footer {
+      max-width: var(--article);
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 3rem;
+      display: block;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    .footer-mark {
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    @media (max-width: 930px) {
+      .layout {
+        width: min(100% - 16px, 900px);
+      }
+
+      .search-diagram-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 730px) {
+      main {
+        padding: 8px 18px 64px;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      .date-row {
+        font-size: 1.1rem;
+        gap: 0.75rem;
+      }
+
+      .tldr {
+        font-size: 1.38rem;
+        line-height: 1.35;
+      }
+
+      .intro-copy,
+      .article {
+        font-size: 1.25rem;
+        line-height: 1.45;
+      }
+
+      .search-diagram-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .allocation-table {
+        min-width: 580px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <main id="top">
+      <header class="masthead">
+        <div class="date-row">
+          <a class="home-button" href="../index.html">Back to homepage</a>
+          <span>Published May 29th 2026.</span>
+        </div>
+
+        <div class="title-wrap">
+          <h1>On LLM Math Capabilities</h1>
+          <p class="author-line">Dmitry Rybin</p>
+          <img class="masthead-illustration" src="../images/proof_tree.png" alt="Proof tree illustration for LLM math search">
+          <p class="tldr">This short note is aimed at mathematicians. I explain the importance of test-time scaling, show how to calculate that the price of Unit Distance Conjecture resolution was <$100, and estimate GPT-5.5-Pro one-shot success rate on minor open math problems to be 0.4%.</p>
+          <h2>Scaling Reasoning for Proof Search</h2>
+        </div>
+
+        <div class="intro-grid" id="summary">
+          <div class="intro-copy">
+            <p>Modern LLMs like GPT-5.5-Thinking, Gemini 3.1 Pro have an adjustable thinking effort (how many tokens they generate linearly one-by-one in chain-of-thought before giving an answer). Higher thinking effort consistently shows scalably better performance in almost all tasks. A 10 minute reasoning at the typical speed of 50 tokens per second generates 30 000 thinking tokens. This is below the modern LLM context window of 400 000 tokens. This gives us one scaling axis.</p>
+            <p>What about GPT-5.5-Pro, Gemini DeepThink? Their structure is not public but the evidence points towards it being a simple parallel think-combine pipeline of \(\approx 5-100\) copies of the normal thinking models. This is parallel scaling axis of test-time compute</p>
+            <p>One can introduce more compute scaling by prompting other copies of LLMs to judge and refine results. This gives us pipeline in a style of Aletheia<sup><a href="#fn1" data-note="Tony Feng et al., Towards Autonomous Mathematics Research, arXiv, 2026">1</a></sup> of Google DeepMind and Rethlas<sup><a href="#fn2" data-note="Haocheng Ju et al., Automated Conjecture Resolution with Formal Verification">2</a></sup> of PekingU/BICMR.</p>
+            <p>Final parallel scaling axis is directly indicating in the prompt the direction that the proof should try: "solve using algebraic number theory / probability theory / arithmetic sieves". This is not so widespread but already tried in the literature.</p>
+            <p>In total we have 4 scaling axis:</p>
+            <ol>
+              <li>Longer reasoning</li>
+              <li>Parallel copies scaling</li>
+              <li>Generator-verifier iterations scaling</li>
+              <li>scaling by research direction prompting</li>
+            </ol>
+            <p>Assume a 60 000 tokens reasoning, scaled 10x in parallel, with 10 generator-verifier iterations, and 10 directions. The total API costs with GPT-5.5-Thinking become \($1.80 \times 10 \times 20 \times 10 = $360\), whoops. OpenAI researchers, especially Noam Brown and Sebastien Bubeck, repeatedly emphasize that such inference-time compute scaling will get more important.</p>
+            <p>As an exercise let's calculate the raw token cost of the Unit Distance Conjecture solution. OpenAI reports a 120 pages of summarized Chain-of-Thought<sup><a href="#fn3" data-note="An OpenAI model has disproved a central conjecture in discrete geometry, May 20, 2026">3</a></sup>. Let's assume a summarization factor of 20, so the full Chain-of-Thought would be 2400 pages. This is at most 1-2M tokens. The most expensive raw model inference cost i know of is $50 per 1M tokens, which gives an upper bound of $100 total. If you use GPT-5.5-Pro API cost $270/1M tokens, you get $540 total cost.</p>
+            <p>Here is a curve from OpenAI showing how success rate changes from doubling number of reasoning tokens:</p>
+            <img class="masthead-illustration" src="../images/openai.png" alt="CoT scaling">
+            <p>We can compare it to the naive best of n scaling and observe that reasoning compute is scaling better than parallel sampling.</p>
+            <img class="masthead-illustration" src="../images/best_of_n_scaling.png" alt="Compared to best of n scaling">
+          </div>
+        </div>
+      </header>
+
+      <section id="proof-search">
+        <div class="section-heading">
+          <div>
+            <h2>Current LLM Math Capabilities</h2>
+          </div>
+        </div>
+
+        <div class="article-wrap">
+          <article class="article">
+            <p>Any reported successful solution with LLMs has a selection bias - thousands of prompters tried thousands of problems and some of them got results.</p>
+            <p>Let \(p_8\) be the probability that a current frontier LLM solves an open math problem whose final solution is at most eight pages. Let's estimate \(p_8\) from public data. This is obviously a very rough count, but the data seem to support it. People tried \(\approx 1000\) open problems (Erdos website lists 667 unsolved problems). There have been multiple, say 10, attempts on each one. Public stories indicate \(\approx 40\) solved Erdos problems and related works<sup><a href="#fn4" data-note="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems">4</a></sup>. This gives:</p>
+            <p class="centered-equation">\(1 - (1 - p_8)^{10} \approx 40/1000,\)</p>
+            <p class="centered-equation">\(p_8 \approx 1 - (1 - 40/1000)^{1/10} \approx 0.4\%.\)</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="combinatorics">
+        <div class="section-heading">
+          <div class="chapter-index"></div>
+          <div>
+            <h2>Are LLMs much better at combinatorics?</h2>
+          </div>
+        </div>
+
+        <div class="article-wrap">
+          <article class="article">
+            <p>I do not think current LLMs are fundamentally much better at combinatorics than at the rest of mathematics. We have seen impressive LLM-assisted results in analytic number theory, algebraic number theory, probability, and optimization as well.</p>
+            <p>From what I know about how DeepSeek and Kimi train math models, there is no major intentional bias toward combinatorics. The only small difference is data generation: I know how to create unlimited difficult labeled combinatorics data automatically using MILP solvers. This is convenient, but I do not think it changes the picture by an order of magnitude.</p>
+            <p>The difference probably comes from an order of magnitude more attention to Erdos problems database.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="other-remarks">
+        <div class="section-heading">
+          <div class="chapter-index"></div>
+          <div>
+            <h2>Other remarks</h2>
+          </div>
+        </div>
+
+        <div class="article-wrap">
+          <article class="article">
+            <ol>
+              <li>"Are LLMs limited to human proof strategies?" - no, RL training process allows them to go beyond human proofs.</li>
+              <li>"Do LLMs come up with novel ideas and definitions?" - there are minor signs of that happening, but no impressive examples yet.</li>
+              <li>"Can LLMs solve 0.4% of open problems or solve any problem with 0.4% success rate?" - mostly the former, but we need more experiments to determine.</li>
+              <li>"Can LLMs learn research taste?" - Noam Brown (OpenAI) and Thang Luong (Google DeepMind) think so. I trust them, and also I see a lot of indication that this is mostly a problem of designing the right information signal.</li>
+            </ol>
+          </article>
+        </div>
+      </section>
+
+      <section id="footnotes" class="footnotes">
+        <h2>Notes</h2>
+        <ol>
+          <li id="fn1">Tony Feng et al., <a href="https://arxiv.org/abs/2602.10177" target="_blank" rel="noreferrer">Towards Autonomous Mathematics Research</a>, arXiv, 2026. This is the Aletheia paper.</li>
+          <li id="fn2">Haocheng Ju et al., <a href="https://arxiv.org/abs/2604.03789" target="_blank" rel="noreferrer">Automated Conjecture Resolution with Formal Verification</a>, arXiv, 2026. This introduces Rethlas and Archon.</li>
+          <li id="fn3">OpenAI, <a href="https://openai.com/index/model-disproves-discrete-geometry-conjecture/" target="_blank" rel="noreferrer">An OpenAI model has disproved a central conjecture in discrete geometry</a>, May 20, 2026.</li>
+          <li id="fn4">Terence Tao et al., <a href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noreferrer">AI contributions to Erdős problems</a>, GitHub wiki.</li>
+        </ol>
+      </section>
+
+      <section id="citation" class="footnotes">
+        <h2>If you want to cite this note</h2>
+        <pre>@misc{Rybin2026LLMMathSearch,
+  author = {Rybin, Dmitry},
+  title = {On LLM Math Capabilities},
+  year = {2026},
+  howpublished = {\url{https://rybindmitry.github.io/blogs/understanding-llm-math-capabilities-via-search.html}},
+  note = {Blog post}
+}</pre>
+      </section>
+
+      <footer class="footer">
+        <div>
+          <div class="footer-mark">Dmitry Rybin</div>
+          <p>Ph.D. candidate, School of Data Science, CUHK. Contact: <a href="mailto:rybindmitry1@gmail.com">rybindmitry1@gmail.com</a>.</p>
+        </div>
+        <a class="action" href="../index.html">Back to Homepage</a>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

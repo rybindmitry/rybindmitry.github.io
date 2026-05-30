@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 1 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=2">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="forum.html">Forum</a>
+      <a href="inbox.html">Inbox</a>
+      <a href="tags.html">Tags</a>
+      <a href="../index.html">Dmitry Rybin</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" value="1">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="matrix">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+    </div>
+  </header>
+
+  <main>
+    <h1>Problem 1</h1>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <p>Let $P_{n}$ be the set of strictly positive definite $n\times n$ real matrices. Define a function $d$ on $P_n \times P_n$ as</p>
+      <p>$$d(A, B) = \iint_{S^{n-1} \times S^{n-1}} \frac{|u^T(A - B)v|}{(u^TAu)(v^TBv)}dudv,$$</p>
+      <p>where the integral is taken over all unit norm vectors $u, v \in \mathbb{R}^n$. Prove that</p>
+      <p>$$d(A + B, C + D) \leq \max(d(A, C), d(B, D)).$$</p>
+    </div>
+
+    <p class="source">Source: Cosme Louart.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">matrix analysis</a>
+      <a class="tag" href="tags.html">positive definite matrices</a>
+      <a class="tag" href="tags.html">integral inequality</a>
+    </p>
+
+    <p class="warning">This problem has not yet been checked against the literature.</p>
+
+    <h2>Forum</h2>
+    <div class="forum-box">
+      <p>No comments yet.</p>
+    </div>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>Let $P_{n}$ be the set of strictly positive definite $n\times n$ real matrices. Define a function $d$ on $P_n \times P_n$ as
+$$d(A, B) = \iint_{S^{n-1} \times S^{n-1}} \frac{|u^T(A - B)v|}{(u^TAu)(v^TBv)}dudv,$$
+where the integral is taken over all unit norm vectors $u, v \in \mathbb{R}^n$. Prove that
+$$d(A + B, C + D) \leq \max(d(A, C), d(B, D)).$$</pre>
+    </details>
+
+    <p class="small">Added May 28, 2026.</p>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: none</span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (document.getElementById('problem-number').value.trim() === '1') {
+        window.location.href = '1.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+</body>
+</html>
