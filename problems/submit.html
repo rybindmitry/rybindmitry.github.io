@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Submit a Problem - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=3">
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="inbox.html">Inbox</a>
+      <a href="tags.html">Tags</a>
+      <a href="../index.html">Dmitry Rybin</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Submit a Problem</h1>
+    <form class="submit-form" action="https://formsubmit.co/rybindmitry1@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Problem submission">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://rybindmitry.github.io/problems/thanks.html">
+      <input class="hidden-field" type="text" name="_honey" tabindex="-1" autocomplete="off">
+
+      <label for="problem-statement">Problem statement</label>
+      <textarea id="problem-statement" name="problem_statement" rows="11" required></textarea>
+
+      <label for="problem-author">Author</label>
+      <input id="problem-author" name="author" type="text" required>
+
+      <label for="submitter-contact">Submitter contact (optional)</label>
+      <input id="submitter-contact" name="submitter_contact" type="text">
+
+      <button type="submit">Submit problem</button>
+    </form>
+  </main>
+</body>
+</html>

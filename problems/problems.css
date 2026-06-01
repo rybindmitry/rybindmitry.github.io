@@ -78,6 +78,10 @@ input {
   font: inherit;
 }
 
+.hidden-field {
+  display: none;
+}
+
 button {
   padding: 2px 7px;
   border: 1px solid #2f6fbd;
@@ -88,6 +92,25 @@ button {
 }
 
 button:hover {
+  background: #154c91;
+}
+
+.button-link {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid #2f6fbd;
+  border-radius: 3px;
+  background: #1f63b7;
+  color: #fff;
+  font: inherit;
+  text-decoration: none;
+}
+
+.button-link:visited {
+  color: #fff;
+}
+
+.button-link:hover {
   background: #154c91;
 }
 
@@ -182,6 +205,38 @@ pre {
   background: #fff;
   font-size: 14px;
   line-height: 1.35;
+}
+
+.submit-form {
+  max-width: 760px;
+  display: grid;
+  gap: 8px;
+}
+
+.submit-form label {
+  color: #0d356f;
+}
+
+.submit-form input,
+.submit-form textarea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #89abd8;
+  border-radius: 3px;
+  background: #f8fbff;
+  color: #102033;
+  font: inherit;
+}
+
+.submit-form textarea {
+  resize: vertical;
+}
+
+.submit-form button {
+  justify-self: start;
+  margin-top: 4px;
 }
 
 .bottom-nav {
