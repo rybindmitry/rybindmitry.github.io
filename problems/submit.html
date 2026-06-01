@@ -29,7 +29,7 @@
       <label for="submitter-contact">Submitter contact (optional)</label>
       <input id="submitter-contact" type="text">
 
-      <button type="submit">Submit problem</button>
+      <button type="submit">Prepare submission</button>
     </form>
 
     <section class="submission-result" id="submission-result" hidden>
@@ -38,6 +38,7 @@
       <p><a id="email-link" href="mailto:rybindmitry1@gmail.com">Open email</a></p>
       <textarea id="submission-copy" rows="12" readonly></textarea>
       <button type="button" id="copy-submission">Copy submission</button>
+      <a class="button-link" id="download-submission" download="problem-submission.txt" href="#">Download text file</a>
     </section>
   </main>
 
@@ -71,15 +72,11 @@
       document.getElementById('submission-result').hidden = false;
       document.getElementById('submission-copy').value = message;
       document.getElementById('email-link').href = mailto;
+      document.getElementById('download-submission').href =
+        URL.createObjectURL(new Blob([message], { type: 'text/plain' }));
 
-      if (mailto.length < 1800) {
-        document.getElementById('submission-status').textContent =
-          'An email draft should open. If it does not, copy the prepared submission below.';
-        window.location.href = mailto;
-      } else {
-        document.getElementById('submission-status').textContent =
-          'The problem statement is long, so copy the prepared submission below and email it to ' + recipient + '.';
-      }
+      document.getElementById('submission-status').textContent =
+        'Copy the prepared submission below, download it, or open an email draft to ' + recipient + '.';
     });
 
     document.getElementById('copy-submission').addEventListener('click', function () {
