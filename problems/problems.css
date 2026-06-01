@@ -159,11 +159,15 @@ tbody tr:nth-child(even) {
   font-weight: 700;
 }
 
-.status-line {
+.problem-heading {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: center;
+}
+
+.problem-heading h1 {
+  margin-right: 4px;
 }
 
 .statement {
