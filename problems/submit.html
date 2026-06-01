@@ -29,17 +29,8 @@
       <label for="submitter-contact">Submitter contact (optional)</label>
       <input id="submitter-contact" type="text">
 
-      <button type="submit">Prepare submission</button>
+      <button type="submit">Submit</button>
     </form>
-
-    <section class="submission-result" id="submission-result" hidden>
-      <h2>Submission Ready</h2>
-      <p id="submission-status"></p>
-      <p><a id="email-link" href="mailto:rybindmitry1@gmail.com">Open email</a></p>
-      <textarea id="submission-copy" rows="12" readonly></textarea>
-      <button type="button" id="copy-submission">Copy submission</button>
-      <a class="button-link" id="download-submission" download="problem-submission.txt" href="#">Download text file</a>
-    </section>
   </main>
 
   <script>
@@ -69,25 +60,7 @@
         '?subject=' + encodeURIComponent('Problem submission') +
         '&body=' + encodeURIComponent(message);
 
-      document.getElementById('submission-result').hidden = false;
-      document.getElementById('submission-copy').value = message;
-      document.getElementById('email-link').href = mailto;
-      document.getElementById('download-submission').href =
-        URL.createObjectURL(new Blob([message], { type: 'text/plain' }));
-
-      document.getElementById('submission-status').textContent =
-        'Copy the prepared submission below, download it, or open an email draft to ' + recipient + '.';
-    });
-
-    document.getElementById('copy-submission').addEventListener('click', function () {
-      const copyBox = document.getElementById('submission-copy');
-
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(copyBox.value);
-      } else {
-        copyBox.select();
-        document.execCommand('copy');
-      }
+      window.location.href = mailto;
     });
   </script>
 </body>

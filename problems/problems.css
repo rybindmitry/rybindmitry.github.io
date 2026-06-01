@@ -235,25 +235,6 @@ pre {
   margin-top: 4px;
 }
 
-.submission-result {
-  max-width: 760px;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #bfd4f1;
-}
-
-.submission-result textarea {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 100%;
-  padding: 6px 8px;
-  border: 1px solid #89abd8;
-  border-radius: 3px;
-  background: #f8fbff;
-  color: #102033;
-  font: inherit;
-}
-
 .bottom-nav {
   margin-top: 30px;
   display: flex;
