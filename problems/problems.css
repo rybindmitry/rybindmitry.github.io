@@ -170,6 +170,11 @@ tbody tr:nth-child(even) {
   margin-right: 4px;
 }
 
+.problem-heading .button-link {
+  position: relative;
+  top: 3px;
+}
+
 .statement {
   max-width: 820px;
   font-size: 18px;
