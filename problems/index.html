@@ -27,7 +27,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" value="1">
+        <input id="problem-number" type="number" min="1" max="2" value="1">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -43,7 +43,7 @@
   </header>
 
   <main>
-    <p>There is currently 1 problem in the database.</p>
+    <p>There are currently 2 problems in the database.</p>
 
     <table>
       <thead>
@@ -61,6 +61,12 @@
           <td><span class="status">open</span></td>
           <td>Cosme Louart</td>
         </tr>
+        <tr>
+          <td><a href="2.html">2</a></td>
+          <td><a href="2.html">Equality case for compressed convex functional calculus</a></td>
+          <td><span class="status">open</span></td>
+          <td>Boris Bilich</td>
+        </tr>
       </tbody>
     </table>
   </main>
@@ -68,8 +74,9 @@
   <script>
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
-      if (document.getElementById('problem-number').value.trim() === '1') {
-        window.location.href = '1.html';
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2') {
+        window.location.href = problemNumber + '.html';
       }
     });
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Problem 1 - CUHK-Shenzhen AI Math Problems</title>
+  <title>Problem 2 - CUHK-Shenzhen AI Math Problems</title>
   <link rel="icon" type="images/png" href="../images/cuhk.png">
   <link rel="stylesheet" href="problems.css?v=4">
   <script>
@@ -27,12 +27,12 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="2" value="1">
+        <input id="problem-number" type="number" min="1" max="2" value="2">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
         <label for="tag-name">Tag</label>
-        <input id="tag-name" type="text" value="matrix">
+        <input id="tag-name" type="text" value="operator">
         <button type="submit">Go</button>
       </form>
       <a href="1.html">Random problem</a>
@@ -43,37 +43,63 @@
   </header>
 
   <main>
-    <h1>Problem 1</h1>
+    <h1>Problem 2</h1>
     <p><span class="status">open</span></p>
 
     <div class="statement">
-      <p>Let $P_{n}$ be the set of strictly positive definite $n\times n$ real matrices. Define a function $d$ on $P_n \times P_n$ as</p>
-      <p>$$d(A, B) = \iint_{S^{n-1} \times S^{n-1}} \frac{|u^T(A - B)v|}{(u^TAu)(v^TBv)}dudv,$$</p>
-      <p>where the integral is taken over all unit norm vectors $u, v \in \mathbb{R}^n$. Prove that</p>
-      <p>$$d(A + B, C + D) \leq \max(d(A, C), d(B, D)).$$</p>
+      <p>Let \(f:[0,1]^2\to\mathbb{R}\) be a continuous strictly convex function.</p>
+      <p>Suppose \(X\) and \(Y\) are commuting positive contractions on a Hilbert space \(K\), and \(P\in B(K)\) is an orthogonal projection such that \(PXP\) and \(PYP\) commute.</p>
+      <p>Assume that</p>
+      <p>\[
+P\,f(X,Y)\,P
+=
+P\,f(PXP,PYP)\,P.
+\]</p>
+      <p>Does it follow that \(P\) reduces both \(X\) and \(Y\)? Equivalently,</p>
+      <p>\[
+PX=XP,
+\qquad
+PY=YP.
+\]</p>
     </div>
 
-    <p class="source">Source: Cosme Louart.</p>
+    <p class="source">Source: Boris Bilich.</p>
 
     <p class="tags">
-      <a class="tag" href="tags.html">matrix analysis</a>
-      <a class="tag" href="tags.html">positive definite matrices</a>
-      <a class="tag" href="tags.html">integral inequality</a>
+      <a class="tag" href="tags.html">operator theory</a>
+      <a class="tag" href="tags.html">convexity</a>
+      <a class="tag" href="tags.html">Hilbert spaces</a>
+      <a class="tag" href="tags.html">positive contractions</a>
     </p>
 
     <details>
       <summary>LaTeX source</summary>
-      <pre>Let $P_{n}$ be the set of strictly positive definite $n\times n$ real matrices. Define a function $d$ on $P_n \times P_n$ as
-$$d(A, B) = \iint_{S^{n-1} \times S^{n-1}} \frac{|u^T(A - B)v|}{(u^TAu)(v^TBv)}dudv,$$
-where the integral is taken over all unit norm vectors $u, v \in \mathbb{R}^n$. Prove that
-$$d(A + B, C + D) \leq \max(d(A, C), d(B, D)).$$</pre>
+      <pre>Let \(f:[0,1]^2\to\mathbb{R}\) be a continuous strictly convex function.
+
+Suppose \(X\) and \(Y\) are commuting positive contractions on a Hilbert space \(K\), and \(P\in B(K)\) is an orthogonal projection such that \(PXP\) and \(PYP\) commute.
+
+Assume that
+
+\[
+P\,f(X,Y)\,P
+=
+P\,f(PXP,PYP)\,P.
+\]
+
+Does it follow that \(P\) reduces both \(X\) and \(Y\)? Equivalently,
+
+\[
+PX=XP,
+\qquad
+PY=YP.
+\]</pre>
     </details>
 
-    <p class="small">Added May 28, 2026.</p>
+    <p class="small">Added June 1, 2026.</p>
 
     <nav class="bottom-nav" aria-label="Problem navigation">
-      <span>Previous problem: none</span>
-      <span>Next problem: <a href="2.html">2</a></span>
+      <span>Previous problem: <a href="1.html">1</a></span>
+      <span>Next problem: none</span>
     </nav>
   </main>
 
