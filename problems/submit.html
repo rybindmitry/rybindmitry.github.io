@@ -12,12 +12,12 @@
     <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
     <nav class="nav" aria-label="Main navigation">
       <a href="tags.html">Tags</a>
-      <a href="../index.html">Dmitry Rybin</a>
     </nav>
   </header>
 
   <main>
     <h1>Submit a Problem</h1>
+    <p><a class="button-link" href="index.html">Back to database</a></p>
     <form class="submit-form" id="submit-problem-form">
       <label for="problem-statement">Problem statement</label>
       <textarea id="problem-statement" rows="11" required></textarea>
@@ -28,6 +28,12 @@
       <label for="submitter-contact">Submitter contact (optional)</label>
       <input id="submitter-contact" type="text">
 
+      <label for="submitter-website">Submitter website (optional)</label>
+      <input id="submitter-website" type="url">
+
+      <label for="verification-notes">Automatic solution verification script / Other notes</label>
+      <textarea id="verification-notes" rows="7"></textarea>
+
       <button type="submit">Submit</button>
     </form>
   </main>
@@ -35,7 +41,7 @@
   <script>
     const recipient = 'rybindmitry1@gmail.com';
 
-    function submissionText(statement, author, contact) {
+    function submissionText(statement, author, contact, website, notes) {
       return [
         'Problem statement:',
         statement,
@@ -44,7 +50,13 @@
         author,
         '',
         'Submitter contact:',
-        contact || 'not provided'
+        contact || 'not provided',
+        '',
+        'Submitter website:',
+        website || 'not provided',
+        '',
+        'Automatic solution verification script / Other notes:',
+        notes || 'not provided'
       ].join('\n');
     }
 
@@ -54,7 +66,9 @@
       const statement = document.getElementById('problem-statement').value.trim();
       const author = document.getElementById('problem-author').value.trim();
       const contact = document.getElementById('submitter-contact').value.trim();
-      const message = submissionText(statement, author, contact);
+      const website = document.getElementById('submitter-website').value.trim();
+      const notes = document.getElementById('verification-notes').value.trim();
+      const message = submissionText(statement, author, contact, website, notes);
       const mailto = 'mailto:' + recipient +
         '?subject=' + encodeURIComponent('Problem submission') +
         '&body=' + encodeURIComponent(message);

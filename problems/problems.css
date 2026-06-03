@@ -29,13 +29,26 @@ a:visited {
 
 .site-title {
   margin: 0 0 8px;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 400;
 }
 
 .site-title a {
   color: #0d356f;
   text-decoration: none;
+}
+
+.maintainers {
+  margin: -4px 0 10px;
+  color: #244c82;
+  font-size: 20px;
+}
+
+.database-intro {
+  max-width: 780px;
+  margin: 0 0 12px;
+  color: #102033;
+  font-size: 18px;
 }
 
 .nav {
