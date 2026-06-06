@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 3 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="3" value="3">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="variational inequalities">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 3</h1>
+      <a class="button-link" href="mailto:rybindmitry1@gmail.com">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <p>Fix an oracle order $p\ge 2$, a diameter parameter $D>0$, a smoothness parameter $L_p>0$, and an accuracy $\varepsilon>0$. Let $Z\subseteq\mathbb{R}^d$ be a closed convex set with diameter at most $D$:</p>
+      <p>\[
+\sup_{z,z'\in Z}\|z-z'\|_2\le D.
+\]</p>
+      <p>Let $\mathcal{M}_{p}(D,L_p)$ be the class of monotone operators $F:Z\to\mathbb{R}^d$ satisfying</p>
+      <p>\[
+\langle F(z)-F(z'),z-z'\rangle\ge 0
+\qquad \forall z,z'\in Z,
+\]</p>
+      <p>and</p>
+      <p>\[
+\|D^{p-1}F(z)-D^{p-1}F(z')\| \le L_p\|z-z'\|_2
+\qquad \forall z,z'\in Z.
+\]</p>
+      <p>For $z\in Z$, define the weak gap</p>
+      <p>\[
+\operatorname{Gap}_{F}(z) := \sup_{u\in Z}\langle F(u),z-u\rangle.
+\]</p>
+      <p>A $p$-th order MVI oracle queried at $\bar z\in Z$ returns</p>
+      <p>\[
+F(\bar z),\ DF(\bar z),\ \ldots,\ D^{p-1}F(\bar z).
+\]</p>
+      <p>For $q\in\{1,\ldots,p\}$ and $M>0$, define the full-domain regularized tensor step $A_q(\bar z;F,M)$ to be any point $z^+\in Z$ satisfying</p>
+      <p>\[
+\left\langle
+\mathcal{T}_{q-1}^{F}(z^+;\bar z)
++ \frac{M}{q!}\|z^+-\bar z\|_2^{q-1}(z^+-\bar z),
+z-z^+
+\right\rangle \ge 0
+\qquad \forall z\in Z,
+\]</p>
+      <p>where</p>
+      <p>\[
+\mathcal{T}_{q-1}^{F}(z;\bar z)
+:= \sum_{k=0}^{q-1} \frac{1}{k!}D^kF(\bar z)[z-\bar z]^k.
+\]</p>
+      <p>Let $\mathcal{A}_{p}^{\mathrm{MVI}}$ be the class of deterministic algorithms that start from $z_0=0$ and, at iteration $t$, choose</p>
+      <p>\[
+\bar z_t\in\operatorname{span}\{z_0,\ldots,z_t\},
+\qquad q_t\in\{1,\ldots,p\},
+\qquad M_t>0,
+\]</p>
+      <p>then generate</p>
+      <p>\[
+z_{t+1}=A_{q_t}(\bar z_t;F,M_t).
+\]</p>
+      <p>Determine whether there exists a dimension $d=d(T)$, a set $Z\subseteq\mathbb{R}^d$, and an operator $F\in\mathcal{M}_{p}(D,L_p)$ such that every algorithm in $\mathcal{A}_{p}^{\mathrm{MVI}}$ has an output $z_T$ satisfying</p>
+      <p>\[
+\operatorname{Gap}_{F}(z_T) \ge c_p\frac{L_pD^{p+1}}{T^{(p+1)/2}},
+\]</p>
+      <p>where $c_p>0$ depends only on $p$.</p>
+    </div>
+
+    <p class="source">Source: Prof. Chengchang Liu.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">variational inequalities</a>
+      <a class="tag" href="tags.html">monotone operators</a>
+      <a class="tag" href="tags.html">oracle complexity</a>
+      <a class="tag" href="tags.html">tensor methods</a>
+      <a class="tag" href="tags.html">lower bounds</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>Fix an oracle order $p\ge 2$, a diameter parameter $D>0$, a smoothness parameter $L_p>0$, and an accuracy $\varepsilon>0$. Let $Z\subseteq\mathbb{R}^d$ be a closed convex set with diameter at most $D$:
+
+\[
+\sup_{z,z'\in Z}\|z-z'\|_2\le D.
+\]
+
+Let $\mathcal{M}_{p}(D,L_p)$ be the class of monotone operators $F:Z\to\mathbb{R}^d$ satisfying
+
+\[
+\langle F(z)-F(z'),z-z'\rangle\ge 0
+\qquad \forall z,z'\in Z,
+\]
+
+and
+
+\[
+\|D^{p-1}F(z)-D^{p-1}F(z')\| \le L_p\|z-z'\|_2
+\qquad \forall z,z'\in Z.
+\]
+
+For $z\in Z$, define the weak gap
+
+\[
+\operatorname{Gap}_{F}(z) := \sup_{u\in Z}\langle F(u),z-u\rangle.
+\]
+
+A $p$-th order MVI oracle queried at $\bar z\in Z$ returns
+
+\[
+F(\bar z),\ DF(\bar z),\ \ldots,\ D^{p-1}F(\bar z).
+\]
+
+For $q\in\{1,\ldots,p\}$ and $M>0$, define the full-domain regularized tensor step $A_q(\bar z;F,M)$ to be any point $z^+\in Z$ satisfying
+
+\[
+\left\langle
+\mathcal{T}_{q-1}^{F}(z^+;\bar z)
++ \frac{M}{q!}\|z^+-\bar z\|_2^{q-1}(z^+-\bar z),
+z-z^+
+\right\rangle \ge 0
+\qquad \forall z\in Z,
+\]
+
+where
+
+\[
+\mathcal{T}_{q-1}^{F}(z;\bar z)
+:= \sum_{k=0}^{q-1} \frac{1}{k!}D^kF(\bar z)[z-\bar z]^k.
+\]
+
+Let $\mathcal{A}_{p}^{\mathrm{MVI}}$ be the class of deterministic algorithms that start from $z_0=0$ and, at iteration $t$, choose
+
+\[
+\bar z_t\in\operatorname{span}\{z_0,\ldots,z_t\},
+\qquad q_t\in\{1,\ldots,p\},
+\qquad M_t>0,
+\]
+
+then generate
+
+\[
+z_{t+1}=A_{q_t}(\bar z_t;F,M_t).
+\]
+
+Determine whether there exists a dimension $d=d(T)$, a set $Z\subseteq\mathbb{R}^d$, and an operator $F\in\mathcal{M}_{p}(D,L_p)$ such that every algorithm in $\mathcal{A}_{p}^{\mathrm{MVI}}$ has an output $z_T$ satisfying
+
+\[
+\operatorname{Gap}_{F}(z_T) \ge c_p\frac{L_pD^{p+1}}{T^{(p+1)/2}},
+\]
+
+where $c_p>0$ depends only on $p$.</pre>
+    </details>
+
+    <p class="small">Added June 6, 2026.</p>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="2.html">2</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+</body>
+</html>

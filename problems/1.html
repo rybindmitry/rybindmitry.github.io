@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="2" value="1">
+        <input id="problem-number" type="number" min="1" max="3" value="1">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -55,7 +55,7 @@
       <p>$$d(A + B, C + D) \leq \max(d(A, C), d(B, D)).$$</p>
     </div>
 
-    <p class="source">Source: Cosme Louart.</p>
+    <p class="source">Source: Prof. Cosme Louart.</p>
 
     <p class="tags">
       <a class="tag" href="tags.html">matrix analysis</a>
@@ -83,7 +83,7 @@ $$d(A + B, C + D) \leq \max(d(A, C), d(B, D)).$$</pre>
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3') {
         window.location.href = problemNumber + '.html';
       }
     });
