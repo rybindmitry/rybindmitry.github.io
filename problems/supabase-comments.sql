@@ -16,6 +16,10 @@ create table if not exists public.problem_comments (
 
 alter table public.problem_comments enable row level security;
 
+grant usage on schema public to anon, authenticated;
+grant select on public.problem_comments to anon, authenticated;
+grant insert, update on public.problem_comments to authenticated;
+
 drop policy if exists "Anyone can read visible comments" on public.problem_comments;
 create policy "Anyone can read visible comments"
 on public.problem_comments
