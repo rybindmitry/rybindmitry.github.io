@@ -32,25 +32,6 @@
       text-underline-offset: 0.18em;
     }
 
-    .topbar {
-      position: absolute;
-      z-index: 2;
-      top: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px clamp(18px, 5vw, 56px);
-      color: #fff;
-      font-size: 1.9rem;
-      font-weight: 700;
-    }
-
-    .topbar a {
-      text-decoration: none;
-    }
-
     .hero {
       min-height: 76vh;
       display: grid;
@@ -209,12 +190,6 @@
         font-size: 16px;
       }
 
-      .topbar {
-        position: static;
-        background: #0d356f;
-        font-size: 1.35rem;
-      }
-
       .hero {
         min-height: 62vh;
         padding-top: 54px;
@@ -228,11 +203,6 @@
   </style>
 </head>
 <body>
-  <nav class="topbar" aria-label="Event navigation">
-    <a href="../index.html">Dmitry Rybin</a>
-    <a href="../problems/index.html">AI Math Problems</a>
-  </nav>
-
   <header class="hero">
     <div class="hero-inner">
       <h1>AI Math Day at CUHK-Shenzhen</h1>
@@ -262,7 +232,7 @@
           <h2>Details</h2>
           <ol>
             <li>Discussions on latest AI Math abilities and experience.</li>
-            <li>Announcement of CUHK-Shenzhen AI Math Problems Database.</li>
+            <li>Announcement of <a href="../problems/index.html">CUHK-Shenzhen AI Math Problems Database</a>.</li>
             <li>Announcement of specialized multi-agent tools to reason about open problems for 1-10 hours.</li>
           </ol>
         </section>
