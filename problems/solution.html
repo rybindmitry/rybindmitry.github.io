@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Submit a Solution - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Submit a Solution</h1>
+    <p><a class="button-link" href="index.html">Back to database</a></p>
+
+    <form class="submit-form" id="submit-solution-form">
+      <label for="solution-problem-id">Problem number</label>
+      <input id="solution-problem-id" type="number" min="1" required>
+
+      <label for="solution-text">Solution / proof</label>
+      <textarea id="solution-text" rows="13" required></textarea>
+
+      <label for="solution-url">Link to solution, code, or verification script (optional)</label>
+      <input id="solution-url" type="text">
+
+      <label for="solution-submitter-name">Your name (optional)</label>
+      <input id="solution-submitter-name" type="text">
+
+      <label for="solution-submitter-contact">Your contact (optional)</label>
+      <input id="solution-submitter-contact" type="text">
+
+      <label for="solution-submitter-website">Your website (optional)</label>
+      <input id="solution-submitter-website" type="text">
+
+      <label for="solution-notes">Notes (optional)</label>
+      <textarea id="solution-notes" rows="6"></textarea>
+
+      <label class="spam-trap" for="solution-company">Company</label>
+      <input class="spam-trap" id="solution-company" type="text" tabindex="-1" autocomplete="off" data-spam-trap>
+
+      <button type="submit">Submit solution</button>
+      <p id="submission-status" class="submission-status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script type="module" src="submissions.js"></script>
+</body>
+</html>

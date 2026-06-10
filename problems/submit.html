@@ -34,47 +34,14 @@
       <label for="verification-notes">Automatic solution verification script / Other notes</label>
       <textarea id="verification-notes" rows="7"></textarea>
 
+      <label class="spam-trap" for="submitter-company">Company</label>
+      <input class="spam-trap" id="submitter-company" type="text" tabindex="-1" autocomplete="off" data-spam-trap>
+
       <button type="submit">Submit</button>
+      <p id="submission-status" class="submission-status" aria-live="polite"></p>
     </form>
   </main>
 
-  <script>
-    const recipient = 'rybindmitry1@gmail.com';
-
-    function submissionText(statement, author, contact, website, notes) {
-      return [
-        'Problem statement:',
-        statement,
-        '',
-        'Author:',
-        author,
-        '',
-        'Submitter contact:',
-        contact || 'not provided',
-        '',
-        'Submitter website:',
-        website || 'not provided',
-        '',
-        'Automatic solution verification script / Other notes:',
-        notes || 'not provided'
-      ].join('\n');
-    }
-
-    document.getElementById('submit-problem-form').addEventListener('submit', function (event) {
-      event.preventDefault();
-
-      const statement = document.getElementById('problem-statement').value.trim();
-      const author = document.getElementById('problem-author').value.trim();
-      const contact = document.getElementById('submitter-contact').value.trim();
-      const website = document.getElementById('submitter-website').value.trim();
-      const notes = document.getElementById('verification-notes').value.trim();
-      const message = submissionText(statement, author, contact, website, notes);
-      const mailto = 'mailto:' + recipient +
-        '?subject=' + encodeURIComponent('Problem submission') +
-        '&body=' + encodeURIComponent(message);
-
-      window.location.href = mailto;
-    });
-  </script>
+  <script type="module" src="submissions.js"></script>
 </body>
 </html>

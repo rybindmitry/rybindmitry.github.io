@@ -264,6 +264,23 @@ pre {
   margin-top: 4px;
 }
 
+.submission-status {
+  min-height: 1.4em;
+  color: #0f7a45;
+}
+
+.submission-status.error {
+  color: #a11212;
+}
+
+.submit-form .spam-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .comments {
   max-width: 820px;
   margin-top: 28px;
