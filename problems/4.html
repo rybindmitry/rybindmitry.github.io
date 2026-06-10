@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 4 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="4" value="4">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="random walks">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 4</h1>
+      <a class="button-link" href="solution.html?problem=4">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <p>Let $(p_x, r_x)_{x \in \mathbb{Z}_+}$ be a sequence of independent and identically distributed random vectors such that $p_x &gt; 0$, $r_x \geq 0$, and $p_x + r_x \leq 1$. Define the sequence of $2 \times 2$ random matrices</p>
+      <p>\[
+A_x =
+\begin{pmatrix}
+\frac{1 - p_x}{p_x} & \frac{r_x}{p_x} \\
+1 & 0
+\end{pmatrix}.
+\]</p>
+      <p>By the Furstenberg-Kesten theorem, the top Lyapunov exponent $\lambda$ of this matrix sequence is defined almost surely as</p>
+      <p>\[
+\lambda =
+\lim_{n \to \infty}
+\frac{1}{n}
+\log \left\| A_n A_{n-1} \cdots A_1 \right\|.
+\]</p>
+      <p><strong>Open Problem.</strong> Determine a closed-form algebraic expression for $\lambda$, or explicitly characterize the critical phase boundary where $\lambda = 0$, strictly in terms of the marginal joint probability distribution of $(p_1, r_1)$.</p>
+      <p>This matrix product naturally arises when evaluating hitting times and recurrence criteria for one-dimensional random walks in random environments (RWRE) with jumps of size 2.</p>
+    </div>
+
+    <p class="source">Source: <a href="https://sds.cuhk.edu.cn/en/teacher/2238">Prof. Miha Bresar</a>.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">random walks in random environments</a>
+      <a class="tag" href="tags.html">random matrix products</a>
+      <a class="tag" href="tags.html">Lyapunov exponents</a>
+      <a class="tag" href="tags.html">probability</a>
+      <a class="tag" href="tags.html">phase transitions</a>
+    </p>
+
+    <h2>References</h2>
+    <ol>
+      <li>Br&eacute;mont, J. (2002). On some random walks on \(\mathbb{Z}\) in random medium. <em>The Annals of Probability</em>, 30(3), 1266-1312.</li>
+      <li>Solomon, F. (1975). Random walks in a random environment. <em>The Annals of Probability</em>, 3(1), 1-31.</li>
+    </ol>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>Let $(p_x, r_x)_{x \in \mathbb{Z}_+}$ be a sequence of independent and identically distributed random vectors such that $p_x &gt; 0$, $r_x \geq 0$, and $p_x + r_x \leq 1$. Define the sequence of $2 \times 2$ random matrices:
+
+$$A_x = \begin{pmatrix} \frac{1 - p_x}{p_x} & \frac{r_x}{p_x} \\ 1 & 0 \end{pmatrix}$$
+
+By the Furstenberg-Kesten theorem, the top Lyapunov exponent $\lambda$ of this matrix sequence is defined almost surely as:
+
+$$\lambda = \lim_{n \to \infty} \frac{1}{n} \log \| A_n A_{n-1} \cdots A_1 \|$$
+
+\textbf{Open Problem:} Determine a closed-form algebraic expression for $\lambda$, or explicitly characterize the critical phase boundary where $\lambda = 0$, strictly in terms of the marginal joint probability distribution of $(p_1, r_1)$.
+
+\medskip
+
+This matrix product naturally arises when evaluating hitting times and recurrence criteria for 1D Random Walks in Random Environments (RWRE) with jumps of size 2.
+
+\begin{thebibliography}{9}
+
+\bibitem{bremont2002}
+Br\'emont, J. (2002).
+\newblock On some random walks on Z in random medium.
+\newblock \emph{The Annals of Probability}, 30(3), 1266--1312.
+
+\bibitem{solomon1975}
+Solomon, F. (1975).
+\newblock Random walks in a random environment.
+\newblock \emph{The Annals of Probability}, 3(1), 1--31.
+
+\end{thebibliography}</pre>
+    </details>
+
+    <p class="small">Added June 10, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="4"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="3.html">3</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
