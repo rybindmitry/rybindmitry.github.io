@@ -10,6 +10,9 @@ const supabase = configured
   ? createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.publishableKey)
   : null;
 
+const MIN_PROBLEM_STATEMENT_LENGTH = 20;
+const MIN_SOLUTION_TEXT_LENGTH = 20;
+
 const problemForm = document.getElementById("submit-problem-form");
 const solutionForm = document.getElementById("submit-solution-form");
 
@@ -41,8 +44,15 @@ function initProblemForm(form) {
     submit.disabled = true;
     showStatus(status, "Submitting...", false);
 
+    const problemStatement = valueOf("problem-statement");
+    if (problemStatement.length < MIN_PROBLEM_STATEMENT_LENGTH) {
+      submit.disabled = false;
+      showStatus(status, "Problem statement must be at least 20 characters.", true);
+      return;
+    }
+
     const payload = {
-      problem_statement: valueOf("problem-statement"),
+      problem_statement: problemStatement,
       author_name: valueOf("problem-author"),
       submitter_contact: nullableValueOf("submitter-contact"),
       submitter_website: nullableValueOf("submitter-website"),
@@ -94,12 +104,19 @@ function initSolutionForm(form) {
     submit.disabled = true;
     showStatus(status, "Submitting...", false);
 
+    const solutionText = valueOf("solution-text");
+    if (solutionText.length < MIN_SOLUTION_TEXT_LENGTH) {
+      submit.disabled = false;
+      showStatus(status, "Solution must be at least 20 characters.", true);
+      return;
+    }
+
     const payload = {
       problem_id: problemId,
       submitter_name: nullableValueOf("solution-submitter-name"),
       submitter_contact: nullableValueOf("solution-submitter-contact"),
       submitter_website: nullableValueOf("solution-submitter-website"),
-      solution_text: valueOf("solution-text"),
+      solution_text: solutionText,
       solution_url: nullableValueOf("solution-url"),
       notes: nullableValueOf("solution-notes")
     };
