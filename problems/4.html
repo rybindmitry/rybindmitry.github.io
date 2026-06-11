@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="4" value="4">
+        <input id="problem-number" type="number" min="1" max="5" value="4">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -121,7 +121,7 @@ Solomon, F. (1975).
 
     <nav class="bottom-nav" aria-label="Problem navigation">
       <span>Previous problem: <a href="3.html">3</a></span>
-      <span>Next problem: none</span>
+      <span>Next problem: <a href="5.html">5</a></span>
     </nav>
   </main>
 
@@ -129,7 +129,7 @@ Solomon, F. (1975).
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5') {
         window.location.href = problemNumber + '.html';
       }
     });

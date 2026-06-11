@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="4" value="3">
+        <input id="problem-number" type="number" min="1" max="5" value="3">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -201,7 +201,7 @@ where $c_p>0$ depends only on $p$.</pre>
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5') {
         window.location.href = problemNumber + '.html';
       }
     });

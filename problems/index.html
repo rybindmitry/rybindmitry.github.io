@@ -28,7 +28,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="4" value="1">
+        <input id="problem-number" type="number" min="1" max="5" value="1">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -44,7 +44,7 @@
   </header>
 
   <main>
-    <p>There are currently 4 problems in the database.</p>
+    <p>There are currently 5 problems in the database.</p>
 
     <table>
       <thead>
@@ -80,6 +80,12 @@
           <td><span class="status">open</span></td>
           <td><a href="https://sds.cuhk.edu.cn/en/teacher/2238">Prof. Miha Bresar</a></td>
         </tr>
+        <tr>
+          <td><a href="5.html">5</a></td>
+          <td><a href="5.html">Infinitely many symmetric integer fusion systems</a></td>
+          <td><span class="status">open</span></td>
+          <td><a href="https://sites.google.com/view/sebastienpalcoux">S&eacute;bastien Palcoux</a></td>
+        </tr>
       </tbody>
     </table>
   </main>
@@ -88,7 +94,7 @@
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5') {
         window.location.href = problemNumber + '.html';
       }
     });
