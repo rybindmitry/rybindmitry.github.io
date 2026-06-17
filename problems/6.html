@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 6 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="6" value="6">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="toric geometry">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 6</h1>
+      <a class="button-link" href="solution.html?problem=6">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <p>Fix a complete, simplicial fan \(\Sigma\). To it one associates a smooth toric Deligne-Mumford stack \(\mathcal{X}_\Sigma\) via a well-known construction by Cox. A non-empty subset \(I \subseteq \Sigma(1)\) is called a <em>primitive collection</em> if it is not a set of rays of any cone in \(\Sigma\), but each proper subset \(J \subseteq I\) is.</p>
+      <p>Consider the set \(\mathcal{I}\) of all possible unions of primitive collections. For each \(I \in \mathcal{I}\), define the <em>forbidden point</em></p>
+      <p>\[
+q_I = -\sum_{\rho \not\in I} D_\rho
+\in \operatorname{Pic}_{\mathbb{R}}(\mathcal{X}_\Sigma),
+\]</p>
+      <p>and define the <em>forbidden cone</em> \(F_I \subset \operatorname{Pic}(\mathcal{X}_\Sigma)\) by</p>
+      <p>\[
+F_I =
+q_I
++ \sum_{\rho \in I}\mathbb{R}_{\ge 0}D_\rho
+- \sum_{\rho \not\in I}\mathbb{R}_{\ge 0}D_\rho.
+\]</p>
+      <p>A line bundle \(\mathcal{L}\) is called <em>strongly acyclic</em> if its image in \(\operatorname{Pic}_{\mathbb{R}}(\mathcal{X}_\Sigma)\) does not lie in any forbidden cone. Thus, by intersecting the complements of the forbidden cones, we obtain a region \(R\) such that the image of a line bundle \(\mathcal{L}\) in \(\operatorname{Pic}_{\mathbb{R}}(\mathcal{X}_\Sigma)\) lies in \(R\) if and only if it is strongly acyclic.</p>
+      <p>Consequently, if a collection \(S\) of line bundles generates the derived category \(\operatorname{D}^b(\operatorname{coh}\mathcal{X}_\Sigma)\) and for any two line bundles \(\mathcal{L}_1, \mathcal{L}_2 \in S\), the bundle \(\mathcal{L}_1^\vee \otimes \mathcal{L}_2\) lies in \(R\), then \(S\) forms a full strong exceptional collection. Such collections have been proven by Borisov and Hua to exist for the case of Fano DM stacks \(\mathcal{X}_\Sigma\) with \(\operatorname{rk}(\operatorname{Pic}(\mathcal{X}_\Sigma)) \le 2\), i.e. if the primitive generators of the rays \(\Sigma(1)\) are precisely the vertices of a simplicial convex polytope.</p>
+      <p><strong>Problem.</strong> For which complete, simplicial fans \(\Sigma\) can we find a full collection \(S\) of line bundles on the associated DM stack \(\mathcal{X}_\Sigma\) such that for any two \(\mathcal{L}_1, \mathcal{L}_2 \in S\), the tensor product \(\mathcal{L}_1^\vee \otimes \mathcal{L}_2\) is strongly acyclic?</p>
+    </div>
+
+    <p class="source">Source: Aimeric Malter.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">toric geometry</a>
+      <a class="tag" href="tags.html">Deligne-Mumford stacks</a>
+      <a class="tag" href="tags.html">derived categories</a>
+      <a class="tag" href="tags.html">exceptional collections</a>
+      <a class="tag" href="tags.html">line bundles</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>Fix a complete, simplicial fan \(\Sigma\). To it one associates a smooth toric Deligne-Mumford (DM) stack \(\mathcal{X}_\Sigma\) via a well-known construction by Cox. A non-empty subset \(I\subseteq \Sigma(1)\) is called a \textit{primitive collection} if it is not a set of rays of any cone in \(\Sigma\), but each proper subset \(J\subseteq I\) is. Consider the set \(\mathcal{I}\) of all possible unions of primitive collections. For each \(I\in \mathcal{I}\), we define the \textit{forbidden point}
+\[
+q_I=-\sum_{\rho\not\in I}D_\rho\in \operatorname{Pic}_{\R}(\mathcal{X}_\Sigma),
+\]
+and further define the \textit{forbidden cone} \(F_I\subset \operatorname{Pic}(\mathcal{X}_\Sigma)\) to be the set
+\[
+F_I=q_I+\sum_{\rho\in I}\R_{\ge0}D_\rho-\sum_{\rho\not\in I}\R_{\ge0}D_\rho.
+\]
+A line bundle \(\mathcal{L}\) is called \textit{strongly acyclic} if its image in \(\operatorname{Pic}_{\R}(\mathcal{X}_\Sigma)\) does not lie in any forbidden cone. Thus, by intersecting the complements of the forbidden cones, we obtain a region \(R\) such that the image of a line bundle \(\mathcal{L}\) in \(\operatorname{Pic}_{\R}(\mathcal{X}_\Sigma)\) lies in \(R\) if and only if it is strongly acyclic. Consequently, if a collection \(S\) of line bundles generates the derived category \(\operatorname{D}^b(\operatorname{coh}\mathcal{X}_\Sigma)\) and for any two line bundles \(\mathcal{L}_1, \mathcal{L}_2\in S\), \(\mathcal{L}_1^\vee\otimes \mathcal{L}_2\in R\), then \(S\) forms a full strong exceptional collection. Such collections have been proven by Borisov and Hua to exist for the case of Fano DM stacks \(\mathcal{X}_\Sigma\) with \(\operatorname{rk}(\operatorname{Pic}(\mathcal{X}_\Sigma))\le 2\), i.e. if the primitive generators of the rays \(\Sigma(1)\) are precisely the vertices of a simplicial convex polytope.
+
+\underline{Problem:} For which complete, simplicial fans \(\Sigma\) can we find a full collection \(S\) of line bundles on the associated DM stack \(\mathcal{X}_\Sigma\) such that for any two \(\mathcal{L}_1,\mathcal{L}_2\in S\), the tensor product \(\mathcal{L}_1^\vee\otimes \mathcal{L}_2\) is strongly acyclic?</pre>
+    </details>
+
+    <p class="small">Added June 17, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="6"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="5.html">5</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>

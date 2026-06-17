@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="5" value="5">
+        <input id="problem-number" type="number" min="1" max="6" value="5">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -85,7 +85,7 @@ where the unknowns $(x_{i,j,k})$ are completely symmetric in their indices.</pre
 
     <nav class="bottom-nav" aria-label="Problem navigation">
       <span>Previous problem: <a href="4.html">4</a></span>
-      <span>Next problem: none</span>
+      <span>Next problem: <a href="6.html">6</a></span>
     </nav>
   </main>
 
@@ -93,7 +93,7 @@ where the unknowns $(x_{i,j,k})$ are completely symmetric in their indices.</pre
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6') {
         window.location.href = problemNumber + '.html';
       }
     });

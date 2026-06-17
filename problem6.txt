@@ -1,0 +1,15 @@
+```latex
+Fix a complete, simplicial fan \(\Sigma\). To it one associates a smooth toric Deligne-Mumford (DM) stack \(\mathcal{X}_\Sigma\) via a well-known construction by Cox. A non-empty subset \(I\subseteq \Sigma(1)\) is called a \textit{primitive collection} if it is not a set of rays of any cone in \(\Sigma\), but each proper subset \(J\subseteq I\) is. Consider the set \(\mathcal{I}\) of all possible unions of primitive collections. For each \(I\in \mathcal{I}\), we define the \textit{forbidden point}
+\[
+q_I=-\sum_{\rho\not\in I}D_\rho\in \operatorname{Pic}_{\R}(\mathcal{X}_\Sigma),
+\]
+and further define the \textit{forbidden cone} \(F_I\subset \operatorname{Pic}(\mathcal{X}_\Sigma)\) to be the set
+\[
+F_I=q_I+\sum_{\rho\in I}\R_{\ge0}D_\rho-\sum_{\rho\not\in I}\R_{\ge0}D_\rho.
+\]
+A line bundle \(\mathcal{L}\) is called \textit{strongly acyclic} if its image in \(\operatorname{Pic}_{\R}(\mathcal{X}_\Sigma)\) does not lie in any forbidden cone. Thus, by intersecting the complements of the forbidden cones, we obtain a region \(R\) such that the image of a line bundle \(\mathcal{L}\) in \(\operatorname{Pic}_{\R}(\mathcal{X}_\Sigma)\) lies in \(R\) if and only if it is strongly acyclic. Consequently, if a collection \(S\) of line bundles generates the derived category \(\operatorname{D}^b(\operatorname{coh}\mathcal{X}_\Sigma)\) and for any two line bundles \(\mathcal{L}_1, \mathcal{L}_2\in S\), \(\mathcal{L}_1^\vee\otimes \mathcal{L}_2\in R\), then \(S\) forms a full strong exceptional collection. Such collections have been proven by Borisov and Hua to exist for the case of Fano DM stacks \(\mathcal{X}_\Sigma\) with \(\operatorname{rk}(\operatorname{Pic}(\mathcal{X}_\Sigma))\le 2\), i.e. if the primitive generators of the rays \(\Sigma(1)\) are precisely the vertices of a simplicial convex polytope.
+
+\underline{Problem:} For which complete, simplicial fans \(\Sigma\) can we find a full collection \(S\) of line bundles on the associated DM stack \(\mathcal{X}_\Sigma\) such that for any two \(\mathcal{L}_1,\mathcal{L}_2\in S\), the tensor product \(\mathcal{L}_1^\vee\otimes \mathcal{L}_2\) is strongly acyclic?
+```
+
+Author: Aimeric Malter

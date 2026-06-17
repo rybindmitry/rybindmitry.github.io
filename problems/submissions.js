@@ -68,7 +68,7 @@ function initProblemForm(form) {
     }
 
     form.reset();
-    showStatus(status, "Problem submitted. Thank you.", false);
+    showStatus(status, "Problem submitted. Thank you. The problem will appear once checked.", false);
   });
 }
 
