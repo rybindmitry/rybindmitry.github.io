@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="6" value="4">
+        <input id="problem-number" type="number" min="1" max="7" value="4">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -129,7 +129,7 @@ Solomon, F. (1975).
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7') {
         window.location.href = problemNumber + '.html';
       }
     });
