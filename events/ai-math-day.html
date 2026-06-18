@@ -109,6 +109,28 @@
       font-weight: 700;
     }
 
+    .date-time-detail {
+      grid-column: span 2;
+    }
+
+    .location-detail {
+      grid-column: 1 / -1;
+      min-height: 0;
+    }
+
+    .location-detail span {
+      font-size: 1.1rem;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+
+    .location-detail .location-secondary {
+      margin-top: 10px;
+      color: #284968;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
     .content {
       display: grid;
       grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.7fr);
@@ -140,7 +162,7 @@
 
     .schedule-row {
       display: grid;
-      grid-template-columns: 100px minmax(0, 1fr);
+      grid-template-columns: 118px minmax(0, 1fr);
       gap: 14px;
       padding: 12px 0;
       border-bottom: 1px solid #d3e4f8;
@@ -198,6 +220,10 @@
         margin-top: 18px;
       }
 
+      .date-time-detail {
+        grid-column: auto;
+      }
+
       .hero {
         min-height: 68vh;
       }
@@ -230,29 +256,51 @@
 
   <main>
     <section class="details" aria-label="Event details">
-      <div class="detail">
-        <b>Date</b>
-        <span>June 23, 2026</span>
+      <div class="detail date-time-detail">
+        <b>Date and Time</b>
+        <span>14:00-18:00, June 23, 2026</span>
       </div>
-      <div class="detail">
-        <b>Time</b>
-        <span>14:00-18:00</span>
-      </div>
-      <div class="detail">
+      <div class="detail location-detail">
         <b>Location</b>
-        <span>CUHK-Shenzhen Campus</span>
+        <span>CUHK-Shenzhen Campus, Administrative Building West, W201, 2nd floor, SIN Wai Kin International Conference Centre.</span>
+        <span class="location-secondary">University Address: 2001 Longxiang Boulevard, Longgang District, Shenzhen. Enter university through New South Gate or East Gate.</span>
+        <span class="location-secondary">Nearby metro: Universiade Center Station 大运中心站 on Line 16.</span>
       </div>
     </section>
 
     <div class="content">
       <aside>
-        <section class="note">
+        <section class="schedule">
           <h2>Details</h2>
-          <ol>
-            <li>Discussions on latest AI Math abilities and experience.</li>
-            <li>Announcement of <a href="../problems/index.html">CUHK-Shenzhen AI Math Problems Database</a>.</li>
-            <li>Announcement of specialized multi-agent tools to reason about open problems for 1-10 hours.</li>
-          </ol>
+          <p><strong>Approximate Schedule:</strong></p>
+          <div class="schedule-row">
+            <span class="time">14:00-14:15</span>
+            <span>Opening Remarks, Prof. Miha Bresar</span>
+          </div>
+          <div class="schedule-row">
+            <span class="time">14:15-14:45</span>
+            <span>LLMs, Math Research Agents, Evaluations, Dmitry Rybin</span>
+          </div>
+          <div class="schedule-row">
+            <span class="time">14:45-15:00</span>
+            <span><a href="../problems/index.html">Math Problem Database</a>, Cosme Louart</span>
+          </div>
+          <div class="schedule-row">
+            <span class="time">15:00-16:00</span>
+            <span>Sharing problems and experience of using LLMs in Math Research</span>
+          </div>
+          <div class="schedule-row">
+            <span class="time">16:00-17:00</span>
+            <span>Coffee Break and Networking</span>
+          </div>
+          <div class="schedule-row">
+            <span class="time">17:00-17:45</span>
+            <span>Awards for best problem submissions</span>
+          </div>
+          <div class="schedule-row">
+            <span class="time">17:45-18:00</span>
+            <span>Closing Ceremony</span>
+          </div>
         </section>
       </aside>
       <aside>
