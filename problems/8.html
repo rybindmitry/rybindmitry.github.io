@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="8" value="8">
+        <input id="problem-number" type="number" min="1" max="9" value="8">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -151,7 +151,7 @@ X_{n,r} \Rightarrow \sigma B
       <p><strong>Reference.</strong> N. Bansal and O. Feldheim, <a href="https://arxiv.org/abs/2106.06051"><em>The Power of Two Choices in Graphical Allocation</em></a>, arXiv:2106.06051v2 (2021).</p>
     </div>
 
-    <p class="source">Source: Prof. Yilun Chen.</p>
+    <p class="source">Source: <a href="https://yc1225.github.io/my-site/">Prof. Yilun Chen</a>.</p>
 
     <p class="tags">
       <a class="tag" href="tags.html">balls-in-bins</a>
@@ -248,7 +248,7 @@ N. Bansal and O. Feldheim, \emph{The Power of Two Choices in Graphical Allocatio
 
     <nav class="bottom-nav" aria-label="Problem navigation">
       <span>Previous problem: <a href="7.html">7</a></span>
-      <span>Next problem: none</span>
+      <span>Next problem: <a href="9.html">9</a></span>
     </nav>
   </main>
 
@@ -256,7 +256,7 @@ N. Bansal and O. Feldheim, \emph{The Power of Two Choices in Graphical Allocatio
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9') {
         window.location.href = problemNumber + '.html';
       }
     });

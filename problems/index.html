@@ -28,7 +28,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="8" value="1">
+        <input id="problem-number" type="number" min="1" max="9" value="1">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -44,7 +44,7 @@
   </header>
 
   <main>
-    <p>There are currently 8 problems in the database.</p>
+    <p>There are currently 9 problems in the database.</p>
 
     <table>
       <thead>
@@ -84,7 +84,7 @@
           <td><a href="5.html">5</a></td>
           <td><a href="5.html">Infinitely many symmetric integer fusion systems</a></td>
           <td><span class="status">open</span></td>
-          <td><a href="https://sites.google.com/view/sebastienpalcoux">S&eacute;bastien Palcoux</a></td>
+          <td><a href="https://sites.google.com/view/sebastienpalcoux">Prof. S&eacute;bastien Palcoux</a></td>
         </tr>
         <tr>
           <td><a href="6.html">6</a></td>
@@ -102,7 +102,13 @@
           <td><a href="8.html">8</a></td>
           <td><a href="8.html">Greedy graphical balls-in-bins on cycles</a></td>
           <td><span class="status">open</span></td>
-          <td>Prof. Yilun Chen</td>
+          <td><a href="https://yc1225.github.io/my-site/">Prof. Yilun Chen</a></td>
+        </tr>
+        <tr>
+          <td><a href="9.html">9</a></td>
+          <td><a href="9.html">Polynomial growth of Laplacian zeta functions on vertical lines</a></td>
+          <td><span class="status">open</span></td>
+          <td><a href="https://raphaelponge.org">Prof. Raphael Ponge</a></td>
         </tr>
       </tbody>
     </table>
@@ -112,7 +118,7 @@
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9') {
         window.location.href = problemNumber + '.html';
       }
     });

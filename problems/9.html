@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 9 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="9" value="9">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="spectral geometry">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 9</h1>
+      <a class="button-link" href="solution.html?problem=9">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <p>Let \(\Delta_g\) be the Laplacian of a closed Riemannian manifold \((M^n,g)\). Its spectrum can be arranged as a non-decreasing sequence,</p>
+      <p>\[
+\lambda_0(\Delta_g)
+\leq
+\lambda_1(\Delta_g)
+\leq
+\lambda_2(\Delta_g)
+\leq
+\cdots,
+\]</p>
+      <p>where each eigenvalue is repeated according to multiplicity. Its zeta function is defined by</p>
+      <p>\[
+\zeta(\Delta_g;s)
+:=
+\sum \lambda_j(\Delta_g)^{-s},
+\qquad
+\operatorname{Re} s > \frac{n}{2}.
+\]</p>
+      <p>It has a meromorphic extension to \(\mathbb{C}\) with at worst simple poles on</p>
+      <p>\[
+\Sigma
+=
+\left\{
+\frac{n}{2}-j;
+\ j=0,1,2,\ldots
+\right\}.
+\]</p>
+      <p><strong>Question.</strong> Given any \(\delta \in (0,1)\), can we find \(\kappa > 0\) such that</p>
+      <p>\[
+\left|
+\zeta\bigl(\Delta_g; n/2-\delta + iy\bigr)
+\right|
+=
+\operatorname{O}\left(|y|^\kappa\right)
+\qquad
+\text{as } |y|\rightarrow \infty?
+\]</p>
+    </div>
+
+    <p class="source">Source: <a href="https://raphaelponge.org">Prof. Raphael Ponge</a>.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">spectral geometry</a>
+      <a class="tag" href="tags.html">zeta functions</a>
+      <a class="tag" href="tags.html">Laplacians</a>
+      <a class="tag" href="tags.html">Riemannian geometry</a>
+      <a class="tag" href="tags.html">complex analysis</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>Let $\Delta_g$ be the Laplacian of a closed Riemannian manifold $(M^n,g)$. Its spectrum can be arranged as a non-decreasing sequence,
+\[
+ \lambda_0(\Delta_g)\leq \lambda_1(\Delta_g) \leq \lambda_2(\Delta_g) \leq \cdots,
+\]
+where each eigenvalue is repeated according to multiplicity. Its zeta function is defined by
+\[
+ \zeta(\Delta_g;s):= \sum \lambda_j(\Delta_g)^{-s}, \qquad \operatorname{Re} s>\frac{n}{2}.
+\]
+It has a meromorphic extension to $\mathbb C$ with at worst simple poles on $\Sigma=\left\{ \frac{n}{2}-j; \ j=0,1,2,\ldots\right\}$.
+
+\textbf{Question.}
+Given any $\delta\in(0,1)$, can we find $\kappa>0$ such that
+\[
+ \left|\zeta\big(\Delta_g; n/2-\delta +iy\big)\right| = \operatorname{O}\left(|y|^\kappa\right)\qquad \text{as}\ |y|\rightarrow \infty?
+\]</pre>
+    </details>
+
+    <p class="small">Added June 21, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="9"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="8.html">8</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
