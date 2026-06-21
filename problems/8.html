@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 8 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="8" value="8">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="balls-in-bins">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 8</h1>
+      <a class="button-link" href="solution.html?problem=8">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>Greedy Graphical Balls-in-Bins on Cycles</h2>
+      <p>Bansal and Feldheim conjecture that, for the classical local greedy allocation process on an \(n\)-cycle, both the max-min gap and the upper gap above the mean are of order \(\sqrt n\) in the long-run regime, and that the centered load profile has a Brownian scaling limit. The formulation below fixes the model, observables, and time regime.</p>
+
+      <p><strong>Model.</strong> Let \(C_n = (V_n,E_n)\) be the cycle with \(V_n = \mathbb{Z}/n\mathbb{Z}\) and \(E_n = \{\{i,i+1\}: i \in V_n\}\). Loads start at \(L_i^{(n)}(0)=0\). At each time \(t \ge 1\), choose an edge \(e_t = \{i,j\}\) uniformly from \(E_n\). Put the new ball at an endpoint of smaller current load, breaking ties by an independent fair coin:</p>
+      <p>\[
+A_t \in \operatorname*{arg\,min}_{v \in e_t} L_v^{(n)}(t-1),
+\qquad
+L_v^{(n)}(t)
+=
+L_v^{(n)}(t-1) + \mathbf{1}_{\{v=A_t\}}.
+\]</p>
+      <p>With average load \(\overline{L}^{(n)}(t)=t/n\), define</p>
+      <p>\[
+\operatorname{Gap}_n(t)
+=
+\max_i L_i^{(n)}(t)-\min_i L_i^{(n)}(t),
+\qquad
+\operatorname{UGap}_n(t)
+=
+\max_i\bigl(L_i^{(n)}(t)-\overline{L}^{(n)}(t)\bigr).
+\]</p>
+
+      <p><strong>Stationary version.</strong> The lower bound cannot hold from time \(0\), so the clean statement is stationary for load differences. Let</p>
+      <p>\[
+\Delta^{(n)}(t)
+=
+\bigl(
+L_1^{(n)}(t)-L_0^{(n)}(t),
+\ldots,
+L_{n-1}^{(n)}(t)-L_0^{(n)}(t)
+\bigr).
+\]</p>
+      <p>This Markov chain removes common additive shifts and has deterministic phase because \(\sum_{i=1}^{n-1}\Delta_i^{(n)}(t) \equiv t \pmod n\). For \(r \in \{0,\ldots,n-1\}\), let \(\Pi_{n,r}\) be a phase-stationary law, so one transition sends \(\Pi_{n,r}\) to \(\Pi_{n,r+1 \pmod n}\). Given \(\Delta \sim \Pi_{n,r}\), set \(\ell_0=0\), \(\ell_i=\Delta_i\), and center</p>
+      <p>\[
+x_i = \ell_i - \frac{1}{n}\sum_{k=0}^{n-1}\ell_k.
+\]</p>
+      <p>Define the stationary observables</p>
+      <p>\[
+\operatorname{Gap}_{n,r}^{\pi}
+=
+\max_i x_i-\min_i x_i,
+\qquad
+\operatorname{UGap}_{n,r}^{\pi}
+=
+\max_i x_i,
+\]</p>
+      <p>which do not depend on the chosen additive representative.</p>
+
+      <p><strong>Main conjecture.</strong> Uniformly over phases \(r\),</p>
+      <p>\[
+\operatorname{Gap}_{n,r}^{\pi}
+=
+\Theta_{\mathbb{P}}(\sqrt n),
+\qquad
+\operatorname{UGap}_{n,r}^{\pi}
+=
+\Theta_{\mathbb{P}}(\sqrt n).
+\]</p>
+      <p>Equivalently, for every \(\varepsilon \in (0,1)\) there are constants \(0 \lt c_\varepsilon \lt C_\varepsilon \lt \infty\) and \(n_0(\varepsilon)\) such that, for all \(n \ge n_0(\varepsilon)\), all phases \(r\), and \(Y \in \{\operatorname{Gap}_{n,r}^{\pi}, \operatorname{UGap}_{n,r}^{\pi}\}\),</p>
+      <p>\[
+\mathbb{P}_{\Pi_{n,r}}
+\!\left\{
+c_\varepsilon\sqrt n \le Y \le C_\varepsilon\sqrt n
+\right\}
+\ge
+1-\varepsilon.
+\]</p>
+      <p>A finite-time reading is allowed only after burn-in: if \(t_n \equiv r_n \pmod n\) and</p>
+      <p>\[
+\left\lVert
+\mathcal{L}(\Delta^{(n)}(t_n))-\Pi_{n,r_n}
+\right\rVert_{\mathrm{TV}}
+\to 0,
+\]</p>
+      <p>then \(\operatorname{Gap}_n(t_n)\) and \(\operatorname{UGap}_n(t_n)\) should satisfy the same \(\Theta_{\mathbb{P}}(\sqrt n)\) bounds.</p>
+
+      <p><strong>Brownian refinement.</strong> From the same centered stationary profile, form the periodic linear interpolation \(X_{n,r}\) by \(X_{n,r}(i/n)=x_i/\sqrt n\). Let \(B_0\) be a standard Brownian bridge on \([0,1]\) and set</p>
+      <p>\[
+B(s)
+=
+B_0(s)-\int_0^1 B_0(u)\,du.
+\]</p>
+      <p>A stronger conjecture is that there exists \(\sigma \in (0,\infty)\) such that, uniformly in \(r\),</p>
+      <p>\[
+X_{n,r} \Rightarrow \sigma B
+\qquad
+\text{in } C([0,1]).
+\]</p>
+      <p>Consequently,</p>
+      <p>\[
+\frac{\operatorname{Gap}_{n,r}^{\pi}}{\sqrt n}
+\Rightarrow
+\sigma(\sup B-\inf B),
+\qquad
+\frac{\operatorname{UGap}_{n,r}^{\pi}}{\sqrt n}
+\Rightarrow
+\sigma\sup B.
+\]</p>
+      <p><strong>Scope.</strong> The conjecture is for the simple cycle, the local greedy endpoint comparison rule, and fair random tie-breaking. It concerns both the max-min gap and the upper gap above the average in the phase-stationary/post-burn-in regime.</p>
+      <p><strong>Reference.</strong> N. Bansal and O. Feldheim, <a href="https://arxiv.org/abs/2106.06051"><em>The Power of Two Choices in Graphical Allocation</em></a>, arXiv:2106.06051v2 (2021).</p>
+    </div>
+
+    <p class="source">Source: Prof. Yilun Chen.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">balls-in-bins</a>
+      <a class="tag" href="tags.html">load balancing</a>
+      <a class="tag" href="tags.html">stochastic processes</a>
+      <a class="tag" href="tags.html">Markov chains</a>
+      <a class="tag" href="tags.html">probability</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>\textbf{Greedy Graphical Balls-in-Bins on Cycles}
+
+\textbf{Purpose.}
+Bansal and Feldheim conjecture that, for the classical local greedy allocation process on an $n$-cycle, both the max-min gap and the upper gap above the mean are of order $\sqrt n$ in the long-run regime, and that the centered load profile has a Brownian scaling limit. The formulation below fixes the model, observables, and time regime.
+
+\textbf{Model.}
+Let $C_n=(V_n,E_n)$ be the cycle with $V_n=\mathbb Z/n\mathbb Z$ and
+$E_n=\{\{i,i+1\}:i\in V_n\}$. Loads start at $L_i^{(n)}(0)=0$. At each time $t\ge 1$, choose an edge $e_t=\{i,j\}$ uniformly from $E_n$. Put the new ball at an endpoint of smaller current load, breaking ties by an independent fair coin:
+\[
+A_t\in\operatorname*{arg\,min}_{v\in e_t}L_v^{(n)}(t-1),
+\qquad
+L_v^{(n)}(t)=L_v^{(n)}(t-1)+\mathbf{1}_{\{v=A_t\}}.
+\]
+With average load $\overline L^{(n)}(t)=t/n$, define
+\[
+\operatorname{Gap}_n(t)=\max_i L_i^{(n)}(t)-\min_i L_i^{(n)}(t),
+\qquad
+\operatorname{UGap}_n(t)=\max_i\bigl(L_i^{(n)}(t)-\overline L^{(n)}(t)\bigr).
+\]
+
+\textbf{Stationary version.}
+The lower bound cannot hold from time $0$, so the clean statement is stationary for load differences. Let
+\[
+\Delta^{(n)}(t)=\bigl(L_1^{(n)}(t)-L_0^{(n)}(t),\ldots,L_{n-1}^{(n)}(t)-L_0^{(n)}(t)\bigr).
+\]
+This Markov chain removes common additive shifts and has deterministic phase because
+$\sum_{i=1}^{n-1}\Delta_i^{(n)}(t)\equiv t\pmod n$.
+For $r\in\{0,\ldots,n-1\}$, let $\Pi_{n,r}$ be a phase-stationary law, so one transition sends $\Pi_{n,r}$ to $\Pi_{n,r+1\pmod n}$. Given $\Delta\sim\Pi_{n,r}$, set $\ell_0=0$, $\ell_i=\Delta_i$, and center
+\[
+x_i=\ell_i-\frac1n\sum_{k=0}^{n-1}\ell_k.
+\]
+Define the stationary observables
+\[
+\operatorname{Gap}_{n,r}^{\pi}=\max_i x_i-\min_i x_i,
+\qquad
+\operatorname{UGap}_{n,r}^{\pi}=\max_i x_i,
+\]
+which do not depend on the chosen additive representative.
+
+\textbf{Main conjecture.}
+Uniformly over phases $r$,
+\[
+\operatorname{Gap}_{n,r}^{\pi}=\Theta_{\mathbb P}(\sqrt n),
+\qquad
+\operatorname{UGap}_{n,r}^{\pi}=\Theta_{\mathbb P}(\sqrt n).
+\]
+Equivalently, for every $\varepsilon\in(0,1)$ there are constants $0&lt;c_\varepsilon&lt;C_\varepsilon&lt;\infty$ and $n_0(\varepsilon)$ such that, for all $n\ge n_0(\varepsilon)$, all phases $r$, and
+$Y\in\{\operatorname{Gap}_{n,r}^{\pi},\operatorname{UGap}_{n,r}^{\pi}\}$,
+\[
+\mathbb P_{\Pi_{n,r}}\!\left\{c_\varepsilon\sqrt n\le Y\le C_\varepsilon\sqrt n\right\}\ge 1-\varepsilon.
+\]
+A finite-time reading is allowed only after burn-in: if $t_n\equiv r_n\pmod n$ and
+$\lVert\mathcal L(\Delta^{(n)}(t_n))-\Pi_{n,r_n}\rVert_{\mathrm{TV}}\to0$, then $\operatorname{Gap}_n(t_n)$ and $\operatorname{UGap}_n(t_n)$ should satisfy the same $\Theta_{\mathbb P}(\sqrt n)$ bounds.
+
+\textbf{Brownian refinement.}
+From the same centered stationary profile, form the periodic linear interpolation $X_{n,r}$ by
+$X_{n,r}(i/n)=x_i/\sqrt n$. Let $B_0$ be a standard Brownian bridge on $[0,1]$ and set
+\[
+B(s)=B_0(s)-\int_0^1 B_0(u)\,du.
+\]
+A stronger conjecture is that there exists $\sigma\in(0,\infty)$ such that, uniformly in $r$,
+\[
+X_{n,r}\Rightarrow\sigma B
+\qquad\text{in }C([0,1]).
+\]
+Consequently,
+\[
+\frac{\operatorname{Gap}_{n,r}^{\pi}}{\sqrt n}\Rightarrow\sigma(\sup B-\inf B),
+\qquad
+\frac{\operatorname{UGap}_{n,r}^{\pi}}{\sqrt n}\Rightarrow\sigma\sup B.
+\]
+
+\textbf{Scope.}
+The conjecture is for the simple cycle, the local greedy endpoint comparison rule, and fair random tie-breaking. It concerns both the max-min gap and the upper gap above the average in the phase-stationary/post-burn-in regime.
+
+\textbf{Reference:}
+N. Bansal and O. Feldheim, \emph{The Power of Two Choices in Graphical Allocation}, arXiv:2106.06051v2 (2021).</pre>
+    </details>
+
+    <p class="small">Added June 21, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="8"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="7.html">7</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
