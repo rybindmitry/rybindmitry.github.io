@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Problem 2 - CUHK-Shenzhen AI Math Problems</title>
+  <title>Problem 10 - CUHK-Shenzhen AI Math Problems</title>
   <link rel="icon" type="images/png" href="../images/cuhk.png">
   <link rel="stylesheet" href="problems.css?v=4">
   <script>
@@ -26,12 +26,12 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="11" value="2">
+        <input id="problem-number" type="number" min="1" max="11" value="10">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
         <label for="tag-name">Tag</label>
-        <input id="tag-name" type="text" value="operator">
+        <input id="tag-name" type="text" value="algebra">
         <button type="submit">Go</button>
       </form>
       <a href="1.html">Random problem</a>
@@ -43,67 +43,49 @@
 
   <main>
     <div class="problem-heading">
-      <h1>Problem 2</h1>
-      <a class="button-link" href="solution.html?problem=2">Submit a solution</a>
+      <h1>Problem 10</h1>
+      <a class="button-link" href="solution.html?problem=10">Submit a solution</a>
     </div>
     <p><span class="status">open</span></p>
 
     <div class="statement">
-      <p>Let \(f:[0,1]^2\to\mathbb{R}\) be a continuous strictly convex function.</p>
-      <p>Suppose \(X\) and \(Y\) are commuting positive contractions on a Hilbert space \(K\), and \(P\in B(K)\) is an orthogonal projection such that \(PXP\) and \(PYP\) commute.</p>
-      <p>Assume that</p>
+      <p>We define a <em>dogma</em> as a right-cancellative magma \((D,\star)\) with the property that</p>
       <p>\[
-P\,f(X,Y)\,P
-=
-P\,f(PXP,PYP)\,P.
-\]</p>
-      <p>Does it follow that \(P\) reduces both \(X\) and \(Y\)? Equivalently,</p>
-      <p>\[
-PX=XP,
+(x \star y) \star y = y \star x
 \qquad
-PY=YP.
+\text{for all } x,y \in D.
 \]</p>
+      <ol>
+        <li>Find a dogma of cardinality \(1881\).</li>
+        <li>For which \(n\) does there exist a dogma of cardinality \(n\)?</li>
+      </ol>
     </div>
 
-    <p class="source">Source: <a href="https://bilichboris.github.io/">Boris Bilich</a>.</p>
+    <p class="source">Source: Ma Li.</p>
 
     <p class="tags">
-      <a class="tag" href="tags.html">operator theory</a>
-      <a class="tag" href="tags.html">convexity</a>
-      <a class="tag" href="tags.html">Hilbert spaces</a>
-      <a class="tag" href="tags.html">positive contractions</a>
+      <a class="tag" href="tags.html">algebra</a>
+      <a class="tag" href="tags.html">magmas</a>
+      <a class="tag" href="tags.html">finite algebra</a>
+      <a class="tag" href="tags.html">cancellative structures</a>
+      <a class="tag" href="tags.html">combinatorics</a>
     </p>
 
     <details>
       <summary>LaTeX source</summary>
-      <pre>Let \(f:[0,1]^2\to\mathbb{R}\) be a continuous strictly convex function.
+      <pre>We define a "dogma" as a right-cancellative magma $(D, \star)$ with the property that $(x \star y) \star y = y \star x$ for all $x, y \in D$.
 
-Suppose \(X\) and \(Y\) are commuting positive contractions on a Hilbert space \(K\), and \(P\in B(K)\) is an orthogonal projection such that \(PXP\) and \(PYP\) commute.
-
-Assume that
-
-\[
-P\,f(X,Y)\,P
-=
-P\,f(PXP,PYP)\,P.
-\]
-
-Does it follow that \(P\) reduces both \(X\) and \(Y\)? Equivalently,
-
-\[
-PX=XP,
-\qquad
-PY=YP.
-\]</pre>
+1. Find a dogma of cardinality $1881$.
+2. For which $n$ does there exist a dogma of cardinality $n$?</pre>
     </details>
 
-    <p class="small">Added June 1, 2026.</p>
+    <p class="small">Added June 22, 2026.</p>
 
-    <section id="comments" class="comments" data-problem-id="2"></section>
+    <section id="comments" class="comments" data-problem-id="10"></section>
 
     <nav class="bottom-nav" aria-label="Problem navigation">
-      <span>Previous problem: <a href="1.html">1</a></span>
-      <span>Next problem: <a href="3.html">3</a></span>
+      <span>Previous problem: <a href="9.html">9</a></span>
+      <span>Next problem: <a href="11.html">11</a></span>
     </nav>
   </main>
 

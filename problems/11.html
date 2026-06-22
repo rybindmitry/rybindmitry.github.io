@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 11 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="11" value="11">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="path homology">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 11</h1>
+      <a class="button-link" href="solution.html?problem=11">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>AI-assisted classification of field-dependent path Euler characteristic</h2>
+      <p>Fu and Ivanov showed that the path Euler characteristic of a digraph can depend on the coefficient field. In their example, the rational and mod-2 path Euler characteristics are different. This behaviour cannot occur for ordinary topological spaces, so it reveals a genuinely non-classical feature of path homology.</p>
+      <p>Field dependence is related to thick non-bipartite classes in the graph of short moves. However, this does not yet give a full classification: one must understand when such classes occur, when they are minimal, and when their contributions to the Euler characteristic do or do not cancel across dimensions.</p>
+      <p>The aim of this problem is to use AI to organise this phenomenon systematically. For finite digraphs, we want to search for examples where the path Euler characteristic over the rationals differs from the path Euler characteristic over the field with two elements.</p>
+      <p><strong>Problem.</strong> Which directed graphs have field-dependent path Euler characteristic, and what directed structures are responsible?</p>
+    </div>
+
+    <p class="source">Source: Briony Eldridge.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">path homology</a>
+      <a class="tag" href="tags.html">directed graphs</a>
+      <a class="tag" href="tags.html">Euler characteristic</a>
+      <a class="tag" href="tags.html">field dependence</a>
+      <a class="tag" href="tags.html">computational topology</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>AI-assisted classification of field-dependent path Euler characteristic.
+
+Fu and Ivanov showed that the path Euler characteristic of a digraph can depend on the coefficient field. In their example, the rational and mod-2 path Euler characteristics are different. This behaviour cannot occur for ordinary topological spaces, so it reveals a genuinely non-classical feature of path homology.
+
+Field dependence is related to thick non-bipartite classes in the graph of short moves. However, this does not yet give a full classification: one must understand when such classes occur, when they are minimal, and when their contributions to the Euler characteristic do or do not cancel across dimensions.
+
+The aim of this problem is to use AI to organise this phenomenon systematically. For finite digraphs, we want to search for examples where the path Euler characteristic over the rationals differs from the path Euler characteristic over the field with two elements.
+
+Problem: Which directed graphs have field-dependent path Euler characteristic, and what directed structures are responsible?</pre>
+    </details>
+
+    <p class="small">Added June 22, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="11"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="10.html">10</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
