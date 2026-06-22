@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="11" value="7">
+        <input id="problem-number" type="number" min="1" max="12" value="7">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -49,7 +49,10 @@
     <p><span class="status">open</span></p>
 
     <div class="statement">
-      <p>Let \(\Omega \subset \mathbb{R}^3\) be a bounded box consisting of a physical domain and a Cartesian PML layer. For \(j = 1,2,3\), let</p>
+      <h2>\(k\)-explicit inf-sup stability for the truncated Cartesian PML Maxwell system</h2>
+
+      <h2>Setup</h2>
+      <p>Let \(\Omega = (-L,L)^3 \subset \mathbb{R}^3\) be a box, partitioned into a physical domain \(\Omega_{\mathrm{phys}} = (-L_0,L_0)^3\), with \(0 &lt; L_0 &lt; L\), and a Cartesian PML layer \(\Omega_{\mathrm{pml}} = \Omega \setminus \Omega_{\mathrm{phys}}\) of thickness \(\delta = L-L_0\). For \(j = 1,2,3\), let \(\sigma_j \in L^\infty(\mathbb{R})\) depend only on \(x_j\), with \(\sigma_j \ge 0\) and \(\sigma_j \equiv 0\) on \([-L_0,L_0]\), and set</p>
       <p>\[
 \widetilde{x}_j(x_j)
 =
@@ -58,11 +61,9 @@ x_j + \mathrm{i}\int_0^{x_j}\sigma_j(t)\,dt,
 \alpha_j := \frac{d\widetilde{x}_j}{dx_j}
 =
 1 + \mathrm{i}\sigma_j,
-\]</p>
-      <p>where \(\sigma_j \ge 0\) vanishes in the physical domain and provides positive absorption in the PML layer. Define</p>
-      <p>\[
+\qquad
 A
-=
+:=
 \operatorname{diag}
 \left(
 \frac{\alpha_2\alpha_3}{\alpha_1},
@@ -70,7 +71,7 @@ A
 \frac{\alpha_1\alpha_2}{\alpha_3}
 \right).
 \]</p>
-      <p>The truncated Cartesian PML Maxwell equation is</p>
+      <p>Given \(k &gt; 0\) and \(\mathbf{f}\in L^2(\Omega)^3\), the truncated Cartesian PML Maxwell problem is to find \(\mathbf{E}\in H_0(\operatorname{curl};\Omega)\) with</p>
       <p>\[
 \operatorname{curl}\big(A\operatorname{curl}\mathbf{E}\big)
 -
@@ -78,13 +79,11 @@ k^2 A^{-1}\mathbf{E}
 =
 A^{-1}\mathbf{f}
 \quad \text{in } \Omega,
-\]</p>
-      <p>with the outer boundary condition</p>
-      <p>\[
+\qquad
 \mathbf{n}\times \mathbf{E} = 0
 \quad \text{on } \partial\Omega.
 \]</p>
-      <p>The corresponding variational problem is: find \(\mathbf{E} \in H_0(\operatorname{curl};\Omega)\) such that</p>
+      <p>Equivalently, \(\mathbf{E}\) solves the variational problem</p>
       <p>\[
 a_{\mathrm{pml}}(\mathbf{E},\mathbf{v})
 =
@@ -99,31 +98,59 @@ a_{\mathrm{pml}}(\mathbf{u},\mathbf{v})
 (A\operatorname{curl}\mathbf{u},\operatorname{curl}\mathbf{v})_{\Omega}
 -
 k^2(A^{-1}\mathbf{u},\mathbf{v})_{\Omega},
+\qquad
+\|\mathbf{u}\|_{\operatorname{curl},k,\Omega}^2
+:=
+\|\operatorname{curl}\mathbf{u}\|_{L^2(\Omega)}^2
++
+k^2\|\mathbf{u}\|_{L^2(\Omega)}^2,
 \]</p>
-      <p>and \((\cdot,\cdot)_\Omega\) denotes the complex \(L^2\)-inner product.</p>
-      <p>Assume that the PML coefficients are uniformly bounded and non-degenerate, and that the PML layer is sufficiently thick so that the PML reflection error is exponentially small.</p>
-      <p><strong>Problem.</strong> Can one prove a \(k\)-explicit inf-sup estimate</p>
+      <p>and \((\cdot,\cdot)_\Omega\) is the complex \(L^2\)-inner product.</p>
+
+      <h2>Assumptions</h2>
+      <p><strong>(A1) Uniform non-degeneracy.</strong> There is a constant \(\sigma_{\max}\ge 0\) with \(0\le \sigma_j\le \sigma_{\max}\) for all \(j\). Hence \(A,A^{-1}\in L^\infty(\Omega;\mathbb{C}^{3\times 3})\) and</p>
+      <p>\[
+\|A\|_{L^\infty(\Omega)}+\|A^{-1}\|_{L^\infty(\Omega)}
+\le C_A(\sigma_{\max}).
+\]</p>
+      <p><strong>(A2) Absorption parameter.</strong> The PML strength is measured by</p>
+      <p>\[
+\tau := k\min_j\int_{L_0}^{L}\sigma_j(t)\,dt,
+\]</p>
+      <p>which is allowed to depend on \(k\), through \(\delta\), \(\sigma_{\max}\), or the profile \(\sigma_j\).</p>
+
+      <h2>Problem</h2>
+      <p>Find an exponent \(q\ge 0\) and a PML strength prescription \(\tau=\tau(k)\), for example \(\tau\ge c_0\log k\), such that, for all sufficiently large \(k\), the sesquilinear form \(a_{\mathrm{pml}}\) satisfies the \(k\)-explicit inf-sup estimate</p>
       <p>\[
 \inf_{0 \ne \mathbf{u} \in H_0(\operatorname{curl};\Omega)}
 \sup_{0 \ne \mathbf{v} \in H_0(\operatorname{curl};\Omega)}
 \frac{|a_{\mathrm{pml}}(\mathbf{u},\mathbf{v})|}
 {\|\mathbf{u}\|_{\operatorname{curl},k,\Omega}\|\mathbf{v}\|_{\operatorname{curl},k,\Omega}}
 \ge
-\beta_{\mathrm{pml}}(k) > 0,
+\beta_{\mathrm{pml}}(k)
+\ge
+Ck^{-q},
 \]</p>
-      <p>where</p>
+      <p>with \(C &gt; 0\) independent of \(k\). Determine the smallest such \(q\).</p>
+
+      <h2>Sub-problems: a proposed route</h2>
+      <p>Let \(\mathbf{E}_{\infty}\) denote the exact outgoing solution of the constant-coefficient Maxwell problem on \(\mathbb{R}^3\), with Silver-M&uuml;ller radiation condition, for the same data \(\mathbf{f}\).</p>
+      <p><strong>(P1) Resolvent estimate.</strong> For the nontrapping case, prove a \(k\)-explicit polynomial resolvent bound for the exact outgoing problem,</p>
       <p>\[
-\|\mathbf{u}\|_{\operatorname{curl},k,\Omega}^2
-:=
-\|\operatorname{curl}\mathbf{u}\|_{L^2(\Omega)}^2
-+
-k^2\|\mathbf{u}\|_{L^2(\Omega)}^2.
+\|\mathbf{E}_{\infty}\|_{\operatorname{curl},k}
+\le
+Ck^p\|\mathbf{f}\|_{L^2},
+\qquad
+p\ge 0,
 \]</p>
-      <p>In particular, can one show that</p>
+      <p>where \(C\) is independent of \(k\).</p>
+      <p><strong>(P2) Exponential PML accuracy.</strong> Prove that the truncated PML solution approximates the exact outgoing solution exponentially in the absorption: there exist \(C,c &gt; 0\), independent of \(k\), with</p>
       <p>\[
-\beta_{\mathrm{pml}}(k) \ge C k^{-q}
+\|\mathbf{E}-\mathbf{E}_{\infty}\|_{\operatorname{curl},k,\Omega_{\mathrm{phys}}}
+\le
+Ce^{-c\tau}\|\mathbf{f}\|_{L^2}.
 \]</p>
-      <p>for some \(q \ge 0\), with \(C\) independent of \(k\), under suitable PML thickness and absorption assumptions?</p>
+      <p>Show that (P1)-(P2), together with (A1)-(A2), imply the inf-sup estimate of the problem, and identify the resulting exponent \(q=q(p)\) and the required absorption \(\tau(k)\).</p>
     </div>
 
     <p class="source">Source: <a href="https://www.shihua-gong.org/?from=@">Prof. Shihua Gong</a>.</p>
@@ -138,22 +165,26 @@ k^2\|\mathbf{u}\|_{L^2(\Omega)}^2.
 
     <details>
       <summary>LaTeX source</summary>
-      <pre>Let \(\Omega\subset\mathbb R^3\) be a bounded box consisting of a physical
-domain and a Cartesian PML layer. For \(j=1,2,3\), let
+      <pre>\(k\)-explicit inf-sup stability for the truncated Cartesian PML Maxwell system
+
+Setup.
+Let \(\Omega=(-L,L)^3\subset\mathbb R^3\) be a box, partitioned into a physical
+domain \(\Omega_{\mathrm{phys}}=(-L_0,L_0)^3\), with \(0&lt;L_0&lt;L\), and a
+Cartesian PML layer \(\Omega_{\mathrm{pml}}=\Omega\setminus\Omega_{\mathrm{phys}}\)
+of thickness \(\delta=L-L_0\). For \(j=1,2,3\), let
+\(\sigma_j\in L^\infty(\mathbb R)\) depend only on \(x_j\), with
+\(\sigma_j\ge0\) and \(\sigma_j\equiv0\) on \([-L_0,L_0]\), and set
 \[
-  \widetilde x_j(x_j)
+  \widetilde{x}_j(x_j)
   =
-  x_j+\ri\int_0^{x_j}\sigma_j(t)\,dt,
+  x_j+\mathrm{i}\int_0^{x_j}\sigma_j(t)\,dt,
   \qquad
-  \alpha_j:=\frac{d\widetilde x_j}{dx_j}
+  \alpha_j:=\frac{d\widetilde{x}_j}{dx_j}
   =
-  1+\ri\sigma_j ,
-\]
-where \(\sigma_j\ge0\) vanishes in the physical domain and provides positive
-absorption in the PML layer. Define
-\[
+  1+\mathrm{i}\sigma_j,
+  \qquad
   A
-  =
+  :=
   \operatorname{diag}
   \left(
   \frac{\alpha_2\alpha_3}{\alpha_1},
@@ -162,65 +193,109 @@ absorption in the PML layer. Define
   \right).
 \]
 
-The truncated Cartesian PML Maxwell equation is
+Given \(k&gt;0\) and \(\mathbf f\in L^2(\Omega)^3\), the truncated Cartesian PML
+Maxwell problem is to find \(\mathbf E\in H_0(\operatorname{curl};\Omega)\) with
 \[
-  \curl\big(A\curl \bE\big)
+  \operatorname{curl}\big(A\operatorname{curl}\mathbf E\big)
   -
-  k^2 A^{-1}\bE
+  k^2A^{-1}\mathbf E
   =
   A^{-1}\mathbf f
   \quad \text{in } \Omega,
-\]
-with the outer boundary condition
-\[
-  \bn\times \bE=0
+  \qquad
+  \mathbf n\times \mathbf E=0
   \quad \text{on } \partial\Omega .
 \]
 
-The corresponding variational problem is: find
-\(\bE\in H_0(\curl;\Omega)\) such that
+Equivalently, \(\mathbf E\) solves the variational problem
 \[
-  a_{\rm pml}(\bE,\bv)
+  a_{\mathrm{pml}}(\mathbf E,\mathbf v)
   =
-  \langle A^{-1}\mathbf f,\bv\rangle,
+  \langle A^{-1}\mathbf f,\mathbf v\rangle,
   \qquad
-  \forall \bv\in H_0(\curl;\Omega),
+  \forall \mathbf v\in H_0(\operatorname{curl};\Omega),
 \]
 where
 \[
-  a_{\rm pml}(\bu,\bv)
+  a_{\mathrm{pml}}(\mathbf u,\mathbf v)
   :=
-  (A\curl\bu,\curl\bv)_{\Omega}
+  (A\operatorname{curl}\mathbf u,\operatorname{curl}\mathbf v)_{\Omega}
   -
-  k^2(A^{-1}\bu,\bv)_{\Omega},
+  k^2(A^{-1}\mathbf u,\mathbf v)_{\Omega},
 \]
-and \((\cdot,\cdot)_\Omega\) denotes the complex \(L^2\)-inner product.
-
-Assume that the PML coefficients are uniformly bounded and non-degenerate,
-and that the PML layer is sufficiently thick so that the PML reflection
-error is exponentially small. Can one prove a \(k\)-explicit inf-sup estimate
+and
 \[
-  \inf_{0\ne \bu\in H_0(\curl;\Omega)}
-  \sup_{0\ne \bv\in H_0(\curl;\Omega)}
-  \frac{|a_{\rm pml}(\bu,\bv)|}
-  {\|\bu\|_{\curl,k,\Omega}\|\bv\|_{\curl,k,\Omega}}
-  \ge
-  \beta_{\rm pml}(k)>0,
-\]
-where
-\[
-  \|\bu\|_{\curl,k,\Omega}^2
+  \|\mathbf u\|_{\operatorname{curl},k,\Omega}^2
   :=
-  \|\curl\bu\|_{L^2(\Omega)}^2
+  \|\operatorname{curl}\mathbf u\|_{L^2(\Omega)}^2
   +
-  k^2\|\bu\|_{L^2(\Omega)}^2 .
+  k^2\|\mathbf u\|_{L^2(\Omega)}^2,
 \]
-In particular, can one show that
+where \((\cdot,\cdot)_\Omega\) is the complex \(L^2\)-inner product.
+
+Assumptions.
+
+(A1) Uniform non-degeneracy. There is a constant \(\sigma_{\max}\ge0\) with
+\(0\le\sigma_j\le\sigma_{\max}\) for all \(j\). Hence
+\(A,A^{-1}\in L^\infty(\Omega;\mathbb C^{3\times3})\) and
 \[
-  \beta_{\rm pml}(k)\ge C k^{-q}
+  \|A\|_{L^\infty(\Omega)}+\|A^{-1}\|_{L^\infty(\Omega)}
+  \le C_A(\sigma_{\max}).
 \]
-for some \(q\ge0\), with \(C\) independent of \(k\), under suitable PML
-thickness and absorption assumptions?</pre>
+
+(A2) Absorption parameter. The PML strength is measured by
+\[
+  \tau:=k\min_j\int_{L_0}^{L}\sigma_j(t)\,dt,
+\]
+which is allowed to depend on \(k\), through \(\delta\), \(\sigma_{\max}\), or
+the profile \(\sigma_j\).
+
+Problem.
+Find an exponent \(q\ge0\) and a PML strength prescription \(\tau=\tau(k)\),
+for example \(\tau\ge c_0\log k\), such that, for all sufficiently large \(k\),
+the sesquilinear form \(a_{\mathrm{pml}}\) satisfies the \(k\)-explicit inf-sup
+estimate
+\[
+  \inf_{0\ne \mathbf u\in H_0(\operatorname{curl};\Omega)}
+  \sup_{0\ne \mathbf v\in H_0(\operatorname{curl};\Omega)}
+  \frac{|a_{\mathrm{pml}}(\mathbf u,\mathbf v)|}
+  {\|\mathbf u\|_{\operatorname{curl},k,\Omega}
+   \|\mathbf v\|_{\operatorname{curl},k,\Omega}}
+  \ge
+  \beta_{\mathrm{pml}}(k)
+  \ge
+  Ck^{-q},
+\]
+with \(C&gt;0\) independent of \(k\). Determine the smallest such \(q\).
+
+Sub-problems (a proposed route).
+Let \(\mathbf E_{\infty}\) denote the exact outgoing solution of the
+constant-coefficient Maxwell problem on \(\mathbb R^3\), with Silver-M\"uller
+radiation condition, for the same data \(\mathbf f\).
+
+(P1) Resolvent estimate. For the nontrapping case, prove a \(k\)-explicit
+polynomial resolvent bound for the exact outgoing problem,
+\[
+  \|\mathbf E_{\infty}\|_{\operatorname{curl},k}
+  \le
+  Ck^p\|\mathbf f\|_{L^2},
+  \qquad
+  p\ge0,
+\]
+where \(C\) is independent of \(k\).
+
+(P2) Exponential PML accuracy. Prove that the truncated PML solution
+approximates the exact outgoing solution exponentially in the absorption:
+there exist \(C,c&gt;0\), independent of \(k\), with
+\[
+  \|\mathbf E-\mathbf E_{\infty}\|_{\operatorname{curl},k,\Omega_{\mathrm{phys}}}
+  \le
+  Ce^{-c\tau}\|\mathbf f\|_{L^2}.
+\]
+
+Show that (P1)-(P2), together with (A1)-(A2), imply the inf-sup estimate of the
+Problem, and identify the resulting exponent \(q=q(p)\) and the required
+absorption \(\tau(k)\).</pre>
     </details>
 
     <p class="small">Added June 18, 2026.</p>
@@ -237,7 +312,7 @@ thickness and absorption assumptions?</pre>
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12') {
         window.location.href = problemNumber + '.html';
       }
     });

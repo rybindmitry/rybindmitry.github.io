@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 12 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="12" value="12">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="finite geometry">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 12</h1>
+      <a class="button-link" href="solution.html?problem=12">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <p>Let \(V\) be a sufficiently large finite-dimensional vector space over \(\mathbb{F}_q\), and let \(M \leq V\) be a fixed \(m\)-dimensional subspace. Given a \(\delta\)-coloring of the \(1\)-dimensional subspaces of \(V\), determine for which parameters \((m,k,l,q,\delta)\) one can always find a \(k\)-dimensional subspace \(K \leq V\) satisfying</p>
+      <p>\[
+\dim(M \cap K)=l,
+\]</p>
+      <p>such that all \(1\)-dimensional subspaces of \(K \setminus M\) receive the same color.</p>
+
+      <h2>Remark</h2>
+      <p>The condition \(l=0\) is trivial, while counterexamples exist when the condition is \(0 \leq l \leq k-2\). Thus the main question is to identify the correct geometric conditions under which such a subspace \(K\) must exist.</p>
+
+      <h2>What are we concerned about?</h2>
+      <p>Consider first the case of \(\delta=2\) and \(k=2\). Let \(S\) be a fixed subspace of codimension \(2\). In general, a \(2\)-dimensional subspace \(T\) disjoint from \(S\) need not exist. Indeed, there are exactly \(q+1\) hyperplanes containing \(S\), and every such \(T\) must intersect each of them. Coloring all points in \(x\) of these hyperplanes red and all points in the remaining \(q+1-x\) hyperplanes blue yields a coloring with no monochromatic \(T\).</p>
+      <p>Now suppose that \(S\) has codimension \(3\). Projecting onto a complementary \(3\)-space shows that the existence of a monochromatic \(2\)-space is equivalent to the inequality</p>
+      <p>\[
+R_q(2,2) \leq 3,
+\]</p>
+      <p>which holds precisely when \(q=2\). In that case, any complementary \(3\)-space \(R\) contains a monochromatic \(2\)-subspace \(T\). More generally, the same argument shows that one should require</p>
+      <p>\[
+\operatorname{codim}(S) \geq R_q(2,2).
+\]</p>
+      <p>An analogous projection argument applies when \(T\) is required to intersect \(S\) in a \(1\)-dimensional subspace: one considers a subspace \(R\) of dimension \(R_q(2,2)\) meeting \(S\) in a hyperplane and then applies the Ramsey property inside \(R\).</p>
+    </div>
+
+    <p class="source">Source: Zhang Shexi.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">finite geometry</a>
+      <a class="tag" href="tags.html">Ramsey theory</a>
+      <a class="tag" href="tags.html">finite fields</a>
+      <a class="tag" href="tags.html">projective spaces</a>
+      <a class="tag" href="tags.html">colorings</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>Let \(V\) be a sufficiently large finite-dimensional vector space over \(\mathbb{F}_q\), and let \(M \leq V\) be a fixed \(m\)-dimensional subspace. Given a \(\delta\)-coloring of the \(1\)-dimensional subspaces of \(V\), determine for which parameters \((m,k,l,q,\delta)\) one can always find a \(k\)-dimensional subspace \(K \leq V\) satisfying
+\[
+\dim(M\cap K)=l,
+\]
+such that all \(1\)-dimensional subspaces of \(K\setminus M\) receive the same color.
+
+Remark.
+
+The condition \(l=0\) is trivial, while counterexamples exist when the condition is \(0\leq l\leq k-2\). Thus the main question is to identify the correct geometric conditions under which such a subspace \(K\) must exist.
+
+What are we concerned about?
+
+Consider first the case of \(\delta=2\) and \(k=2\). Let \(S\) be a fixed subspace of codimension \(2\). In general, a \(2\)-dimensional subspace \(T\) disjoint from \(S\) need not exist. Indeed, there are exactly \(q+1\) hyperplanes containing \(S\), and every such \(T\) must intersect each of them. Coloring all points in \(x\) of these hyperplanes red and all points in the remaining \(q+1-x\) hyperplanes blue yields a coloring with no monochromatic \(T\).
+
+Now suppose that \(S\) has codimension \(3\). Projecting onto a complementary \(3\)-space shows that the existence of a monochromatic \(2\)-space is equivalent to the inequality
+\[
+R_q(2,2)\leq 3,
+\]
+which holds precisely when \(q=2\). In that case, any complementary \(3\)-space \(R\) contains a monochromatic \(2\)-subspace \(T\). More generally, the same argument shows that one should require
+\[
+\operatorname{codim}(S)\geq R_q(2,2).
+\]
+An analogous projection argument applies when \(T\) is required to intersect \(S\) in a \(1\)-dimensional subspace: one considers a subspace \(R\) of dimension \(R_q(2,2)\) meeting \(S\) in a hyperplane and then applies the Ramsey property inside \(R\).</pre>
+    </details>
+
+    <p class="small">Added June 22, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="12"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="11.html">11</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>

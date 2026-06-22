@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="11" value="6">
+        <input id="problem-number" type="number" min="1" max="12" value="6">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -49,8 +49,8 @@
     <p><span class="status">open</span></p>
 
     <div class="statement">
-      <p>Fix a complete, simplicial fan \(\Sigma\). To it one associates a smooth toric Deligne-Mumford stack \(\mathcal{X}_\Sigma\) via a well-known construction by Cox. A non-empty subset \(I \subseteq \Sigma(1)\) is called a <em>primitive collection</em> if it is not a set of rays of any cone in \(\Sigma\), but each proper subset \(J \subseteq I\) is.</p>
-      <p>Consider the set \(\mathcal{I}\) of all possible unions of primitive collections. For each \(I \in \mathcal{I}\), define the <em>forbidden point</em></p>
+      <p>Fix a complete, simplicial fan \(\Sigma\). To it one associates a smooth toric Deligne-Mumford (DM) stack \(\mathcal{X}_\Sigma\) via a well-known construction by Cox. A non-empty subset \(I \subseteq \Sigma(1)\) is called a <em>primitive collection</em> if it is not a set of rays of any cone in \(\Sigma\), but each proper subset \(J \subseteq I\) is.</p>
+      <p>Consider the set \(\mathcal{I}\) of all possible proper subsets \(I \subsetneq \Sigma(1)\) that can be written as a union of primitive collections. For each \(I \in \mathcal{I}\), define the <em>forbidden point</em></p>
       <p>\[
 q_I = -\sum_{\rho \not\in I} D_\rho
 \in \operatorname{Pic}_{\mathbb{R}}(\mathcal{X}_\Sigma),
@@ -63,7 +63,7 @@ q_I
 - \sum_{\rho \not\in I}\mathbb{R}_{\ge 0}D_\rho.
 \]</p>
       <p>A line bundle \(\mathcal{L}\) is called <em>strongly acyclic</em> if its image in \(\operatorname{Pic}_{\mathbb{R}}(\mathcal{X}_\Sigma)\) does not lie in any forbidden cone. Thus, by intersecting the complements of the forbidden cones, we obtain a region \(R\) such that the image of a line bundle \(\mathcal{L}\) in \(\operatorname{Pic}_{\mathbb{R}}(\mathcal{X}_\Sigma)\) lies in \(R\) if and only if it is strongly acyclic.</p>
-      <p>Consequently, if a collection \(S\) of line bundles generates the derived category \(\operatorname{D}^b(\operatorname{coh}\mathcal{X}_\Sigma)\) and for any two line bundles \(\mathcal{L}_1, \mathcal{L}_2 \in S\), the bundle \(\mathcal{L}_1^\vee \otimes \mathcal{L}_2\) lies in \(R\), then \(S\) forms a full strong exceptional collection. Such collections have been proven by Borisov and Hua to exist for the case of Fano DM stacks \(\mathcal{X}_\Sigma\) with \(\operatorname{rk}(\operatorname{Pic}(\mathcal{X}_\Sigma)) \le 2\), i.e. if the primitive generators of the rays \(\Sigma(1)\) are precisely the vertices of a simplicial convex polytope.</p>
+      <p>Consequently, if a collection \(S\) of line bundles generates the derived category \(\operatorname{D}^b(\operatorname{coh}\mathcal{X}_\Sigma)\) and for any two line bundles \(\mathcal{L}_1, \mathcal{L}_2 \in S\), \(\mathcal{L}_1^\vee \otimes \mathcal{L}_2 \in R\), then \(S\) forms a full strong exceptional collection. Such collections have been proven by Borisov and Hua to exist for the case of Fano DM stacks \(\mathcal{X}_\Sigma\) with \(\operatorname{rk}(\operatorname{Pic}(\mathcal{X}_\Sigma)) \le 2\), i.e. if the primitive generators of the rays \(\Sigma(1)\) are precisely the vertices of a simplicial convex polytope.</p>
       <p><strong>Problem.</strong> For which complete, simplicial fans \(\Sigma\) can we find a full collection \(S\) of line bundles on the associated DM stack \(\mathcal{X}_\Sigma\) such that for any two \(\mathcal{L}_1, \mathcal{L}_2 \in S\), the tensor product \(\mathcal{L}_1^\vee \otimes \mathcal{L}_2\) is strongly acyclic?</p>
     </div>
 
@@ -79,7 +79,7 @@ q_I
 
     <details>
       <summary>LaTeX source</summary>
-      <pre>Fix a complete, simplicial fan \(\Sigma\). To it one associates a smooth toric Deligne-Mumford (DM) stack \(\mathcal{X}_\Sigma\) via a well-known construction by Cox. A non-empty subset \(I\subseteq \Sigma(1)\) is called a \textit{primitive collection} if it is not a set of rays of any cone in \(\Sigma\), but each proper subset \(J\subseteq I\) is. Consider the set \(\mathcal{I}\) of all possible unions of primitive collections. For each \(I\in \mathcal{I}\), we define the \textit{forbidden point}
+      <pre>Fix a complete, simplicial fan \(\Sigma\). To it one associates a smooth toric Deligne-Mumford (DM) stack \(\mathcal{X}_\Sigma\) via a well-known construction by Cox. A non-empty subset \(I\subseteq \Sigma(1)\) is called a \textit{primitive collection} if it is not a set of rays of any cone in \(\Sigma\), but each proper subset \(J\subseteq I\) is. Consider the set \(\mathcal{I}\) of all possible proper subsets \(I\subsetneq \Sigma(1)\) that can be written as a union of primitive collections. For each \(I\in \mathcal{I}\), we define the \textit{forbidden point}
 \[
 q_I=-\sum_{\rho\not\in I}D_\rho\in \operatorname{Pic}_{\R}(\mathcal{X}_\Sigma),
 \]
@@ -106,7 +106,7 @@ A line bundle \(\mathcal{L}\) is called \textit{strongly acyclic} if its image i
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12') {
         window.location.href = problemNumber + '.html';
       }
     });

@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="11" value="11">
+        <input id="problem-number" type="number" min="1" max="12" value="11">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -85,7 +85,7 @@ Problem: Which directed graphs have field-dependent path Euler characteristic, a
 
     <nav class="bottom-nav" aria-label="Problem navigation">
       <span>Previous problem: <a href="10.html">10</a></span>
-      <span>Next problem: none</span>
+      <span>Next problem: <a href="12.html">12</a></span>
     </nav>
   </main>
 
@@ -93,7 +93,7 @@ Problem: Which directed graphs have field-dependent path Euler characteristic, a
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12') {
         window.location.href = problemNumber + '.html';
       }
     });
