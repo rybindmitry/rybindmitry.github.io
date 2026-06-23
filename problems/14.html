@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 14 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="14" value="14">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="polynomial identity testing">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 14</h1>
+      <a class="button-link" href="solution.html?problem=14">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>Deterministic polynomial-time PIT for straight-line program equivalence</h2>
+
+      <p>During compiler optimization, proving that an optimized basic block of code is semantically equivalent to its unoptimized original form is a core objective. For loop-free programs with basic arithmetic, this verification reduces to checking the equivalence of straight-line programs (SLPs).</p>
+
+      <p>Let \(\mathbb{F}\) be a field and \(X=\{x_1,\ldots,x_n\}\) be a set of input variables. An SLP \(\mathcal{P}\) of size \(s\) over \(\mathbb{F}[X]\) is a sequence of assignments</p>
+      <p>\[
+v_i = A_i \circ B_i,
+\qquad
+\text{for } i \in \{1,\dots,s\},
+\]</p>
+      <p>where the operation \(\circ \in \{+,-,\times\}\), and the operands \(A_i,B_i\) are either constants from \(\mathbb{F}\), an input variable from \(X\), or previously computed intermediate values \(v_j\) with \(j &lt; i\). The output of the SLP is \(v_s\), which represents a formal multivariate polynomial \(P(X)\in\mathbb{F}[X]\).</p>
+
+      <p>Given two SLPs \(\mathcal{P}_1\) and \(\mathcal{P}_2\) computing polynomials \(P_1(X)\) and \(P_2(X)\), the equivalence checking problem asks whether</p>
+      <p>\[
+P_1(X)-P_2(X)\equiv 0
+\]</p>
+      <p>identically.</p>
+
+      <p>A direct expansion of the two polynomials is not feasible in general. An SLP of size \(s\) can compute a polynomial of degree as large as \(2^s\), with exponentially many monomials. Thus, expanding the output into a sum-of-monomials representation may require exponential time and space in the worst case, making naive compiler verification impractical.</p>
+
+      <p>This problem is an instance of Polynomial Identity Testing, or PIT. By the Schwartz-Zippel lemma, PIT has a randomized polynomial-time algorithm. By evaluating the SLP at randomly chosen points from a sufficiently large finite subset \(S\subset\mathbb{F}\) and checking whether the result is zero, one can detect if \(P_1-P_2\) is not the zero polynomial with high probability.</p>
+
+      <p><strong>Open Problem.</strong> Does general arithmetic-circuit PIT admit a deterministic polynomial-time algorithm? Deterministic polynomial-time algorithms are known for several restricted circuit classes. However, no unconditional deterministic polynomial-time algorithm is known for PIT in the general case.</p>
+    </div>
+
+    <p class="source">Source: Vincentius Janssen.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">polynomial identity testing</a>
+      <a class="tag" href="tags.html">arithmetic circuits</a>
+      <a class="tag" href="tags.html">straight-line programs</a>
+      <a class="tag" href="tags.html">compiler verification</a>
+      <a class="tag" href="tags.html">computational complexity</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>During compiler optimization, proving that an optimized basic block of code is semantically equivalent to its unoptimized original form is a core objective. For loop-free programs with basic arithmetic, this verification reduces to checking the equivalence of straight-line programs (SLPs).
+
+Let \(\mathbb{F}\) be a field and \(X = \{x_1, \ldots, x_n\}\) be a set of input variables. An SLP, \(\mathcal{P}\) of size \(s\) over \(\mathbb{F}[X]\) is a sequence of assignments:
+
+\[
+v_i = A_i \circ B_i, \quad \text{for } i \in \{1, \dots, s\}
+\]
+
+where the operation \(\circ \in \{+, -, \times\}\), and the operands \(A_i, B_i\) are either constants from \(\mathbb{F}\), an input variable from \(X\), or previously computed intermediate values \(v_j\) with \(j &lt; i\). The output of the SLP is \(v_s\), which represents a formal multivariate polynomial \(P(X) \in \mathbb{F}[X]\).
+
+Given two SLPs \(\mathcal{P}_1\) and \(\mathcal{P}_2\) computing polynomials \(P_1(X)\) and \(P_2(X)\), the equivalence checking problem asks whether \(P_1(X) - P_2(X) \equiv 0\) identically.
+
+A direct expansion of the two polynomials is not feasible in general. An SLP of size \(s\) can compute a polynomial of degree as large as \(2^s\), with exponentially many monomials. Thus, expanding the output into a sum-of-monomials representation may require exponential time and space in the worst-case, making naive compiler verification impractical.
+
+This problem is an instance of Polynomial Identity Testing, or PIT. By the Schwartz-Zippel lemma, PIT has a randomized polynomial-time algorithm. By evaluating SLP at randomly chosen points from a sufficiently large finite subset of the field \(S \subset \mathbb{F}\) and checking whether the result is zero, we can detect if \(P_1 - P_2\) is not the zero polynomial with high probability.
+
+\textbf{Open Problem:} Does general arithmetic-circuit PIT admit a deterministic polynomial-time algorithm? Deterministic polynomial-time algorithms are known for several restricted circuit classes. However, no unconditional deterministic polynomial-time algorithm is known for PIT in the general case.</pre>
+    </details>
+
+    <p class="small">Added June 23, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="14"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="13.html">13</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>

@@ -26,7 +26,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="12" value="6">
+        <input id="problem-number" type="number" min="1" max="14" value="6">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -106,7 +106,7 @@ A line bundle \(\mathcal{L}\) is called \textit{strongly acyclic} if its image i
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14') {
         window.location.href = problemNumber + '.html';
       }
     });

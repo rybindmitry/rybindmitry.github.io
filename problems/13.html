@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 13 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="14" value="13">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="Brownian motion">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 13</h1>
+      <a class="button-link" href="solution.html?problem=13">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>First-passage time of Brownian motion to an exponentially decaying boundary</h2>
+
+      <p>Let \((W_t)_{t \ge 0}\) be a standard Brownian motion with \(W_0 = 0\), and let \(b : [0,\infty) \to \mathbb{R}_{>0}\) be the exponentially decaying boundary</p>
+      <p>\[
+b(t) = b_0 e^{-ct},
+\qquad
+b_0 > 0,\ c > 0.
+\]</p>
+      <p>Define the first-passage time</p>
+      <p>\[
+\tau = \inf\{\, t > 0 : W_t \ge b(t) \,\},
+\]</p>
+      <p>with distribution function \(F(t) = \mathbb{P}(\tau \le t)\). We are interested in finding explicitly the distribution of \(\tau\). Beyond its theoretical interest, this problem has a direct application in computational neuroscience: neuronal spiking is often modeled as Brownian motion hitting a threshold, with the post-spike refractory period modeled as an exponentially decaying boundary; see Tamborrino (2016).</p>
+
+      <h2>Known facts</h2>
+      <p><strong>Existence and continuity of the density.</strong> Since \(b(0)=b_0 > W_0\) and \(b\) is continuously differentiable on \((0,\infty)\), then according to Strassen (1967) and Durbin (1985), \(F\) admits a density \(f\) with respect to Lebesgue measure that is continuous on \((0,\infty)\).</p>
+
+      <h2>Open problem</h2>
+      <p>Despite the regularity theory above, no closed-form expression for \(f\) in terms of elementary or standard special functions (Bessel, Airy, parabolic cylinder, confluent hypergeometric, etc.) is known.</p>
+      <p><strong>Problem.</strong> Find an explicit closed-form expression for the density \(f(t)\), \(t > 0\), of the first-passage time</p>
+      <p>\[
+\tau = \inf\{\, t > 0 : W_t \ge b(t)\,\}
+\]</p>
+      <p>of a standard Brownian motion to the exponentially decaying boundary \(b(t)=b_0e^{-ct}\).</p>
+      <p>This stands in contrast to the handful of boundaries for which \(f\) is known explicitly: linear (Bachelier-L&eacute;vy), square-root (Breiman 1967), and quadratic (Salminen 1988; Groeneboom 1989).</p>
+
+      <h2>The Volterra integral equation formulation</h2>
+      <p>The natural rigorous substitute for an explicit formula is the characterization of \(f\) as a solution of a Volterra integral equation of the first kind, due to Peskir (2002).</p>
+      <p><strong>Master integral equation.</strong> Define \(H_{-1} = \phi\), the standard normal density, and \(H_n(x)=\int_x^\infty H_{n-1}(z)\,dz\) for \(n\ge 0\). Then for every integer \(n\ge -1\) and every \(t>0\),</p>
+      <p>\[
+t^{n/2} H_n\!\left(\frac{b(t)}{\sqrt t}\right)
+=
+\int_0^t (t-s)^{n/2}
+H_n\!\left(\frac{b(t)-b(s)}{\sqrt{t-s}}\right) f(s)\,ds.
+\tag{*}
+\]</p>
+      <p>This family holds for the exponential boundary \(b(t)=b_0e^{-ct}\) for every \(t>0\), since \(b\) is continuously differentiable on all of \((0,\infty)\) and Peskir's regularity hypotheses are satisfied for any such boundary. Here \(f(s)\,ds\) stands in for \(F(ds)\), valid because \(F\) admits a continuous density \(f\) for this boundary; Peskir's original system holds in the more general Lebesgue-Stieltjes form \(F(ds)\) for any continuous boundary, with no density assumed.</p>
+      <p>The simplest member, \(n=-1\), with \(H_{-1}=\phi\), is the classical generalized Abel equation of Durbin (1971):</p>
+      <p>\[
+\int_0^t \frac{1}{\sqrt{t-s}}
+\phi\!\left(\frac{b(t)-b(s)}{\sqrt{t-s}}\right) f(s)\,ds
+=
+\frac{1}{\sqrt t}
+\phi\!\left(\frac{b(t)}{\sqrt t}\right),
+\qquad
+\phi(x)=\frac{1}{\sqrt{2\pi}}e^{-x^2/2}.
+\]</p>
+      <p>For \(b(t)=b_0e^{-ct}\), both equations above are fully explicit in \(b(t)-b(s)=b_0(e^{-ct}-e^{-cs})\). The only unknown remaining is \(f\) inside the integral. The open problem above is therefore equivalent to inverting the master equation in closed form for this specific kernel.</p>
+
+      <h2>References</h2>
+      <p>V. Strassen, <em>Almost sure behaviour of sums of independent random variables and martingales</em>, Proc. 5th Berkeley Symp. Math. Statist. Prob. <strong>3</strong> (1967), 315-343.</p>
+      <p>J. Durbin, <em>Boundary-crossing probabilities for the Brownian motion and Poisson processes and techniques for computing the power of the Kolmogorov-Smirnov test</em>, J. Appl. Probab. <strong>8</strong>(3) (1971), 431-453.</p>
+      <p>J. Durbin, <em>The first-passage density of a continuous Gaussian process to a general boundary</em>, J. Appl. Probab. <strong>22</strong> (1985), 99-122.</p>
+      <p>G. Peskir, <em>On integral equations arising in the first-passage problem for Brownian motion</em>, J. Integral Equations Appl. <strong>14</strong>(4) (2002), 397-423.</p>
+      <p>L. Breiman, <em>First exit times from a square root boundary</em>, in Proc. Fifth Berkeley Symp. Math. Statist. Probab., Vol. II, Part 2 (1967), 9-16.</p>
+      <p>P. Salminen, <em>On the first hitting time and the last exit time for a Brownian motion to/from a moving boundary</em>, Adv. Appl. Probab. <strong>20</strong>(2) (1988), 411-426.</p>
+      <p>P. Groeneboom, <em>Brownian motion with a parabolic drift and Airy functions</em>, Probab. Theory Related Fields <strong>81</strong> (1989), 79-109.</p>
+      <p>M. Tamborrino, <em>Approximation of the first passage time density of a Wiener process to an exponentially decaying boundary by two-piecewise linear threshold</em>, Math. Biosci. Eng. <strong>13</strong>(3) (2016), 613-629.</p>
+    </div>
+
+    <p class="source">Source: <a href="https://warwick.ac.uk/fac/sci/statistics/staff/research_students/ahari/">Aria Ahari</a>.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">Brownian motion</a>
+      <a class="tag" href="tags.html">first-passage times</a>
+      <a class="tag" href="tags.html">stochastic processes</a>
+      <a class="tag" href="tags.html">Volterra integral equations</a>
+      <a class="tag" href="tags.html">computational neuroscience</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>\title{An Open Problem: First-Passage time of Brownian Motion \\
+to an Exponentially Decaying Boundary}
+
+Let \((W_t)_{t \ge 0}\) be a standard Brownian motion with \(W_0 = 0\), and let
+\(b : [0,\infty) \to \mathbb{R}_{&gt;0}\) be the exponentially decaying boundary
+\[
+  b(t) = b_0 \, e^{-ct}, \qquad b_0 &gt; 0,\ c &gt; 0.
+\]
+Define the first-passage time
+\[
+  \tau \;=\; \inf\{\, t &gt; 0 : W_t \ge b(t) \,\},
+\]
+with distribution function \(F(t) = \mathbb{P}(\tau \le t)\). We are interested in finding explicitly the distribution of \(\tau\). Beyond its theoretical interest, this problem has a direct application in computational neuroscience: neuronal spiking is often modeled as Brownian motion hitting a threshold, with the post-spike refractory period modeled as an exponentially decaying boundary, see \cite{Tamborrino2016}.
+
+\section*{Known facts}
+
+\begin{fact}[Existence and continuity of the density]
+Since \(b(0) = b_0 &gt; W_0\) and \(b\) is continuously differentiable on \((0,\infty)\), then according to \cite{Strassen1967, Durbin1985}, \(F\) admits a density \(f\) with respect to Lebesgue measure that is continuous on \((0,\infty)\).
+\end{fact}
+
+\section*{Open problem}
+
+Despite the regularity theory above, no closed-form expression for \(f\) in
+terms of elementary or standard special functions (Bessel, Airy, parabolic
+cylinder, confluent hypergeometric, etc.) is known.
+
+\begin{problem}
+Find an explicit closed-form expression for the density
+\(f(t)\), \(t &gt; 0\), of the first-passage time
+\[
+  \tau = \inf\{\, t &gt; 0 : W_t \ge b(t)\,\}
+\]
+of a standard Brownian motion to the exponentially decaying boundary
+\(b(t) = b_0 e^{-ct}\).
+\end{problem}
+
+This stands in contrast to the handful of boundaries for which \(f\)
+\emph{is} known explicitly; linear (Bachelier--L\'evy), square-root
+\cite{Breiman1967}, and quadratic \cite{Salminen1988,Groeneboom1989}.
+
+\section*{The Volterra integral equation formulation}
+
+The natural rigorous substitute for an explicit formula is the
+characterization of \(f\) as a solution of a Volterra integral equation of
+the first kind, due to Peskir \cite{Peskir2002}.
+
+\begin{fact}[Master integral equation]
+Define \(H_{-1} = \phi\), the standard normal density, and
+\(H_n(x) = \int_x^\infty H_{n-1}(z)\,dz\) for \(n \ge 0\). Then for every
+integer \(n \ge -1\) and every \(t&gt;0\),
+\begin{equation}
+  t^{n/2}\, H_n\!\left(\frac{b(t)}{\sqrt t}\right)
+  \;=\;
+  \int_0^t (t-s)^{n/2}\, H_n\!\left(\frac{b(t)-b(s)}{\sqrt{t-s}}\right) f(s)\, ds.
+  \tag{$\ast$}
+  \label{eq:master}
+\end{equation}
+This family holds for the exponential boundary \(b(t) = b_0 e^{-ct}\) for
+every \(t &gt; 0\), since \(b\) is continuously differentiable on all of
+\((0,\infty)\) and Peskir's regularity hypotheses are satisfied for any such
+boundary. (Here \(f(s)\,ds\) stands in for \(F(ds)\), valid because we have
+already established that \(F\) admits a continuous density \(f\) for this
+boundary; Peskir's original system holds in the more general
+Lebesgue--Stieltjes form \(F(ds)\) for any continuous boundary, with no
+density assumed --- see \cite{Peskir2002} for the general case.)
+\end{fact}
+
+The simplest member, \(n=-1\), with \(H_{-1}=\phi\), is the classical
+\emph{generalized Abel equation} of Durbin \cite{Durbin1971}:
+\begin{equation}
+  \int_0^t \frac{1}{\sqrt{t-s}} \,
+  \phi\!\left(\frac{b(t)-b(s)}{\sqrt{t-s}}\right) f(s)\, ds
+  \;=\;
+  \frac{1}{\sqrt{t}} \, \phi\!\left(\frac{b(t)}{\sqrt{t}}\right),
+  \qquad \phi(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}.
+  \label{eq:durbin}
+\end{equation}
+
+For \(b(t) = b_0 e^{-ct}\), both \eqref{eq:master} and \eqref{eq:durbin}
+are fully explicit in \(b(t) - b(s) = b_0\big(e^{-ct} - e^{-cs}\big)\) --- the
+only unknown remaining is \(f\) inside the integral. The open problem above
+is therefore equivalent to inverting \eqref{eq:master} in closed form for
+this specific kernel.
+
+\begin{thebibliography}{99}
+
+\bibitem{Strassen1967}
+V.~Strassen,
+\emph{Almost sure behaviour of sums of independent random variables and martingales},
+Proc.\ 5th Berkeley Symp.\ Math.\ Statist.\ Prob.\ \textbf{3} (1967), 315--343.
+
+\bibitem{Durbin1971}
+J.~Durbin,
+\emph{Boundary-crossing probabilities for the Brownian motion and Poisson processes and techniques for computing the power of the Kolmogorov--Smirnov test},
+J.\ Appl.\ Probab.\ \textbf{8}(3) (1971), 431--453.
+
+\bibitem{Durbin1985}
+J.~Durbin,
+\emph{The first-passage density of a continuous Gaussian process to a general boundary},
+J.\ Appl.\ Probab.\ \textbf{22} (1985), 99--122.
+
+\bibitem{Peskir2002}
+G.~Peskir,
+\emph{On integral equations arising in the first-passage problem for Brownian motion},
+J.\ Integral Equations Appl.\ \textbf{14}(4) (2002), 397--423.
+
+\bibitem{Breiman1967}
+L.~Breiman,
+\emph{First exit times from a square root boundary},
+in Proc.\ Fifth Berkeley Symp.\ Math.\ Statist.\ Probab., Vol.\ II,
+Part 2 (1967), 9--16.
+
+\bibitem{Salminen1988}
+P.~Salminen,
+\emph{On the first hitting time and the last exit time for a Brownian motion to/from a moving boundary},
+Adv.\ Appl.\ Probab.\ \textbf{20}(2) (1988), 411--426.
+
+\bibitem{Groeneboom1989}
+P.~Groeneboom,
+\emph{Brownian motion with a parabolic drift and Airy functions},
+Probab.\ Theory Related Fields \textbf{81} (1989), 79--109.
+
+\bibitem{Tamborrino2016}
+M.~Tamborrino,
+\emph{Approximation of the first passage time density of a Wiener process to an exponentially decaying boundary by two-piecewise linear threshold},
+Math.\ Biosci.\ Eng.\ \textbf{13}(3) (2016), 613--629.
+
+\end{thebibliography}</pre>
+    </details>
+
+    <p class="small">Added June 23, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="13"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="12.html">12</a></span>
+      <span>Next problem: <a href="14.html">14</a></span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
