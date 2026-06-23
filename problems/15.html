@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Problem 1 - CUHK-Shenzhen AI Math Problems</title>
+  <title>Problem 15 - CUHK-Shenzhen AI Math Problems</title>
   <link rel="icon" type="images/png" href="../images/cuhk.png">
   <link rel="stylesheet" href="problems.css?v=4">
   <script>
@@ -26,12 +26,12 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="16" value="1">
+        <input id="problem-number" type="number" min="1" max="16" value="15">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
         <label for="tag-name">Tag</label>
-        <input id="tag-name" type="text" value="matrix">
+        <input id="tag-name" type="text" value="Strichartz estimates">
         <button type="submit">Go</button>
       </form>
       <a href="1.html">Random problem</a>
@@ -43,41 +43,51 @@
 
   <main>
     <div class="problem-heading">
-      <h1>Problem 1</h1>
-      <a class="button-link" href="solution.html?problem=1">Submit a solution</a>
+      <h1>Problem 15</h1>
+      <a class="button-link" href="solution.html?problem=15">Submit a solution</a>
     </div>
     <p><span class="status">open</span></p>
 
     <div class="statement">
-      <p>Let $P_{n}$ be the set of strictly positive definite $n\times n$ real matrices. Define a function $d$ on $P_n \times P_n$ as</p>
-      <p>$$d(A, B) = \iint_{S^{n-1} \times S^{n-1}} \frac{|u^T(A - B)v|}{(u^TAu)(v^TBv)}dudv,$$</p>
-      <p>where the integral is taken over all unit norm vectors $u, v \in \mathbb{R}^n$. Prove that</p>
-      <p>$$d(A + B, C + D) \leq \max(d(A, C), d(B, D)).$$</p>
+      <h2>Logarithmic \(L^6\) Strichartz estimate for the circle Schr&ouml;dinger propagator</h2>
+
+      <p>Let \(e^{it\partial_x^2}\) be the free Schr&ouml;dinger propagator on the circle \(\mathbb{T}=\mathbb{R}/(2\pi\mathbb{Z})\). Is it true that there exists a constant \(C>0\) such that, for all sufficiently large \(N\) and all \(f\in C^\infty(\mathbb{T})\) satisfying \(\operatorname{supp}\widehat{f}\subset[-N,N]\), the estimate</p>
+      <p>\[
+\|e^{it\partial_x^2}f\|_{L^6_{t,x}([0,2\pi]\times\mathbb{T})}
+\le
+C(\log N)^{1/6}\|f\|_{L^2(\mathbb{T})}
+\]</p>
+      <p>holds?</p>
     </div>
 
-    <p class="source">Source: <a href="https://cosmital.github.io/">Prof. Cosme Louart</a>.</p>
+    <p class="source">Source: Anonymous.</p>
 
     <p class="tags">
-      <a class="tag" href="tags.html">matrix analysis</a>
-      <a class="tag" href="tags.html">positive definite matrices</a>
-      <a class="tag" href="tags.html">integral inequality</a>
+      <a class="tag" href="tags.html">harmonic analysis</a>
+      <a class="tag" href="tags.html">dispersive PDE</a>
+      <a class="tag" href="tags.html">Strichartz estimates</a>
+      <a class="tag" href="tags.html">Fourier analysis</a>
+      <a class="tag" href="tags.html">Schrodinger equations</a>
     </p>
 
     <details>
       <summary>LaTeX source</summary>
-      <pre>Let $P_{n}$ be the set of strictly positive definite $n\times n$ real matrices. Define a function $d$ on $P_n \times P_n$ as
-$$d(A, B) = \iint_{S^{n-1} \times S^{n-1}} \frac{|u^T(A - B)v|}{(u^TAu)(v^TBv)}dudv,$$
-where the integral is taken over all unit norm vectors $u, v \in \mathbb{R}^n$. Prove that
-$$d(A + B, C + D) \leq \max(d(A, C), d(B, D)).$$</pre>
+      <pre>Let \(e^{it\partial_x^2}\) be the free Schr\"odinger propagator on the circle \(\mathbb T=\mathbb R/(2\pi\mathbb Z)\). Is it true that there exists a constant \(C>0\) such that, for all sufficiently large \(N\) and all \(f\in C^\infty(\mathbb T)\) satisfying \(\operatorname{supp}\widehat f\subset[-N,N]\), the estimate
+\[
+  \|e^{it\partial_x^2}f\|_{L^6_{t,x}([0,2\pi]\times\mathbb T)}
+  \le
+  C(\log N)^{1/6}\|f\|_{L^2(\mathbb T)}
+\]
+holds?</pre>
     </details>
 
-    <p class="small">Added May 28, 2026.</p>
+    <p class="small">Added June 23, 2026.</p>
 
-    <section id="comments" class="comments" data-problem-id="1"></section>
+    <section id="comments" class="comments" data-problem-id="15"></section>
 
     <nav class="bottom-nav" aria-label="Problem navigation">
-      <span>Previous problem: none</span>
-      <span>Next problem: <a href="2.html">2</a></span>
+      <span>Previous problem: <a href="14.html">14</a></span>
+      <span>Next problem: <a href="16.html">16</a></span>
     </nav>
   </main>
 

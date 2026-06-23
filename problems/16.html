@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 16 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="16" value="16">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="mutually unbiased bases">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 16</h1>
+      <a class="button-link" href="solution.html?problem=16">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>Mutually unbiased bases</h2>
+
+      <p>Mutually unbiased bases (MUBs) play an important role in quantum information theory, quantum cryptography, and the foundations of quantum mechanics. Let \(\mathcal{H}=\mathbb{C}^d\) be a \(d\)-dimensional Hilbert space. Two orthonormal bases</p>
+      <p>\[
+\mathcal{B}_1=\{ |e_1\rangle,\ldots,|e_d\rangle \},
+\qquad
+\mathcal{B}_2=\{ |f_1\rangle,\ldots,|f_d\rangle \}
+\]</p>
+      <p>are called <strong>mutually unbiased</strong> if for all \(i,j\),</p>
+      <p>\[
+|\langle e_i , f_j \rangle|^2=\frac{1}{d}.
+\]</p>
+      <p>Intuitively, if a quantum system is prepared in a state belonging to one basis, then a measurement in the other basis produces completely random outcomes. A collection of orthonormal bases is called mutually unbiased if every pair of bases in the collection satisfies the above condition.</p>
+
+      <h2>Known results</h2>
+      <p>In a \(d\)-dimensional Hilbert space the number of mutually unbiased bases is at most \(d+1\). It is known that a maximal family of \(d+1\) mutually unbiased bases exists whenever</p>
+      <p>\[
+d=p^n
+\]</p>
+      <p>is a power of a prime. This result was established in the works of Ivanovic (1981) and Wootters and Fields (1989), using constructions based on finite fields and discrete Fourier transforms over the finite field \(\mathbb{F}_{p^n}\).</p>
+      <p>For dimensions that are not prime powers the problem remains open. In particular, the existence of \(d+1\) mutually unbiased bases in dimension</p>
+      <p>\[
+d=6
+\]</p>
+      <p>is a well-known open problem in quantum information theory. For a comprehensive overview of these open existence problems and various construction methods, see the review by Durt, Englert, Bengtsson, and Zyczkowski (2010).</p>
+
+      <h2>References</h2>
+      <p>I. D. Ivanovic, <em>Geometrical description of quantal state determination</em>, Journal of Physics A: Mathematical and General, 14(12), 3241-3245 (1981). doi:10.1088/0305-4470/14/12/019</p>
+      <p>W. K. Wootters and B. D. Fields, <em>Optimal state-determination by mutually unbiased measurements</em>, Annals of Physics, 191(2), 363-381 (1989). doi:10.1016/0003-4916(89)90322-9</p>
+      <p>T. Durt, B.-G. Englert, I. Bengtsson, and K. Zyczkowski, <em>On mutually unbiased bases</em>, International Journal of Quantum Information, 8, 535-640 (2010). doi:10.1142/s0219749910006502</p>
+    </div>
+
+    <p class="source">Source: <a href="https://quantmath.pl/">Adam Sawicki</a>.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">quantum information theory</a>
+      <a class="tag" href="tags.html">mutually unbiased bases</a>
+      <a class="tag" href="tags.html">finite fields</a>
+      <a class="tag" href="tags.html">Hilbert spaces</a>
+      <a class="tag" href="tags.html">quantum foundations</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>\section*{Mutually Unbiased Bases}
+
+Mutually unbiased bases (MUBs) play an important role in quantum information theory, quantum cryptography, and the foundations of quantum mechanics. Let \(\mathcal{H}=\mathbb{C}^d\) be a \(d\)-dimensional Hilbert space. Two orthonormal bases
+\[
+\mathcal{B}_1=\{ |e_1\rangle,\ldots,|e_d\rangle \}, \qquad
+\mathcal{B}_2=\{ |f_1\rangle,\ldots,|f_d\rangle \}
+\]
+are called \textbf{mutually unbiased} if for all \(i,j\)
+\[
+|\langle e_i , f_j \rangle|^2=\frac{1}{d}.
+\]
+
+Intuitively, if a quantum system is prepared in a state belonging to one basis, then a measurement in the other basis produces completely random outcomes. A collection of orthonormal bases is called mutually unbiased if every pair of bases in the collection satisfies the above condition.
+
+\section*{Known Results}
+
+In a \(d\)-dimensional Hilbert space the number of mutually unbiased bases is at most
+\(d+1\). It is known that a maximal family of \(d+1\) mutually unbiased bases exists whenever
+\[
+d=p^n
+\]
+is a power of a prime. This result was established in the works of
+\begin{itemize}
+\item I.~D.~Ivanovic (1981) \cite{Ivanovic1981},
+\item W.~K.~Wootters and B.~D.~Fields (1989) \cite{WoottersFields1989},
+\end{itemize}
+using constructions based on finite fields and discrete Fourier transforms over the finite field \(\mathbb{F}_{p^n}\). For dimensions that are not prime powers the problem remains open. In particular, the existence of \(d+1\) mutually unbiased bases in dimension
+\[
+d=6
+\]
+is a well-known open problem in quantum information theory. For a comprehensive overview of these open existence problems and various construction methods, see the extensive review by Durt, Englert, Bengtsson, and Zyczkowski \cite{Durt2010}.
+
+\begin{thebibliography}{9}
+
+\bibitem{Ivanovic1981}
+I.~D.~Ivanovic,
+``Geometrical description of quantal state determination,''
+\textit{Journal of Physics A: Mathematical and General},
+14(12), 3241--3245 (1981).
+doi:10.1088/0305-4470/14/12/019
+
+\bibitem{WoottersFields1989}
+W.~K.~Wootters and B.~D.~Fields,
+``Optimal state-determination by mutually unbiased measurements,''
+\textit{Annals of Physics},
+191(2), 363--381 (1989).
+doi:10.1016/0003-4916(89)90322-9
+
+\bibitem{Durt2010}
+T.~Durt, B.-G.~Englert, I.~Bengtsson, and K.~Zyczkowski,
+``On mutually unbiased bases,''
+\textit{International Journal of Quantum Information},
+8, 535--640 (2010).
+doi:10.1142/s0219749910006502
+
+\end{thebibliography}</pre>
+    </details>
+
+    <p class="small">Added June 23, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="16"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="15.html">15</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14' || problemNumber === '15' || problemNumber === '16') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
