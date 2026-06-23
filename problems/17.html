@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 17 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="17" value="17">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="distance geometry">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 17</h1>
+      <a class="button-link" href="solution.html?problem=17">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>Identifiability and convexification of a band-limited unassigned distance-geometry problem</h2>
+
+      <p>Let \(X=(x_1,\dots,x_N)\in(\mathbb{R}^3)^N\) carry labels \(e_i\in E\) and weights \(b_i&gt;0\). Quotient by rigid motions (translations and rotations, but <em>not</em> reflections):</p>
+      <p>\[
+\mathcal{X}=(\mathbb{R}^3)^N/E(3).
+\]</p>
+      <p>The weighted pair-distance measure and its measurement are</p>
+      <p>\[
+\rho_X=\sum_{i\lt j} w_{ij}\,\delta_{\|x_i-x_j\|},\quad w_{ij}=b_i b_j\ge 0,
+\qquad
+F(X)=R_{Q_{\max},\sigma}\,\rho_X\in Y,
+\]</p>
+      <p>where \(R_{Q_{\max},\sigma}\) is a known compact smoothing operator: a band-limit \(Q_{\max}\) (real-space resolution \(\Delta r\approx\pi/Q_{\max}\)) followed by convolution of width \(\sigma&gt;0\). Its <em>information capacity</em></p>
+      <p>\[
+m_{\mathrm{eff}}(Q_{\max},\sigma)
+=\dim\operatorname{span}\{R_{Q_{\max},\sigma}\delta_t:t\in[0,R_{\max}]\}
+\approx\lceil R_{\max}/\Delta r\rceil
+\]</p>
+      <p>is finite, with \(m_{\mathrm{eff}}\to\infty\) as \(Q_{\max}\to\infty\) (exact-distance limit) and \(m_{\mathrm{eff}}\to 0\) as \(Q_{\max}\to 0\), and</p>
+      <p>\[
+\operatorname{rank}(DF_X)\le\min(d_C,m_{\mathrm{eff}}).
+\]</p>
+      <p>A <em>prior</em> is a closed \(C\subset\mathcal{X}\), a smooth manifold of dimension \(d_C\) realizable in internal coordinates (a graph of fixed edge lengths and angles with \(d_C\) free dihedrals). \(F\) is an instance of the unassigned distance geometry problem (Billinge et al. 2018); in the motivating application \(C\) encodes chemical constraints, which play no formal role below.</p>
+
+      <h2>Known facts</h2>
+      <ol>
+        <li>For \(R=\mathrm{id}\), injectivity of \(\rho\) up to rigid motion is the global-rigidity problem; in 3D generic global rigidity requires redundant rigidity and stressability and is subtler than edge-counting, and special configurations are generically <em>not</em> globally rigid (flip ambiguities persist).</li>
+        <li>In 1D (turnpike/beltway) with unassigned noisy distances, projected gradient descent with a spectral initializer converges locally linearly to the global optimizer under explicit conditions (Huang and Dokmanic 2021); for integer sets, sparsity yields polynomial-time recovery up to shift and reversal with high probability (Jaganathan and Hassibi 2012).</li>
+        <li>A configuration and its mirror image have identical \(F(X)\), so identifiability holds at best modulo \(\mathbb{Z}_2\) (fiber \(K\ge2\) for chiral configurations).</li>
+      </ol>
+
+      <h2>Open problem</h2>
+      <p>For \(y=F(X_\star)\) and \(\mathcal{L}_y(X)=\|F(X)-y\|_Y^2|_C\):</p>
+      <ul>
+        <li><strong>(P1) Identifiability:</strong> \(F|_C\) injective modulo reflection (fibers of size \(1\), or \(2\) = the mirror pair).</li>
+        <li><strong>(P2) Local identifiability:</strong> the Fisher operator \(I_X=(DF_X)^{*}(DF_X)\) has full rank on \(T_XC\) for all \(X\in C\).</li>
+        <li><strong>(P3) \(\varepsilon\)-convexity:</strong> \(\mathcal{L}_y|_C\) is geodesically \(\varepsilon\)-convex on the component of \(X_\star\) with a unique stationary point (no spurious local minima).</li>
+      </ul>
+
+      <p><strong>Problem.</strong> Characterize the priors \(C\), as a function of \(m_{\mathrm{eff}}\), for which \(\text{(P1)}\Leftrightarrow\text{(P2)}\Leftrightarrow\text{(P3)}\) hold for generic \(X_\star\in C\), and find the <em>minimal</em> such prior. In particular:</p>
+      <ol type="a">
+        <li>Prove or disprove a sharp threshold at \(m_{\mathrm{eff}}=d_C\) (modulo reflection), with counterexamples at \(m_{\mathrm{eff}}=d_C-1\).</li>
+        <li>Find the maximal admissible \(d_C\) (least external information) and the trade-off curve \(d_C^{\,*}(Q_{\max})\).</li>
+        <li>Show the threshold coincides with vanishing of \(I_{\mathrm{deficit}}=h(X\mid C)-I(F(X);X\mid C)\) (up to \(\log 2\)).</li>
+      </ol>
+
+      <p>This is generic-global-rigidity theory for band-limited, weighted, soft data on a constraint manifold - the regime open at the intersection of Huang and Dokmanic (2021), Jaganathan and Hassibi (2012), and Billinge et al. (2018).</p>
+      <p><strong>Remark.</strong> For more details on the chemical side of the problem, see the project repository: <a href="https://github.com/grebenyyk/pdf-convexification">grebenyyk/pdf-convexification</a>.</p>
+
+      <h2>References</h2>
+      <p>S. Huang and I. Dokmanic, <em>Reconstructing Point Sets from Distance Distributions</em>, IEEE Transactions on Signal Processing, 69 (2021), 1811-1827. arXiv:1804.02465.</p>
+      <p>K. Jaganathan and B. Hassibi, <em>Reconstruction of Integers from Pairwise Distances</em>, arXiv:1212.2386 (2012).</p>
+      <p>S. J. L. Billinge, P. M. Duxbury, D. S. Goncalves, C. Lavor, and A. Mucherino, <em>Recent results on assigned and unassigned distance geometry with applications to protein molecules and nanostructures</em>, Annals of Operations Research, 271(1) (2018), 161-203. doi:10.1007/s10479-018-2989-6.</p>
+      <p>S. J. L. Billinge and M. G. Kanatzidis, <em>Beyond crystallography: the study of disorder, nanocrystallinity and crystallographically challenged materials with pair distribution functions</em>, Chemical Communications (2004), 749-760. doi:10.1039/b311073n.</p>
+    </div>
+
+    <p class="source">Source: <a href="https://dimitrygrebenyuk.ru/">Dimitry Grebenyuk</a>.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">distance geometry</a>
+      <a class="tag" href="tags.html">inverse problems</a>
+      <a class="tag" href="tags.html">rigidity theory</a>
+      <a class="tag" href="tags.html">convexification</a>
+      <a class="tag" href="tags.html">signal processing</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>\section*{Identifiability and Convexification of a Band-Limited Unassigned Distance-Geometry Problem}
+
+Let \(X=(x_1,\dots,x_N)\in(\mathbb{R}^3)^N\) carry labels \(e_i\in E\) and weights
+\(b_i&gt;0\). Quotient by rigid motions (translations and rotations, but
+\emph{not} reflections):
+\[
+  \mathcal{X}=(\mathbb{R}^3)^N/E(3).
+\]
+The weighted pair-distance measure and its measurement are
+\[
+  \rho_X=\sum_{i\lt j} w_{ij}\,\delta_{\|x_i-x_j\|},\quad w_{ij}=b_i b_j\ge 0,
+  \qquad
+  F(X)=R_{Q_{\max},\sigma}\,\rho_X\in Y,
+\]
+where \(R_{Q_{\max},\sigma}\) is a known compact smoothing operator: a
+band-limit \(Q_{\max}\) (real-space resolution \(\Delta r\approx\pi/Q_{\max}\))
+followed by convolution of width \(\sigma&gt;0\). Its \emph{information capacity}
+\[
+  m_{\mathrm{eff}}(Q_{\max},\sigma)
+  =\dim\operatorname{span}\{R_{Q_{\max},\sigma}\delta_t:t\in[0,R_{\max}]\}
+  \approx\lceil R_{\max}/\Delta r\rceil
+\]
+is finite, with \(m_{\mathrm{eff}}\to\infty\) as \(Q_{\max}\to\infty\)
+(exact-distance limit) and \(m_{\mathrm{eff}}\to 0\) as \(Q_{\max}\to 0\), and
+\[
+  \operatorname{rank}(DF_X)\le\min(d_C,m_{\mathrm{eff}}).
+\]
+A \emph{prior} is a closed \(C\subset\mathcal{X}\), a smooth manifold of
+dimension \(d_C\) realizable in internal coordinates (a graph of fixed edge
+lengths and angles with \(d_C\) free dihedrals). \(F\) is an instance of the
+unassigned distance geometry problem \cite{Billinge2018}; in the motivating
+application \(C\) encodes chemical constraints, which play no formal role below.
+
+\paragraph{Known facts.}
+\begin{enumerate}
+\item For \(R=\mathrm{id}\), injectivity of \(\rho\) up to rigid motion is the
+global-rigidity problem; in \(3\)D generic global rigidity requires redundant
+rigidity and stressability and is subtler than edge-counting, and special
+configurations are generically \emph{not} globally rigid (flip ambiguities
+persist).
+\item In \(1\)D (turnpike/beltway) with unassigned noisy distances, projected
+gradient descent with a spectral initializer converges locally linearly to the
+global optimizer under explicit conditions \cite{HuangDokmanic2021}; for
+integer sets, sparsity yields polynomial-time recovery up to shift and reversal
+with high probability \cite{JaganathanHassibi2012}.
+\item A configuration and its mirror image have identical \(F(X)\), so
+identifiability holds at best modulo \(\mathbb{Z}_2\) (fiber \(K\ge2\) for
+chiral configurations).
+\end{enumerate}
+
+\paragraph{Open problem.}
+For \(y=F(X_\star)\) and \(\mathcal{L}_y(X)=\|F(X)-y\|_Y^2|_C\):
+\begin{itemize}
+\item[\textbf{(P1)}] \emph{Identifiability:} \(F|_C\) injective modulo
+reflection (fibers of size \(1\), or \(2\) = the mirror pair).
+\item[\textbf{(P2)}] \emph{Local identifiability:} the Fisher operator
+\(I_X=(DF_X)^{*}(DF_X)\) has full rank on \(T_XC\) for all \(X\in C\).
+\item[\textbf{(P3)}] \emph{\(\varepsilon\)-convexity:} \(\mathcal{L}_y|_C\) is
+geodesically \(\varepsilon\)-convex on the component of \(X_\star\) with a
+unique stationary point (no spurious local minima).
+\end{itemize}
+
+\begin{problem}
+Characterize the priors \(C\), as a function of \(m_{\mathrm{eff}}\), for which
+\(\text{(P1)}\Leftrightarrow\text{(P2)}\Leftrightarrow\text{(P3)}\) hold for
+generic \(X_\star\in C\), and find the \emph{minimal} such prior. In particular:
+\begin{enumerate}
+\item[\textbf{(a)}] Prove or disprove a sharp threshold at
+\(m_{\mathrm{eff}}=d_C\) (modulo reflection), with counterexamples at
+\(m_{\mathrm{eff}}=d_C-1\).
+\item[\textbf{(b)}] Find the maximal admissible \(d_C\) (least external
+information) and the trade-off curve \(d_C^{\,*}(Q_{\max})\).
+\item[\textbf{(c)}] Show the threshold coincides with vanishing of
+\(I_{\mathrm{deficit}}=h(X\mid C)-I(F(X);X\mid C)\) (up to \(\log 2\)).
+\end{enumerate}
+\end{problem}
+
+This is generic-global-rigidity theory for band-limited, weighted, soft data
+on a constraint manifold - the regime open at the intersection of
+\cite{HuangDokmanic2021,JaganathanHassibi2012,Billinge2018}.
+
+\paragraph{Remark.}
+For more details on the chemical side of the problem, see
+\url{https://github.com/grebenyyk/pdf-convexification}.
+
+\begin{thebibliography}{99}
+\bibitem{HuangDokmanic2021} S.~Huang, I.~Dokmanic, \emph{Reconstructing Point
+Sets from Distance Distributions}, IEEE Trans.\ Signal Process.\ \textbf{69}
+(2021), 1811--1827. arXiv:1804.02465.
+\bibitem{JaganathanHassibi2012} K.~Jaganathan, B.~Hassibi, \emph{Reconstruction
+of Integers from Pairwise Distances}, arXiv:1212.2386 (2012).
+\bibitem{Billinge2018} S.~J.~L.~Billinge, P.~M.~Duxbury, D.~S.~Goncalves,
+C.~Lavor, A.~Mucherino, \emph{Recent results on assigned and unassigned
+distance geometry with applications to protein molecules and nanostructures},
+Ann.\ Oper.\ Res.\ \textbf{271}(1) (2018), 161--203. DOI:10.1007/s10479-018-2989-6.
+\bibitem{Billinge2004} S.~J.~L.~Billinge, M.~G.~Kanatzidis, \emph{Beyond
+crystallography: the study of disorder, nanocrystallinity and
+crystallographically challenged materials with pair distribution functions},
+Chem.\ Commun.\ (2004), 749--760. DOI:10.1039/b311073n.
+\end{thebibliography}</pre>
+    </details>
+
+    <p class="small">Added June 23, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="17"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="16.html">16</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14' || problemNumber === '15' || problemNumber === '16' || problemNumber === '17') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
