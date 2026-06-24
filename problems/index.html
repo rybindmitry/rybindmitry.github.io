@@ -28,7 +28,7 @@
     <div class="controls">
       <form class="go" id="problem-form">
         <label for="problem-number">Problem</label>
-        <input id="problem-number" type="number" min="1" max="17" value="1">
+        <input id="problem-number" type="number" min="1" max="19" value="1">
         <button type="submit">Go</button>
       </form>
       <form class="go" id="tag-form">
@@ -44,7 +44,7 @@
   </header>
 
   <main>
-    <p>There are currently 17 problems in the database.</p>
+    <p>There are currently 19 problems in the database.</p>
 
     <table>
       <thead>
@@ -158,6 +158,18 @@
           <td><span class="status">open</span></td>
           <td><a href="https://dimitrygrebenyuk.ru/">Dimitry Grebenyuk</a></td>
         </tr>
+        <tr>
+          <td><a href="18.html">18</a></td>
+          <td><a href="18.html">Comparable infinite-order elements in Picard groups of total rings of fractions</a></td>
+          <td><span class="status">open</span></td>
+          <td>Junyan Xu</td>
+        </tr>
+        <tr>
+          <td><a href="19.html">19</a></td>
+          <td><a href="19.html">Picard groups of semi-local or finite semirings</a></td>
+          <td><span class="status">open</span></td>
+          <td>Junyan Xu</td>
+        </tr>
       </tbody>
     </table>
   </main>
@@ -166,7 +178,7 @@
     document.getElementById('problem-form').addEventListener('submit', function (event) {
       event.preventDefault();
       const problemNumber = document.getElementById('problem-number').value.trim();
-      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14' || problemNumber === '15' || problemNumber === '16' || problemNumber === '17') {
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14' || problemNumber === '15' || problemNumber === '16' || problemNumber === '17' || problemNumber === '18' || problemNumber === '19') {
         window.location.href = problemNumber + '.html';
       }
     });

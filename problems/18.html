@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 18 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="19" value="18">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="Picard groups">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 18</h1>
+      <a class="button-link" href="solution.html?problem=18">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>Comparable infinite-order elements in Picard groups of total rings of fractions</h2>
+
+      <p>Consider a commutative ring \(R\) and its Picard group \(\mathrm{Pic}(R)\). For two invertible \(R\)-modules \(M,N\), define \([M]\le [N]\) to mean that there exists an injective \(R\)-linear map from \(M\) to \(N\). This makes \(\mathrm{Pic}(R)\) a preordered group.</p>
+      <p>The order is trivial if \(\mathrm{Pic}(Q(R))\) is trivial, where \(Q\) denotes the total ring of fractions. In particular, this holds if \(R\) is a domain, because every invertible \(R\)-module \(M\) is isomorphic to an ideal, meaning \([M]\le [R]\); see <a href="https://mathoverflow.net/a/375757/3332">this MathOverflow answer</a>. Therefore, for arbitrary \(M,N\),</p>
+      <p>\[
+[M]=[N][M\otimes_R N^\vee]\le[N][R]=[N].
+\]</p>
+
+      <p>Now focus on the case \(R=Q(R)\), i.e. every element of \(R\) is either a unit or a zero divisor. This implies that invertible \(R\)-modules satisfy the Schr&ouml;der-Bernstein property, making \(\mathrm{Pic}(R)\) a partially ordered group. A proof due to <a href="https://mathoverflow.net/a/499258/3332">Jun Koizumi</a> is as follows: if \([M]\le[R]\) and \([R]\le[M]\), equivalently \([M^\vee]\le[R]\), but \([R]\ne[M]\), then \(M\) embeds as a proper ideal of \(R\). Such an ideal consists purely of zero divisors, but then</p>
+      <p>\[
+[R]=[M][M^\vee]\le[M][R]=[M],
+\]</p>
+      <p>which contradicts the fact that \(1\in R\) is not annihilated by a nonzero element of \(R\). Consequently, as Koizumi already showed, no element of finite order in \(\mathrm{Pic}(R)\) is comparable to \([R]\), apart from \([R]\) itself.</p>
+
+      <h2>Open problem</h2>
+      <p>Could there exist an element \([M]\in\mathrm{Pic}(R)\) of infinite order that is comparable to \([R]\)? Equivalently, could there be an invertible, proper ideal of \(R\)?</p>
+
+      <p>Such an ideal necessarily consists of zero divisors since \(R=Q(R)\). If \(R\) is Noetherian, the whole ideal is annihilated by some nonzero element of \(R\); see <a href="https://math.stackexchange.com/a/4846756/12932">this Math StackExchange answer</a>. This is impossible since \(R\) acts faithfully on any invertible \(R\)-module. In fact, one can show that \(R\) <a href="https://mathoverflow.net/a/499611/3332">is semi-local</a>, and therefore \(\mathrm{Pic}(R)=1\), if \(R\) is Noetherian. On the other hand, Koizumi's construction produces a total ring of fractions whose Picard group contains an arbitrary Picard group \(\mathrm{Pic}(A)\) as a direct factor.</p>
+
+      <p>If an invertible ideal \(I\subsetneq R=Q(R)\) exists, then \(R_{\mathfrak{p}}\) must fail to be a total ring of fractions for some prime ideal \(\mathfrak{p}\subset R\). Indeed, each \(I_{\mathfrak{p}}\subseteq R_{\mathfrak{p}}\) is free of rank \(1\), so equality must hold if every non-zero-divisor in \(R_{\mathfrak{p}}\) is a unit, which then implies \(I=R\). Similarly, since \(I\) is Zariski-locally free, \(R_x\) must fail to be a total ring of fractions for some \(x\in R\).</p>
+
+      <p>Examples of such rings \(R\), including one similar to Koizumi's, appeared in <a href="https://freedommathdance.blogspot.com/2012/11/misconceptions-about-kx.html"><em>Misconceptions about \(K_X\)</em></a>; another example is spelt out <a href="https://www.perplexity.ai/search/732e9876-1d0d-4f63-bf27-6f19d284b5eb#1">here</a>.</p>
+
+      <p>The embeddability order defines an ordered group because tensoring with any flat module, in particular an invertible one, preserves injectivity. If injectivity is replaced by surjectivity, flatness is not needed since tensoring is always right exact, but the resulting order is uninteresting: any surjective linear map between invertible modules is bijective. See the P.S. of <a href="https://mathoverflow.net/q/511864/3332">another MathOverflow question</a> for a proof.</p>
+
+      <p><strong>Lean verification.</strong> <a href="https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Mathoverflow/507128.lean">FormalConjectures/Mathoverflow/507128.lean</a>.</p>
+    </div>
+
+    <p class="source">Source: Junyan Xu.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">commutative algebra</a>
+      <a class="tag" href="tags.html">Picard groups</a>
+      <a class="tag" href="tags.html">ordered groups</a>
+      <a class="tag" href="tags.html">invertible modules</a>
+      <a class="tag" href="tags.html">total rings of fractions</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>\section*{Comparable Infinite-Order Elements in Picard Groups of Total Rings of Fractions}
+
+Consider a commutative ring \(R\) and its Picard group \(\mathrm{Pic}(R)\). For
+two invertible \(R\)-modules \(M,N\), define \([M]\le [N]\) to mean that there
+exists an injective \(R\)-linear map from \(M\) to \(N\). This makes
+\(\mathrm{Pic}(R)\) a preordered group.
+
+The order is trivial if \(\mathrm{Pic}(Q(R))\) is trivial, where \(Q\) denotes
+the total ring of fractions. In particular, this holds if \(R\) is a domain,
+because every invertible \(R\)-module \(M\) is isomorphic to an ideal, meaning
+\([M]\le [R]\); see https://mathoverflow.net/a/375757/3332. Therefore, for
+arbitrary \(M,N\),
+\[
+[M]=[N][M\otimes_R N^\vee]\le[N][R]=[N].
+\]
+
+Now focus on the case \(R=Q(R)\), i.e. every element of \(R\) is either a unit
+or a zero divisor. This implies that invertible \(R\)-modules satisfy the
+Schr\"oder--Bernstein property, making \(\mathrm{Pic}(R)\) a partially ordered
+group. A proof due to Jun Koizumi is as follows: if \([M]\le[R]\) and
+\([R]\le[M]\), equivalently \([M^\vee]\le[R]\), but \([R]\ne[M]\), then \(M\)
+embeds as a proper ideal of \(R\). Such an ideal consists purely of zero
+divisors, but then
+\[
+[R]=[M][M^\vee]\le[M][R]=[M],
+\]
+which contradicts the fact that \(1\in R\) is not annihilated by a nonzero
+element of \(R\). Consequently, no element of finite order in
+\(\mathrm{Pic}(R)\) is comparable to \([R]\), apart from \([R]\) itself.
+
+\paragraph{Open problem.}
+Could there exist an element \([M]\in\mathrm{Pic}(R)\) of infinite order that is
+comparable to \([R]\)? Equivalently, could there be an invertible, proper ideal
+of \(R\)?
+
+Such an ideal necessarily consists of zero divisors since \(R=Q(R)\). If \(R\)
+is Noetherian, the whole ideal is annihilated by some nonzero element of \(R\);
+see https://math.stackexchange.com/a/4846756/12932. This is impossible since
+\(R\) acts faithfully on any invertible \(R\)-module. In fact, one can show
+that \(R\) is semi-local and therefore \(\mathrm{Pic}(R)=1\), if \(R\) is
+Noetherian; see https://mathoverflow.net/a/499611/3332. On the other hand,
+Koizumi's construction produces a total ring of fractions whose Picard group
+contains an arbitrary Picard group \(\mathrm{Pic}(A)\) as a direct factor.
+
+If an invertible ideal \(I\subsetneq R=Q(R)\) exists, then \(R_{\mathfrak{p}}\)
+must fail to be a total ring of fractions for some prime ideal
+\(\mathfrak{p}\subset R\). Indeed, each \(I_{\mathfrak{p}}\subseteq
+R_{\mathfrak{p}}\) is free of rank \(1\), so equality must hold if every
+non-zero-divisor in \(R_{\mathfrak{p}}\) is a unit, which then implies \(I=R\).
+Similarly, since \(I\) is Zariski-locally free, \(R_x\) must fail to be a total
+ring of fractions for some \(x\in R\).
+
+Examples of such rings \(R\), including one similar to Koizumi's, appeared in
+\emph{Misconceptions about \(K_X\)}:
+https://freedommathdance.blogspot.com/2012/11/misconceptions-about-kx.html.
+Another example is spelt out here:
+https://www.perplexity.ai/search/732e9876-1d0d-4f63-bf27-6f19d284b5eb#1.
+
+The embeddability order defines an ordered group because tensoring with any
+flat module, in particular an invertible one, preserves injectivity. If
+injectivity is replaced by surjectivity, flatness is not needed since tensoring
+is always right exact, but the resulting order is uninteresting: any surjective
+linear map between invertible modules is bijective. See the P.S. of
+https://mathoverflow.net/q/511864/3332 for a proof.
+
+\paragraph{Lean verification.}
+https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Mathoverflow/507128.lean</pre>
+    </details>
+
+    <p class="small">Added June 24, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="18"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="17.html">17</a></span>
+      <span>Next problem: <a href="19.html">19</a></span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14' || problemNumber === '15' || problemNumber === '16' || problemNumber === '17' || problemNumber === '18' || problemNumber === '19') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>

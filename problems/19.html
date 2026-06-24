@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 19 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="19" value="19">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="semirings">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 19</h1>
+      <a class="button-link" href="solution.html?problem=19">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>Picard groups of semi-local or finite semirings</h2>
+
+      <p>In Section 10 of <a href="https://arxiv.org/abs/2405.18645"><em>Facets of Module Theory over Semirings</em></a>, it was shown that an invertible module over a commutative semiring is Zariski-locally free. Therefore a local semiring must have trivial Picard group. As a fun fact, this applies to the semiring \(\mathbb{N}\), which has the unique maximal ideal \(\mathbb{N}\setminus\{1\}\).</p>
+
+      <h2>Open problem</h2>
+      <p>Must semi-local semirings, i.e. semirings with finitely many maximal ideals, also have trivial Picard group?</p>
+
+      <p>For rings, <a href="https://stacks.math.columbia.edu/tag/02M9">this is true</a>. The paper <a href="https://arxiv.org/html/2508.19889v4"><em>Ideal class group of an extension of rings and Picard group</em></a> contains a direct proof as Theorem 4.3. However, that proof uses that the maximal ideals are all \(k\)-ideals, meaning ideals \(I\) satisfying \(x,x+y\in I\implies y\in I\). Thus the proof does not apply to \(\mathbb{N}\), since \(\mathbb{N}\setminus\{1\}\) is not a \(k\)-ideal.</p>
+
+      <p>If the semi-local statement is not always true, must at least finite semirings have trivial Picard group? Or, at least, must invertible modules over finite semirings have the same cardinality as the semiring? Note that there exist finite projective modules over finite semirings with cardinalities different from their duals; see the end of <a href="https://math.stackexchange.com/a/5139071/12932">this Math StackExchange answer</a>.</p>
+
+      <p>Since finite semirings are Artinian and therefore decompose into a product of indecomposable semirings, one may ask whether indecomposable finite semirings have trivial Picard group. Here indecomposable means that \(a+b=1\) and \(ab=0\) imply \(a=0\) or \(b=0\). Unfortunately, finite indecomposable semirings can be non-local, as demonstrated by an <a href="https://gemini.google.com/share/f3afa552ce7a">example by Gemini</a>. This contrasts with rings, where an Artinian ring always decomposes as the product of the localizations at the finitely many maximal, equivalently prime, ideals. Finite semirings also may have Krull dimension \(>0\), as demonstrated by the \(\{0,0.5,1\}\) <a href="https://math.stackexchange.com/a/5004592/12932">example</a>.</p>
+
+      <p>The author asked the authors of <em>Facets of Module Theory over Semirings</em> these questions in January, but they did not know the answers.</p>
+
+      <h2>Local freeness proof</h2>
+      <p>Here is a simple proof, discovered by <a href="https://aristotle.harmonic.fun">Aristotle</a>, that every invertible module is Zariski-locally free. Suppose that \(M\) is an invertible module over \(R\). By definition, the evaluation linear map \(M^\vee\otimes_R M\to R\) is an isomorphism, so there exist \(f_i\in M^\vee\) and \(m_i\in M\), for \(i\in I\) with \(I\) finite, such that</p>
+      <p>\[
+\sum_{i\in I} f_i(m_i)=1.
+\]</p>
+      <p>It suffices to show that \(M_i:=M_{f_i(m_i)}\) is a free \(R_i:=R_{f_i(m_i)}\)-module for each \(i\). Since \(f_i(m_i)\) is a unit in \(R_i\), the map \(f_i\otimes_R R_i\in\operatorname{Hom}_{R_i}(M_i,R_i)\) is surjective.</p>
+      <p>For any semiring \(R\), every surjective \(R\)-linear map between invertible \(R\)-modules \(M\) and \(N\) is bijective and gives an isomorphism. By tensoring with \(M^\vee\), assume \(M=R\), so the surjective linear map is given by \(r\mapsto rx\) for some \(x\in N\). If \(r_1x=r_2x\), then every \(y\in N\) is of the form \(rx\), hence</p>
+      <p>\[
+r_1y=r_1(rx)=r(r_1x)=r(r_2x)=r_2y.
+\]</p>
+      <p>The action of \(R\) on the invertible module \(N\) is faithful; in fact \(R\cong\operatorname{Hom}_R(N,N)\). Therefore \(r_1=r_2\), so the linear map is also injective.</p>
+
+      <h2>Computational update</h2>
+      <p>The author enumerated all \(2\times2\) and \(3\times3\) idempotent matrices satisfying the trace \(=1\) and singularity conditions from Remark 10.10 of the paper over the 5-element non-local indecomposable semiring, and computed their column spaces. They are all principal and therefore free. There are \(67\) valid \(2\times2\) matrices and \(2935\) valid \(3\times3\) matrices. It is not clear how sharply the matrix dimension, i.e. the number of generators, of invertible modules can be bounded for a fixed finite semiring; it is not even clear that it can be bounded by the cardinality of the semiring.</p>
+
+      <p><strong>Verification.</strong> MathOverflow question: <a href="https://mathoverflow.net/questions/511864/picard-group-of-semi-local-or-finite-semirings">Picard group of semi-local or finite semirings</a>. Lean statements: <a href="https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQO0Cm0BIcBAHsAM4xUD6wAdgG4GzboF0gQAmArpzqMIMOgDMoBLlRLB0EAMZJ0cAFw44WuIGAiOAAoASonVwAKgE8wBAJQG6pgMIQQIAMpyoTAOZxDd%2FQc1OAAxJmAYAgNkShAVN2tFGCh%2BUn8bTW0tQNMAQV5eZ1cECBFgXkQAoMQ%2BQSjjBAys7OqSgU4AOgBJFjYYDnrKgBo4ABqa9oIOkKlBhHUAXjgsC0yqaChV%2FFQiKVIKaloGXvYsIR5J4VEJWYlwyPVMrT0jE2DLayqnF3dPHz8vsEwowIvUms0csF8oUfiUyhVGvZTG06n5Kk9tJCJnVuid%2Bmc5jYRuMUZ0ZtI0fM1EsVmsNltCMR9pQaPQmKxTudakJqABRcAwCx0AgAR34wGYjyyLwapg%2BtiRwSKvxAwC8jF8%2FkVcGhyrhEHKlW1pMJGJayO5Ux6HPxnEpRLgXSo%2FLAgoMxkAwkRG6nLVZadZQTZAA">Lean live code</a>.</p>
+    </div>
+
+    <p class="source">Source: Junyan Xu.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">semirings</a>
+      <a class="tag" href="tags.html">Picard groups</a>
+      <a class="tag" href="tags.html">invertible modules</a>
+      <a class="tag" href="tags.html">finite semirings</a>
+      <a class="tag" href="tags.html">Lean formalization</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>\section*{Picard Groups of Semi-Local or Finite Semirings}
+
+In Section 10 of \emph{Facets of Module Theory over Semirings}
+(https://arxiv.org/abs/2405.18645), it was shown that an invertible module over
+a commutative semiring is Zariski-locally free. Therefore a local semiring must
+have trivial Picard group. As a fun fact, this applies to the semiring
+\(\mathbb{N}\), which has the unique maximal ideal \(\mathbb{N}\setminus\{1\}\).
+
+\paragraph{Open problem.}
+Must semi-local semirings, i.e. semirings with finitely many maximal ideals,
+also have trivial Picard group?
+
+For rings, this is true: https://stacks.math.columbia.edu/tag/02M9. The paper
+\emph{Ideal class group of an extension of rings and Picard group}
+(https://arxiv.org/html/2508.19889v4) contains a direct proof as Theorem 4.3.
+However, that proof uses that the maximal ideals are all \(k\)-ideals, meaning
+ideals \(I\) satisfying \(x,x+y\in I\implies y\in I\). Thus the proof does not
+apply to \(\mathbb{N}\), since \(\mathbb{N}\setminus\{1\}\) is not a
+\(k\)-ideal.
+
+If the semi-local statement is not always true, must at least finite semirings
+have trivial Picard group? Or, at least, must invertible modules over finite
+semirings have the same cardinality as the semiring? Note that there exist
+finite projective modules over finite semirings with cardinalities different
+from their duals; see the end of https://math.stackexchange.com/a/5139071/12932.
+
+Since finite semirings are Artinian and therefore decompose into a product of
+indecomposable semirings, one may ask whether indecomposable finite semirings
+have trivial Picard group. Here indecomposable means that \(a+b=1\) and \(ab=0\)
+imply \(a=0\) or \(b=0\). Unfortunately, finite indecomposable semirings can be
+non-local, as demonstrated by https://gemini.google.com/share/f3afa552ce7a.
+This contrasts with rings, where an Artinian ring always decomposes as the
+product of the localizations at the finitely many maximal, equivalently prime,
+ideals. Finite semirings also may have Krull dimension \(>0\), as demonstrated
+by the \(\{0,0.5,1\}\) example: https://math.stackexchange.com/a/5004592/12932.
+
+The author asked the authors of \emph{Facets of Module Theory over Semirings}
+these questions in January, but they did not know the answers.
+
+\paragraph{Local freeness proof.}
+Here is a simple proof, discovered by Aristotle (https://aristotle.harmonic.fun),
+that every invertible module is Zariski-locally free. Suppose that \(M\) is an
+invertible module over \(R\). By definition, the evaluation linear map
+\(M^\vee\otimes_R M\to R\) is an isomorphism, so there exist \(f_i\in M^\vee\)
+and \(m_i\in M\), for \(i\in I\) with \(I\) finite, such that
+\[
+\sum_{i\in I} f_i(m_i)=1.
+\]
+It suffices to show that \(M_i:=M_{f_i(m_i)}\) is a free
+\(R_i:=R_{f_i(m_i)}\)-module for each \(i\). Since \(f_i(m_i)\) is a unit in
+\(R_i\), the map \(f_i\otimes_R R_i\in\operatorname{Hom}_{R_i}(M_i,R_i)\) is
+surjective.
+
+For any semiring \(R\), every surjective \(R\)-linear map between invertible
+\(R\)-modules \(M\) and \(N\) is bijective and gives an isomorphism. By
+tensoring with \(M^\vee\), assume \(M=R\), so the surjective linear map is given
+by \(r\mapsto rx\) for some \(x\in N\). If \(r_1x=r_2x\), then every \(y\in N\)
+is of the form \(rx\), hence
+\[
+r_1y=r_1(rx)=r(r_1x)=r(r_2x)=r_2y.
+\]
+The action of \(R\) on the invertible module \(N\) is faithful; in fact
+\(R\cong\operatorname{Hom}_R(N,N)\). Therefore \(r_1=r_2\), so the linear map is
+also injective.
+
+\paragraph{Computational update.}
+The author enumerated all \(2\times2\) and \(3\times3\) idempotent matrices
+satisfying the trace \(=1\) and singularity conditions from Remark 10.10 of the
+paper over the 5-element non-local indecomposable semiring, and computed their
+column spaces. They are all principal and therefore free. There are \(67\) valid
+\(2\times2\) matrices and \(2935\) valid \(3\times3\) matrices. It is not clear
+how sharply the matrix dimension, i.e. the number of generators, of invertible
+modules can be bounded for a fixed finite semiring; it is not even clear that it
+can be bounded by the cardinality of the semiring.
+
+\paragraph{Verification.}
+MathOverflow question:
+https://mathoverflow.net/questions/511864/picard-group-of-semi-local-or-finite-semirings
+
+Lean statements:
+https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQO0Cm0BIcBAHsAM4xUD6wAdgG4GzboF0gQAmArpzqMIMOgDMoBLlRLB0EAMZJ0cAFw44WuIGAiOAAoASonVwAKgE8wBAJQG6pgMIQQIAMpyoTAOZxDd%2FQc1OAAxJmAYAgNkShAVN2tFGCh%2BUn8bTW0tQNMAQV5eZ1cECBFgXkQAoMQ%2BQSjjBAys7OqSgU4AOgBJFjYYDnrKgBo4ABqa9oIOkKlBhHUAXjgsC0yqaChV%2FFQiKVIKaloGXvYsIR5J4VEJWYlwyPVMrT0jE2DLayqnF3dPHz8vsEwowIvUms0csF8oUfiUyhVGvZTG06n5Kk9tJCJnVuid%2Bmc5jYRuMUZ0ZtI0fM1EsVmsNltCMR9pQaPQmKxTudakJqABRcAwCx0AgAR34wGYjyyLwapg%2BtiRwSKvxAwC8jF8%2FkVcGhyrhEHKlW1pMJGJayO5Ux6HPxnEpRLgXSo%2FLAgoMxkAwkRG6nLVZadZQTZAA</pre>
+    </details>
+
+    <p class="small">Added June 24, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="19"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="18.html">18</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14' || problemNumber === '15' || problemNumber === '16' || problemNumber === '17' || problemNumber === '18' || problemNumber === '19') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
