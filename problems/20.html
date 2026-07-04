@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 20 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="20" value="20">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="semirings">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 20</h1>
+      <a class="button-link" href="solution.html?problem=20">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>Transpose symmetry for injectivity over semirings</h2>
+
+      <p>Let \(n\geq 3\). Let \(R\) be a commutative semiring with \(0\) and \(1\), and let \(A\in M_n(R)\). Denote by</p>
+      <p>\[
+\lambda_A:R^n\longrightarrow R^n,\qquad v\longmapsto Av
+\]</p>
+      <p>the \(R\)-linear endomorphism defined by left multiplication by \(A\).</p>
+
+      <h2>Open problem</h2>
+      <p>Is it true that</p>
+      <p>\[
+\lambda_A \text{ is injective}
+\quad\Longleftrightarrow\quad
+\lambda_{A^{\mathrm t}} \text{ is injective}
+\]</p>
+      <p>for every commutative semiring \(R\) and every \(A\in M_n(R)\)?</p>
+
+      <p>The case \(n=2\) has a positive answer. The first open case is therefore \(n=3\).</p>
+
+      <p><strong>Verification notes.</strong> MathOverflow question: <a href="https://mathoverflow.net/questions/511862/transpose-symmetry-of-injectivity-of-linear-maps-over-semirings">Transpose symmetry of injectivity of linear maps over semirings</a>. Lean statements: <a href="https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQO0Cm0BIcBAHsAM4xUD6mAdgUlAJKMAmBYBXfMOlAgB3OowiCAxhHRwAXDjjK4gYCI4ACkZwASgrgAVAJ68AlJrr6AwhBAgAyiWBRgjAOa7zGgIL7kMF3I4bW0dUwAaJRUAGVcWdn5efkZ4PW8AOhk5QHIiOAAauFjmVg5uJO4U3TgM4REFAF44LCMoqmgoFvxUIigSMkoaeiZ40p4%2BCsFa8Uk6LIUo5XUtKvlDEwIvS1WbO0cQZ1cPMM1fVf9AzQAxVzgAZi9r7XvPSJVCuJLE8YEqjLncgpFEZfZKparpWoNJotZRtKAdIA">Lean live code</a>.</p>
+    </div>
+
+    <p class="source">Source: Junyan Xu.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">semirings</a>
+      <a class="tag" href="tags.html">linear algebra</a>
+      <a class="tag" href="tags.html">matrices</a>
+      <a class="tag" href="tags.html">injectivity</a>
+      <a class="tag" href="tags.html">Lean formalization</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>\begin{problem}[Transpose symmetry for injectivity over semirings]
+Let \(n\geq 3\). Let \(R\) be a commutative semiring with \(0\) and \(1\), and
+let \(A\in M_n(R)\). Denote by
+\[
+    \lambda_A:R^n\longrightarrow R^n,\qquad v\longmapsto Av
+\]
+the \(R\)-linear endomorphism defined by left multiplication by \(A\).
+
+Is it true that
+\[
+    \lambda_A \text{ is injective}
+    \quad\Longleftrightarrow\quad
+    \lambda_{A^{\mathrm t}} \text{ is injective}
+\]
+for every commutative semiring \(R\) and every \(A\in M_n(R)\)?
+
+The case \(n=2\) has a positive answer. The first open case is therefore
+\(n=3\).
+\end{problem}
+
+\paragraph{Verification notes.}
+MathOverflow question:
+https://mathoverflow.net/questions/511862/transpose-symmetry-of-injectivity-of-linear-maps-over-semirings
+
+Lean statements:
+https://live.lean-lang.org/#codez=JYWwDg9gTgLgBAWQIYwBYBtgCMBQO0Cm0BIcBAHsAM4xUD6mAdgUlAJKMAmBYBXfMOlAgB3OowiCAxhHRwAXDjjK4gYCI4ACkZwASgrgAVAJ68AlJrr6AwhBAgAyiWBRgjAOa7zGgIL7kMF3I4bW0dUwAaJRUAGVcWdn5efkZ4PW8AOhk5QHIiOAAauFjmVg5uJO4U3TgM4REFAF44LCMoqmgoFvxUIigSMkoaeiZ40p4%2BCsFa8Uk6LIUo5XUtKvlDEwIvS1WbO0cQZ1cPMM1fVf9AzQAxVzgAZi9r7XvPSJVCuJLE8YEqjLncgpFEZfZKparpWoNJotZRtKAdIA</pre>
+    </details>
+
+    <p class="small">Added July 4, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="20"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="19.html">19</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14' || problemNumber === '15' || problemNumber === '16' || problemNumber === '17' || problemNumber === '18' || problemNumber === '19' || problemNumber === '20') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
