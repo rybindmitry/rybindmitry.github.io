@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Problem 21 - CUHK-Shenzhen AI Math Problems</title>
+  <link rel="icon" type="images/png" href="../images/cuhk.png">
+  <link rel="stylesheet" href="problems.css?v=4">
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="top">
+    <h1 class="site-title"><a href="index.html">CUHK-Shenzhen AI Math Problems</a></h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="tags.html">Tags</a>
+    </nav>
+    <div class="controls">
+      <form class="go" id="problem-form">
+        <label for="problem-number">Problem</label>
+        <input id="problem-number" type="number" min="1" max="21" value="21">
+        <button type="submit">Go</button>
+      </form>
+      <form class="go" id="tag-form">
+        <label for="tag-name">Tag</label>
+        <input id="tag-name" type="text" value="reflected Brownian motion">
+        <button type="submit">Go</button>
+      </form>
+      <a href="1.html">Random problem</a>
+      <a href="1.html">Random solved</a>
+      <a href="1.html">Random open</a>
+      <a class="button-link" href="index.html">Back to database</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="problem-heading">
+      <h1>Problem 21</h1>
+      <a class="button-link" href="solution.html?problem=21">Submit a solution</a>
+    </div>
+    <p><span class="status">open</span></p>
+
+    <div class="statement">
+      <h2>A signed-measure problem for reflected Brownian motion</h2>
+
+      <p>Let</p>
+      <p>\[
+\mathbb{R}_+^d=[0,\infty)^d,
+\qquad
+F_i=\{x\in\mathbb{R}_+^d:x_i=0\},
+\qquad i=1,\ldots,d.
+\]</p>
+      <p>Fix a drift vector \(\mu\in\mathbb{R}^d\), a positive-definite covariance matrix \(\Sigma\in\mathbb{R}^{d\times d}\), and a reflection matrix \(R\in\mathbb{R}^{d\times d}\). Denote the \(i\)th column of \(R\) by \(R_i\).</p>
+
+      <p>A matrix \(R\) is called an <em>\(S\)-matrix</em> if there exists \(w\in\mathbb{R}_+^d\) such that \(Rw&gt;0\). It is called <em>completely-\(S\)</em> if each of its principal submatrices is an \(S\)-matrix. Throughout, assume that \(R\) is completely-\(S\).</p>
+
+      <p>An \((\Sigma,\mu,R)\)-semimartingale reflecting Brownian motion (SRBM) in \(\mathbb{R}_+^d\) is a process \(Z\) admitting the representation</p>
+      <p>\[
+Z(t)=X(t)+RY(t),\qquad t\geq 0,
+\]</p>
+      <p>where \(X\) is a Brownian motion with drift \(\mu\) and covariance matrix \(\Sigma\), and \(Y=(Y_1,\ldots,Y_d)\) is a continuous, coordinatewise nondecreasing process satisfying</p>
+      <p>\[
+Y(0)=0,
+\qquad
+\int_0^\infty \mathbf 1_{\{Z_i(t)&gt;0\}}\,dY_i(t)=0,
+\qquad i=1,\ldots,d,
+\]</p>
+      <p>and</p>
+      <p>\[
+Z(t)\in\mathbb{R}_+^d,\qquad t\geq 0.
+\]</p>
+      <p>Thus \(Y_i\) can increase only when \(Z\) lies on the face \(F_i\), and the corresponding reflection direction is \(R_i\).</p>
+
+      <p>Assume that \(Z\) has a stationary probability distribution, denoted by \(\pi_*\). For sufficiently smooth \(f\), define</p>
+      <p>\[
+Lf(x)
+=
+\frac12
+\sum_{j,k=1}^d
+\Sigma_{jk}
+\frac{\partial^2 f}{\partial x_j\partial x_k}(x)
++
+\sum_{j=1}^d
+\mu_j
+\frac{\partial f}{\partial x_j}(x),
+\]</p>
+      <p>and</p>
+      <p>\[
+D_i f(x)
+=
+R_i\cdot\nabla f(x)
+=
+\sum_{j=1}^d
+R_{ji}
+\frac{\partial f}{\partial x_j}(x),
+\qquad i=1,\ldots,d.
+\]</p>
+
+      <p>A tuple of finite measures \((\pi,\nu_1,\ldots,\nu_d)\) on \(\mathbb{R}_+^d\), with \(\nu_i\) supported on \(F_i\), is said to satisfy the <em>basic adjoint relationship</em> (BAR) if</p>
+      <p>\[
+\int_{\mathbb{R}_+^d} Lf(x)\,\pi(dx)
++
+\sum_{i=1}^d
+\int_{F_i} D_i f(x)\,\nu_i(dx)
+=0
+\]</p>
+      <p>for every \(f\in C_c^\infty(\mathbb{R}^d)\).</p>
+
+      <p>By Ito formula, the stationary distribution \(\pi_*\) of \(Z(t)\), together with the boundary occupation measures</p>
+      <p>\[
+\nu_i^*(A)
+=
+\mathbb E_{\pi_*}
+\left[
+\int_0^1
+\mathbf 1_{\{Z(t)\in A\}}\,dY_i(t)
+\right],
+\qquad i=1,\ldots,d,
+\]</p>
+      <p>satisfies the BAR.</p>
+
+      <h2>Known BAR characterization</h2>
+      <p>Let \(\pi,\nu_1,\ldots,\nu_d\) be finite nonnegative measures on \(\mathbb{R}_+^d\), and suppose that \(\nu_i\) is supported on \(F_i\) for each \(i=1,\ldots,d\). If \((\pi,\nu_1,\ldots,\nu_d)\) satisfies the BAR, then</p>
+      <p>\[
+\pi=c\,\pi_*
+\]</p>
+      <p>for some constant \(c\geq 0\).</p>
+
+      <h2>Open problem</h2>
+      <p>Let \(\pi,\nu_1,\ldots,\nu_d\) be finite signed measures on \(\mathbb{R}_+^d\), with \(\nu_i\) supported on \(F_i\) for each \(i=1,\ldots,d\). Suppose that</p>
+      <p>\[
+\int_{\mathbb{R}_+^d} Lf(x)\,\pi(dx)
++
+\sum_{i=1}^d
+\int_{F_i} D_i f(x)\,\nu_i(dx)
+=0
+\]</p>
+      <p>for every \(f\in C_c^\infty(\mathbb{R}^d)\). Prove that there exists a constant \(c\in\mathbb{R}\) such that</p>
+      <p>\[
+\pi=c\,\pi_*.
+\]</p>
+    </div>
+
+    <p class="source">Source: <a href="https://sites.google.com/wisc.edu/jiaming/home">Prof. Jiaming Xu</a>.</p>
+
+    <p class="tags">
+      <a class="tag" href="tags.html">reflected Brownian motion</a>
+      <a class="tag" href="tags.html">stochastic processes</a>
+      <a class="tag" href="tags.html">signed measures</a>
+      <a class="tag" href="tags.html">basic adjoint relationship</a>
+      <a class="tag" href="tags.html">probability</a>
+    </p>
+
+    <details>
+      <summary>LaTeX source</summary>
+      <pre>\section*{A signed-measure problem for reflected Brownian motion}
+
+Let
+\[
+\mathbb{R}_+^d=[0,\infty)^d,
+\qquad
+F_i=\{x\in\mathbb{R}_+^d:x_i=0\},
+\qquad i=1,\ldots,d.
+\]
+Fix a drift vector \(\mu\in\mathbb{R}^d\), a positive-definite covariance matrix
+\(\Sigma\in\mathbb{R}^{d\times d}\), and a reflection matrix
+\(R\in\mathbb{R}^{d\times d}\). Denote the \(i\)th column of \(R\) by \(R_i\).
+
+A matrix \(R\) is called an \emph{\(S\)-matrix} if there exists
+\(w\in\mathbb{R}_+^d\) such that \(Rw>0\). It is called \emph{completely-\(S\)}
+if each of its principal submatrices is an \(S\)-matrix. Throughout, assume
+that \(R\) is completely-\(S\).
+
+An \((\Sigma,\mu,R)\)-semimartingale reflecting Brownian motion (SRBM) in
+\(\mathbb{R}_+^d\) is a process \(Z\) admitting the representation
+\[
+Z(t)=X(t)+RY(t),\qquad t\geq 0,
+\]
+where \(X\) is a Brownian motion with drift \(\mu\) and covariance matrix
+\(\Sigma\), and \(Y=(Y_1,\ldots,Y_d)\) is a continuous, coordinatewise
+nondecreasing process satisfying
+\[
+Y(0)=0,
+\qquad
+\int_0^\infty \mathbf 1_{\{Z_i(t)>0\}}\,dY_i(t)=0,
+\qquad i=1,\ldots,d,
+\]
+and
+\[
+Z(t)\in\mathbb{R}_+^d,\qquad t\geq 0.
+\]
+Thus \(Y_i\) can increase only when \(Z\) lies on the face \(F_i\), and the
+corresponding reflection direction is \(R_i\).
+
+Assume that \(Z\) has a stationary probability distribution, denoted by
+\(\pi_*\). For sufficiently smooth \(f\), define
+\[
+Lf(x)
+=
+\frac12
+\sum_{j,k=1}^d
+\Sigma_{jk}
+\frac{\partial^2 f}{\partial x_j\partial x_k}(x)
++
+\sum_{j=1}^d
+\mu_j
+\frac{\partial f}{\partial x_j}(x),
+\]
+and
+\[
+D_i f(x)
+=
+R_i\cdot\nabla f(x)
+=
+\sum_{j=1}^d
+R_{ji}
+\frac{\partial f}{\partial x_j}(x),
+\qquad i=1,\ldots,d.
+\]
+
+A tuple of finite measures
+\[
+(\pi,\nu_1,\ldots,\nu_d)
+\]
+on \(\mathbb{R}_+^d\), with \(\nu_i\) supported on \(F_i\), is said to satisfy
+the \emph{basic adjoint relationship} (BAR) if
+\[
+\int_{\mathbb{R}_+^d} Lf(x)\,\pi(dx)
++
+\sum_{i=1}^d
+\int_{F_i} D_i f(x)\,\nu_i(dx)
+=0
+\]
+for every \(f\in C_c^\infty(\mathbb{R}^d)\).
+
+By Ito formula, the stationary distribution \(\pi_*\) of \(Z(t)\), together
+with the boundary occupation measures
+\[
+\nu_i^*(A)
+=
+\mathbb E_{\pi_*}
+\left[
+\int_0^1
+\mathbf 1_{\{Z(t)\in A\}}\,dY_i(t)
+\right],
+\qquad i=1,\ldots,d,
+\]
+satisfies the BAR.
+
+\begin{proposition}[Known BAR characterization]
+Let \(\pi,\nu_1,\ldots,\nu_d\) be finite nonnegative measures on
+\(\mathbb{R}_+^d\), and suppose that \(\nu_i\) is supported on \(F_i\) for each
+\(i=1,\ldots,d\). If \((\pi,\nu_1,\ldots,\nu_d)\) satisfies the BAR, then
+\[
+\pi=c\,\pi_*
+\]
+for some constant \(c\geq 0\).
+\end{proposition}
+
+\begin{problem}[Signed BAR characterization]
+Let \(\pi,\nu_1,\ldots,\nu_d\) be finite signed measures on
+\(\mathbb{R}_+^d\), with \(\nu_i\) supported on \(F_i\) for each
+\(i=1,\ldots,d\). Suppose that
+\[
+\int_{\mathbb{R}_+^d} Lf(x)\,\pi(dx)
++
+\sum_{i=1}^d
+\int_{F_i} D_i f(x)\,\nu_i(dx)
+=0
+\]
+for every \(f\in C_c^\infty(\mathbb{R}^d)\). Prove that there exists a
+constant \(c\in\mathbb{R}\) such that
+\[
+\pi=c\,\pi_*.
+\]
+\end{problem}</pre>
+    </details>
+
+    <p class="small">Added July 7, 2026.</p>
+
+    <section id="comments" class="comments" data-problem-id="21"></section>
+
+    <nav class="bottom-nav" aria-label="Problem navigation">
+      <span>Previous problem: <a href="20.html">20</a></span>
+      <span>Next problem: none</span>
+    </nav>
+  </main>
+
+  <script>
+    document.getElementById('problem-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const problemNumber = document.getElementById('problem-number').value.trim();
+      if (problemNumber === '1' || problemNumber === '2' || problemNumber === '3' || problemNumber === '4' || problemNumber === '5' || problemNumber === '6' || problemNumber === '7' || problemNumber === '8' || problemNumber === '9' || problemNumber === '10' || problemNumber === '11' || problemNumber === '12' || problemNumber === '13' || problemNumber === '14' || problemNumber === '15' || problemNumber === '16' || problemNumber === '17' || problemNumber === '18' || problemNumber === '19' || problemNumber === '20' || problemNumber === '21') {
+        window.location.href = problemNumber + '.html';
+      }
+    });
+
+    document.getElementById('tag-form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.location.href = 'tags.html';
+    });
+  </script>
+  <script type="module" src="comments.js"></script>
+</body>
+</html>
