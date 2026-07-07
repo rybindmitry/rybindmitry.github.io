@@ -520,7 +520,7 @@
             <p>Let's interpret and specialize the Kolmogorov-PAC bound for Large Language Models.</p>
             <ul>
               <li>\(\mathbb{E}_{P}L(f)\) is the expected next token prediction loss of the model on the entire human text distribution.</li>
-              <li>\(\mathbb{E}_{\mathcal{D}}L(f)\) is the pre-training loss. According to the scaling laws<sup><a href="#fn4" data-note="The early scaling laws were already known in the 80s and 90s. They got significant attention in Kaplan et al. and later in Chinchilla and other papers.">4</a></sup>, it can be modeled as \(L(N, D) = L_{\infty} + \left(\frac{D_0}{D}\right)^{\alpha} + \left(\frac{N_0}{N}\right)^{\beta}\), where \(L_{\infty}\) is the irreducible loss (natural language entropy), \(D\) is the training data size (number of (context, next token) pairs), and \(N\) is the number of parameters of the LLM.</li>
+              <li>\(\mathbb{E}_{\mathcal{D}}L(f)\) is the pre-training loss. According to the scaling laws<sup><a href="#fn4" data-note="The early scaling laws were already known in the 80s and 90s. They got significant attention in Kaplan et al. and later in Chinchilla and other papers.">4</a></sup>, it can be modeled as \(L(N, D) = L_{\infty} + \left(\frac{D_0}{D}\right)^{\alpha} + \left(\frac{N_0}{N}\right)^{\beta}\), where \(L_{\infty}\) is the irreducible loss (natural language entropy), \(D\) is the number of (context, next token) pairs in the training data, and \(N\) is the number of parameters of the LLM.</li>
               <li>\(K(f)\) is the Kolmogorov complexity of the trained LLM. We want to discuss it in more details.</li>
             </ul>
           </article>
@@ -536,12 +536,12 @@
 
         <div class="article-wrap">
           <article class="article">
-            <p>We are now left to estimate the Kolmogorov complexity of LLMs. Any neural network can be described by layer weights \(W_l\) and specifications (architecture, tokenizer, number formats). This gives an upper bound \(K(f) \leq \sum_{l} K(W_l) + O(1)\). Now there are two ways to bound \(K(W_l)\):</p>
+            <p>Any neural network can be described by layer weights \(W_l\) and specifications (architecture, tokenizer, number formats). This gives an upper bound \(K(f) \leq \sum_{l} K(W_l) + O(1)\). There are two ways to bound \(K(W_l)\):</p>
             <ul>
               <li>Assuming the weight \(w_{l, ij}\) is represented with \(b_{l, ij}\) bits, we get \(K(W_l) \leq \sum_{i,j} b_{l, ij}\).</li>
-              <li>Experimentally, \(w_{l, ij}\) follow nice probability distribution \(P_l\). This gives another form of bound \(K(W_l) \leq |W_l|H(P_l) + O(1)\).</li>
+              <li>Experimentally, \(w_{l, ij}\) follow nice probability distribution \(P_l\). This gives another form of the bound via entropy of the weights \(K(W_l) \leq |W_l|H(P_l) + O(1)\).</li>
             </ul>
-            <p>Using these bounds we get a simple generalization guarantee: \[ \mathbb{E}_{P}L(f) \leq L_{\infty} + \left(\frac{D_0}{D}\right)^{\alpha} + \left(\frac{N_0}{N}\right)^{\beta} + \sqrt{\frac{\sum_{l} |W_l|H(P_l) + O(1)}{|\mathcal{D}|}}\]</p>
+            <p>Using these bounds we get a simple generalization guarantee: \[ \mathbb{E}_{P}L(f) \leq L_{\infty} + \left(\frac{D_0}{D}\right)^{\alpha} + \left(\frac{N_0}{N}\right)^{\beta} + \sqrt{\frac{\sum_{l} |W_l|H(P_l) + O(1)}{D}}\]</p>
             <p>This bound already reveals interesting heuristics. For a fixed dataset \(\mathcal{D}\) and a fixed achieved pre-training loss, the following quantities predict better generalization bounds:</p>
             <ul>
               <li>lower precision of the weights,</li>
@@ -555,7 +555,7 @@
               <li>the Kolmogorov complexity is \(K(f) \approx cN^s\).</li>
             </ul>
             <p>The objective function is \[\min_{C=6ND} 1.8172 + 482.01 \cdot N^{-0.3478} + 2085.43 D^{-0.3658}\ + \sqrt{\frac{cN^s \log 2 + O(1)}{2D}}\]</p>
-            <p>A short calculation for \(c=2\) and \(s=1\) reveals: \[ N^{*} = 26.3486C^{0.3709} \qquad D^{*} = 0.0063C^{0.6290}\]</p>
+            <p>A short calculation for \(c=1\) and \(s=1\) reveals: \[ N^{*} = 34.07C^{0.3709} \qquad D^{*} = 0.00489C^{0.6290}\] For \(C=10^{26}\) FLOPs this gives \[N^{*} \approx 125B \qquad D^{*} \approx 130T\] In comparison, without the Kolmogorov complexity term, the prediction becomes \[N^{*} \approx 1.02T \qquad D^{*} \approx 16.4T\]</p>
           </article>
         </div>
       </section>
@@ -569,7 +569,7 @@
 
         <div class="article-wrap">
           <article class="article">
-            <p>As a final note, we observe that our scaling laws predict that an LLM of Kolmogorov complexity \(K(f) \approx N \approx C^{0.3709}\) requires compute \(C = K(f)^{2.696}\) to be discovered (i.e. we spend \(K(f)^{2.696}\) on optimizing the neural network weights). Luckily, this is polynomial growth of compute. This is the great mystery of the compute-efficiency of modern NN training algorithms. A recent work<sup><a href="#fn5" data-note="Marc Finzi et al., From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence, arXiv, 2026.">5</a></sup> has proposed to quantify the amount of information that can be recovered from data under fixed compute budget.</p>
+            <p>As a final note, we observe that our scaling laws predict that an LLM of Kolmogorov complexity \(K(f) \approx N \approx C^{0.3709}\) requires compute \(C = K(f)^{2.696}\) to be discovered (i.e. we spend \(K(f)^{2.696}\) on optimizing the neural network weights). Luckily, this is polynomial growth of compute. This is the great mystery of the compute-efficiency of modern NN training algorithms. A recent work has introduced epiplexity<sup><a href="#fn5" data-note="Marc Finzi et al., From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence, arXiv, 2026.">5</a></sup> to quantify the amount of information that can be recovered from data under fixed compute budget.</p>
             <img class="masthead-illustration" src="../images/epiplexity.png" alt="Epiplexity illustration">
           </article>
         </div>
