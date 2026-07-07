@@ -541,6 +541,8 @@
               <li>Assuming the weight \(w_{l, ij}\) is represented with \(b_{l, ij}\) bits, we get \(K(W_l) \leq \sum_{i,j} b_{l, ij}\).</li>
               <li>Experimentally, \(w_{l, ij}\) follow nice probability distribution \(P_l\). This gives another form of the bound via entropy of the weights \(K(W_l) \leq |W_l|H(P_l) + O(1)\).</li>
             </ul>
+            <p>A recent work<sup><a href="#fn5" data-note="Hongshi Tan et al., Approaching Shannon Bound with Lossless LLM Weight Compression, arXiv, 2026.">5</a></sup> has computed weight entropy of several open models.</p>
+            <img class="masthead-illustration" src="../images/entropy.png" alt="Weight entropy illustration">
             <p>Using these bounds we get a simple generalization guarantee: \[ \mathbb{E}_{P}L(f) \leq L_{\infty} + \left(\frac{D_0}{D}\right)^{\alpha} + \left(\frac{N_0}{N}\right)^{\beta} + \sqrt{\frac{\sum_{l} |W_l|H(P_l) + O(1)}{D}}\]</p>
             <p>This bound already reveals interesting heuristics. For a fixed dataset \(\mathcal{D}\) and a fixed achieved pre-training loss, the following quantities predict better generalization bounds:</p>
             <ul>
@@ -569,7 +571,7 @@
 
         <div class="article-wrap">
           <article class="article">
-            <p>As a final note, we observe that our scaling laws predict that an LLM of Kolmogorov complexity \(K(f) \approx N \approx C^{0.3709}\) requires compute \(C = K(f)^{2.696}\) to be discovered (i.e. we spend \(K(f)^{2.696}\) on optimizing the neural network weights). Luckily, this is polynomial growth of compute. This is the great mystery of the compute-efficiency of modern NN training algorithms. A recent work has introduced epiplexity<sup><a href="#fn5" data-note="Marc Finzi et al., From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence, arXiv, 2026.">5</a></sup> to quantify the amount of information that can be recovered from data under fixed compute budget.</p>
+            <p>As a final note, we observe that our scaling laws predict that an LLM of Kolmogorov complexity \(K(f) \approx N \approx C^{0.3709}\) requires compute \(C = K(f)^{2.696}\) to be discovered (i.e. we spend \(K(f)^{2.696}\) on optimizing the neural network weights). Luckily, this is polynomial growth of compute. This is the great mystery of the compute-efficiency of modern NN training algorithms. A recent work has introduced epiplexity<sup><a href="#fn6" data-note="Marc Finzi et al., From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence, arXiv, 2026.">6</a></sup> to quantify the amount of information that can be recovered from data under fixed compute budget.</p>
             <img class="masthead-illustration" src="../images/epiplexity.png" alt="Epiplexity illustration">
           </article>
         </div>
@@ -583,7 +585,8 @@
           <li id="fn2">Sanae Lotfi et al., <a href="https://arxiv.org/abs/2211.13609" target="_blank" rel="noreferrer">PAC-Bayes Compression Bounds So Tight That They Can Explain Generalization</a>, arXiv, 2022.</li>
           <li id="fn3">Tamay Besiroglu et al., <a href="https://arxiv.org/abs/2404.10102" target="_blank" rel="noreferrer">Chinchilla Scaling: A replication attempt</a>, arXiv, 2024.</li>
           <li id="fn4">Justin Lovelace et al., <a href="https://arxiv.org/abs/2605.01640" target="_blank" rel="noreferrer">Prescriptive Scaling Laws for Data Constrained Training</a>, arXiv, 2026.</li>
-          <li id="fn5">Marc Finzi et al., <a href="https://arxiv.org/abs/2601.03220" target="_blank" rel="noreferrer">From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence</a>, arXiv, 2026.</li>
+          <li id="fn5">Hongshi Tan et al., <a href="https://arxiv.org/abs/2606.15789" target="_blank" rel="noreferrer">Approaching Shannon Bound with Lossless LLM Weight Compression</a>, arXiv, 2026.</li>
+          <li id="fn6">Marc Finzi et al., <a href="https://arxiv.org/abs/2601.03220" target="_blank" rel="noreferrer">From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence</a>, arXiv, 2026.</li>
         </ol>
       </section>
 
