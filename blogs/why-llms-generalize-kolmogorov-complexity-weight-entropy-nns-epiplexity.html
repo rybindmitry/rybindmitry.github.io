@@ -548,7 +548,7 @@
             <ul>
               <li>lower precision of the weights,</li>
               <li>lower \(L_1\) norm of the model weights,</li>
-              <li>lower entropy of the weight matrices \(W_l\).</li>
+              <li>lower entropy of the weight matrices \(W_l\)<sup><a href="#fn6" data-note="After writing this note I discovered a 1993 paper of Hinton that tries to regularize the weights to minimize their Kolmogorov complexity.">6</a></sup>.</li>
             </ul>
             <p>Scaling laws for pre-training loss \(L(N, D)\) are used to predict the optimal neural network and dataset size for a given compute budget. Let's derive optimal allocation from generalization bound. Assume:</p>
             <ul>
@@ -571,7 +571,7 @@
 
         <div class="article-wrap">
           <article class="article">
-            <p>As a final note, we observe that our scaling laws predict that an LLM of Kolmogorov complexity \(K(f) \approx N \approx C^{0.3709}\) requires compute \(C = K(f)^{2.696}\) to be discovered (i.e. we spend \(K(f)^{2.696}\) on optimizing the neural network weights). Luckily, this is polynomial growth of compute. This is the great mystery of the compute-efficiency of modern NN training algorithms. A recent work has introduced epiplexity<sup><a href="#fn6" data-note="Marc Finzi et al., From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence, arXiv, 2026.">6</a></sup> to quantify the amount of information that can be recovered from data under fixed compute budget.</p>
+            <p>As a final note, we observe that our scaling laws predict that an LLM of Kolmogorov complexity \(K(f) \approx N \approx C^{0.3709}\) requires compute \(C = K(f)^{2.696}\) to be discovered (i.e. we spend \(K(f)^{2.696}\) on optimizing the neural network weights). Luckily, this is polynomial growth of compute. This is the great mystery of the compute-efficiency of modern NN training algorithms. A recent work has introduced epiplexity<sup><a href="#fn7" data-note="Marc Finzi et al., From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence, arXiv, 2026.">7</a></sup> to quantify the amount of information that can be recovered from data under fixed compute budget.</p>
             <img class="masthead-illustration" src="../images/epiplexity.png" alt="Epiplexity illustration">
           </article>
         </div>
@@ -586,7 +586,8 @@
           <li id="fn3">Tamay Besiroglu et al., <a href="https://arxiv.org/abs/2404.10102" target="_blank" rel="noreferrer">Chinchilla Scaling: A replication attempt</a>, arXiv, 2024.</li>
           <li id="fn4">Justin Lovelace et al., <a href="https://arxiv.org/abs/2605.01640" target="_blank" rel="noreferrer">Prescriptive Scaling Laws for Data Constrained Training</a>, arXiv, 2026.</li>
           <li id="fn5">Hongshi Tan et al., <a href="https://arxiv.org/abs/2606.15789" target="_blank" rel="noreferrer">Approaching Shannon Bound with Lossless LLM Weight Compression</a>, arXiv, 2026.</li>
-          <li id="fn6">Marc Finzi et al., <a href="https://arxiv.org/abs/2601.03220" target="_blank" rel="noreferrer">From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence</a>, arXiv, 2026.</li>
+          <li id="fn6">Geoffrey E. Hinton and Drew van Camp, <a href="https://www.cs.toronto.edu/~fritz/absps/colt93.pdf" target="_blank" rel="noreferrer">Keeping Neural Networks Simple by Minimizing the Description Length of the Weights</a>, COLT, 1993.</li>
+          <li id="fn7">Marc Finzi et al., <a href="https://arxiv.org/abs/2601.03220" target="_blank" rel="noreferrer">From Entropy to Epiplexity: Rethinking Information for Computationally Bounded Intelligence</a>, arXiv, 2026.</li>
         </ol>
       </section>
 
