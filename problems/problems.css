@@ -172,6 +172,10 @@ tbody tr:nth-child(even) {
   font-weight: 700;
 }
 
+.status.solved {
+  color: #a11212;
+}
+
 .problem-heading {
   display: flex;
   flex-wrap: wrap;
@@ -196,6 +200,19 @@ tbody tr:nth-child(even) {
 .source,
 .small {
   color: #53677f;
+}
+
+.solved-note {
+  max-width: 820px;
+  margin: 18px 0;
+  padding: 10px 12px;
+  border: 1px solid #78b88e;
+  border-radius: 4px;
+  background: #edf9f1;
+}
+
+.solved-note p:last-child {
+  margin-bottom: 0;
 }
 
 .tags {
