@@ -463,14 +463,14 @@
           <h2>GPT 6.2 Astra is superhuman in mathematical optimization</h2>
           <p class="author-line">Dmitry Rybin</p>
           <img class="masthead-illustration" src="../images/optimization.png" alt="Optimization illustration">
-          <p class="tldr">Experiments show that single GPT 6.2 Astra agent vastly outperforms all human-designed software in finding and proving optimal solutions within 30-60 minutes.</p>
+          <p class="tldr">Experiments show that a single GPT 6.2 Astra agent outperforms all human-designed software in finding and proving optimal solutions within 30-60 minutes.</p>
         </div>
       </header>
 
       <section id="function-class">
         <div class="section-heading">
           <div>
-            <h1>Mixed Integer Linear Programming</h1>
+            <h1>Mixed-Integer Linear Programming</h1>
           </div>
         </div>
 
@@ -491,7 +491,7 @@
 
         <div class="article-wrap">
           <article class="article">
-            <p>QP is an extension of MILP that allows quadratic objective functions. Results of Astra on 10 open QP problems from QPLIB:</p>
+            <p>QP is an extension of MILP that allows quadratic objective functions.</p>
             <img class="masthead-illustration" src="../images/qplib_results.png" alt="QP illustration">
           </article>
         </div>
@@ -500,7 +500,7 @@
       <section id="function-class">
         <div class="section-heading">
           <div>
-            <h1>Mixed Integer Non-Linear Programming</h1>
+            <h1>Mixed-Integer Non-Linear Programming</h1>
           </div>
         </div>
 
@@ -515,7 +515,7 @@
       <section id="function-class">
         <div class="section-heading">
           <div>
-            <h1>Semi-Definite Programming</h1>
+            <h1>Semidefinite Programming</h1>
           </div>
         </div>
 
@@ -530,7 +530,7 @@
       <section id="function-class">
         <div class="section-heading">
           <div>
-            <h1>Large Scale Optimization</h1>
+            <h1>Large-Scale Optimization</h1>
           </div>
         </div>
 
@@ -551,11 +551,11 @@
 
         <div class="article-wrap">
           <article class="article">
-            <p>Astra can do direct weight optimization of small neural networks (a few million parameters). I gave it a 4.6M parameters CNN and asked to optimize cross-entropy loss with 10^-4 L2 norm regularization.</p>
+            <p> I also tested whether Astra can do well in neural network optimization. I gave it a CNN with 4.6M parameters and asked it to minimize cross-entropy loss with 10^-4 L2 norm regularization.</p>
             <ul>
-              <li>After 2 hours, train accuracy was 100%, test accuracy 71.9%, objective value 0.03983, lower bound 0.00067, L2 norm of weights 374.4, and 19.8% of weights are non-zero.</li>
-              <li>After 3 hours, train accuracy was 100%, test accuracy 71.5%, objective value 0.03466, lower bound 0.000688, L2 norm of weights 326.3, and 23.2% of weights are non-zero.</li>
-              <li>After 4 hours, train accuracy was 100%, test accuracy 71.2%, objective value 0.03167, lower bound 0.000697, L2 norm of weights 298.5, and 28.5% of weights are non-zero.</li>
+              <li>After 2 hours, train accuracy was 100%, test accuracy 71.9%, objective value 0.03983, lower bound 0.00067, L2 norm of weights 374.4, and 19.8% of weights were nonzero.</li>
+              <li>After 3 hours, train accuracy was 100%, test accuracy 71.5%, objective value 0.03466, lower bound 0.000688, L2 norm of weights 326.3, and 23.2% of weights were nonzero.</li>
+              <li>After 4 hours, train accuracy was 100%, test accuracy 71.2%, objective value 0.03167, lower bound 0.000697, L2 norm of weights 298.5, and 28.5% of weights were nonzero.</li>
             </ul>
           </article>
         </div>
@@ -571,10 +571,9 @@
         <div class="article-wrap">
           <article class="article">
             <ul>
-              <li>Single agent of Astra 6.2 Max was used in each problem with an average runtime of 30 minutes. The prompt was "[attached file with objective and constraints] This is an MILP/QP/MINLP/SDP problem. Your task is to discover and prove best possible lower and upper bounds in this problem. Note that you should design custom specialized algorithms to achieve this."</li>
+              <li>Single agent of Astra 6.2 Max was used for each problem with an average runtime of 30 minutes. The prompt was "[attached file with objective and constraints] This is an MILP/QP/MINLP/SDP problem. Your task is to discover and prove best possible lower and upper bounds in this problem. Note that you should design custom specialized algorithms to achieve this."</li>
               <li>The model was allowed to search the internet. Problems were chosen to be open (no optimal solution and bounds reported on the internet), of varying scale (between hundreds and millions of variables), and of diverse application backgrounds. In a small number of cases, optimal solutions were already mentioned in the literature outside of benchmark websites.</li>
-              <li>The model answers were a mix of custom heuristics, tree searches, ingeniously designed proofs, and open source LP solvers use (such as scipy lp solve).</li>
-              <li>I did not compare results to Claude Fable 5.2 as Anthropic restricts users from any useful applications of their models.</li>
+              <li>The model answers were a mix of custom heuristics, tree searches, ingeniously designed proofs, and the use of open source LP solvers (such as scipy lp solve).</li>
             </ul>
           </article>
         </div>
