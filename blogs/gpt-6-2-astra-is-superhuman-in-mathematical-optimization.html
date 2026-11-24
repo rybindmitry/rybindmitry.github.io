@@ -542,6 +542,25 @@
         </div>
       </section>
 
+      <section id="function-class">
+        <div class="section-heading">
+          <div>
+            <h1>5-layer CNN on CIFAR-10</h1>
+          </div>
+        </div>
+
+        <div class="article-wrap">
+          <article class="article">
+            <p>Astra can do direct weight optimization of small neural networks (a few million parameters). I gave it a 4.6M parameters CNN and asked to optimize cross-entropy loss with 10^-4 L2 norm regularization.</p>
+            <ul>
+              <li>After 2 hours, train accuracy was 100%, test accuracy 71.9%, objective value 0.03983, lower bound 0.00067, L2 norm of weights 374.4, and 19.8% of weights are non-zero.</li>
+              <li>After 3 hours, train accuracy was 100%, test accuracy 71.5%, objective value 0.03466, lower bound 0.000688, L2 norm of weights 326.3, and 23.2% of weights are non-zero.</li>
+              <li>After 4 hours, train accuracy was 100%, test accuracy 71.2%, objective value 0.03167, lower bound 0.000697, L2 norm of weights 298.5, and 28.5% of weights are non-zero.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section id="remarks">
         <div class="section-heading">
           <div>
