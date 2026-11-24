@@ -545,18 +545,15 @@
       <section id="function-class">
         <div class="section-heading">
           <div>
-            <h1>5-layer CNN on CIFAR-10</h1>
+            <h1>CNN on CIFAR-10</h1>
           </div>
         </div>
 
         <div class="article-wrap">
           <article class="article">
-            <p> I also tested whether Astra can do well in neural network optimization. I gave it a CNN with 4.6M parameters and asked it to minimize cross-entropy loss with 10^-4 L2 norm regularization.</p>
-            <ul>
-              <li>After 2 hours, train accuracy was 100%, test accuracy 71.9%, objective value 0.03983, lower bound 0.00067, L2 norm of weights 374.4, and 19.8% of weights were nonzero.</li>
-              <li>After 3 hours, train accuracy was 100%, test accuracy 71.5%, objective value 0.03466, lower bound 0.000688, L2 norm of weights 326.3, and 23.2% of weights were nonzero.</li>
-              <li>After 4 hours, train accuracy was 100%, test accuracy 71.2%, objective value 0.03167, lower bound 0.000697, L2 norm of weights 298.5, and 28.5% of weights were nonzero.</li>
-            </ul>
+            <p> I also tested whether Astra can do well in neural network optimization. I gave it a 5-layer CNN with 4.6M parameters and asked it to minimize cross-entropy loss with 10^-4 L2 norm regularization.</p>
+            <img class="masthead-illustration" src="../images/CIFAR10_CNN.png" alt="CNN illustration">
+            <p> We can see that despite progress in L2-regularized objective (and 100% train accuracy), the CNN generalization was deteriorating and remained poor.</p>
           </article>
         </div>
       </section>
