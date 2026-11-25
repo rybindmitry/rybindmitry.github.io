@@ -572,6 +572,7 @@
               <li>Single agent of Astra 6.2 Max was used for each problem with an average runtime of 30 minutes. The prompt was "[attached file with objective and constraints] This is an MILP/QP/MINLP/SDP problem. Your task is to discover and prove best possible lower and upper bounds in this problem. Note that you should design custom specialized algorithms to achieve this."</li>
               <li>The model was allowed to search the internet. Problems were chosen to be open (no optimal solution and bounds reported on the internet), of varying scale (between hundreds and millions of variables), and of diverse application backgrounds. In a small number of cases, optimal solutions were already mentioned in the literature outside of benchmark websites.</li>
               <li>The model answers were a mix of custom heuristics, tree searches, ingeniously designed proofs, and use of open source LP solvers (such as scipy lp solve) in subproblems.</li>
+              <li>Two weeks ago Anthropic reported similar results on MIPLIB using 300 agents of Fable 5.2. Here we observe that one agent is sufficient.</li>
             </ul>
           </article>
         </div>
